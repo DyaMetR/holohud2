@@ -49,7 +49,7 @@ HOLOHUD2.hook.Add( "ShouldShowTargetID", "swcs", CheckTargetID )
 --- ADS
 ---
 
-HOLOHUD2.hook.Add( "ForceQuickInfoFadeOut", "arccw", function()
+HOLOHUD2.hook.Add( "ForceQuickInfoFadeOut", "swcs", function()
     local weapon = LocalPlayer():GetActiveWeapon()
     if not IsValid( weapon ) or not weapons.IsBasedOn( weapon:GetClass(), "weapon_swcs_base" ) then return end
     local wepTable = weapon:GetTable()
