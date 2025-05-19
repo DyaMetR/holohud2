@@ -205,7 +205,7 @@ local ELEMENT = {
             } }
         } },
 
-        { category = "#holohud2.squad.category.few_members", helptext = "#holohud2.category.few_members.helptext", parameters = {
+        { category = "#holohud2.squad.category.few_members", helptext = "#holohud2.squad.category.few_members.helptext", parameters = {
             { id = "pile_min" },
             { id = "icon_pos" },
             { id = "spacing" },

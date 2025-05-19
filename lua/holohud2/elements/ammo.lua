@@ -389,7 +389,7 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
         parameters[ id .. "_oversize_firemodepos" ] = { name = "#holohud2.ammo.firemode_pos", type = HOLOHUD2.PARAM_BOOL, value = true }
         table.insert( menu.parameters[ 4 ].parameters, { id = id .. "_oversize_firemodepos" } )
 
-        parameters[ id .. "_oversize_grenadespos" ] = { name = "#holohud2.ammo.grenades_pos", type = HOLOHUD2.PARAM_BOOL, value = false }
+        parameters[ id .. "_oversize_grenadespos" ] = { name = "#holohud2.ammo.quicknades_pos", type = HOLOHUD2.PARAM_BOOL, value = false }
         table.insert( menu.parameters[ 4 ].parameters, { id = id .. "_oversize_grenadespos" } )
 
     end

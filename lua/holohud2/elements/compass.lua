@@ -98,7 +98,7 @@ local ELEMENT = {
         { category = "#holohud2.category.composition", parameters = {
             { id = "padding" },
             { id = "scale" },
-            { name = "Cardinal points", parameters = {
+            { name = "#holohud2.compass.cardinal_points", parameters = {
                 { id = "font" },
                 { id = "on_background" }
             } },

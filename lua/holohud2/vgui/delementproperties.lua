@@ -96,7 +96,7 @@ function PANEL:Init()
 
         local visible = vgui.Create( "DCheckBoxLabel", controls )
         visible:Dock( LEFT )
-        visible:SetText( "Visible" )
+        visible:SetText( "#holohud2.common.visible" )
         visible.OnChange = function( _, value )
 
             self:OnVisibilityChanged( value )

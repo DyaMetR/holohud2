@@ -81,7 +81,7 @@ local ELEMENT = {
             { id = "color2" }
         } },
 
-        { category = "Clock", parameters = {
+        { category = "#holohud2.clock", parameters = {
             { id = "origin" },
             { id = "spacing" },
             { id = "align" },
@@ -106,7 +106,7 @@ local ELEMENT = {
             } }
         } },
 
-        { category = "Other", parameters = {
+        { category = "#holohud2.category.other", parameters = {
             { id = "text", parameters = {
                 { id = "text_pos" },
                 { id = "text_font" },
