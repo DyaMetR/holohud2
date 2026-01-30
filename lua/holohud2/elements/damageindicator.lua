@@ -32,12 +32,12 @@ local ELEMENT = {
         color                   = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 70, 60 ) },
         pain_alpha              = { name = "#holohud2.damageindicator.pain_alpha", type = HOLOHUD2.PARAM_RANGE, value = .5, min = 0, max = 1, decimals = 1 },
         vfx                     = { name = "#holohud2.damageindicator.vfx", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.damageindicator.vfx.helptext" },
-        flickering              = { name = "#holohud2.common.flickering", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.damageindicator.flickering.helptext" },
-        shaking                 = { name = "#holohud2.common.shaking", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.damageindicator.shaking.helptext" },
+        flickering              = { name = "#holohud2.damageindicator.flickering", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.damageindicator.flickering.helptext" },
+        shaking                 = { name = "#holohud2.damageindicator.shaking", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.damageindicator.shaking.helptext" },
         distortion              = { name = "#holohud2.damageindicator.distortion", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.damageindicator.distortion.helptext" },
         lowhealth               = { name = "#holohud2.damageindicator.low_health", type = HOLOHUD2.PARAM_OPTION, options = { "#holohud2.damageindicator.low_health_0", "#holohud2.damageindicator.low_health_1", "#holohud2.damageindicator.low_health_2" }, value = LOWHEALTH_DMGTYPE, helptext = "#holohud2.damageindicator.low_health.helptext" },
         lowhealth_threshold     = { name = "#holohud2.parameter.threshold", type = HOLOHUD2.PARAM_NUMBER, value = 25, min = 0 },
-        lowhealth_flickering    = { name = "#holohud2.common.flickering", type = HOLOHUD2.PARAM_BOOL, value = true },
+        lowhealth_flickering    = { name = "#holohud2.damageindicator.flickering", type = HOLOHUD2.PARAM_BOOL, value = true },
         lowhealth_distortion    = { name = "#holohud2.damageindicator.distortion", type = HOLOHUD2.PARAM_BOOL, value = true },
         arrow_size              = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 100, min = 0 },
         arrow_offset            = { name = "#holohud2.damageindicator.offset", type = HOLOHUD2.PARAM_NUMBER, value = 194, min = 0, max = 300 },
@@ -143,7 +143,7 @@ local RT_PAIN, MAT_PAIN
 
 --- Generates the scanlined pain overlay.
 local function generate_pain_overlay( w, h )
-    
+
     render.PushRenderTarget( RT_PAIN )
     render.Clear( 0, 0, 0, 0, true )
     cam.Start2D()
@@ -186,13 +186,13 @@ local arrows = { -- tri-arrow instances
 
 local indicators = {} -- simple directional damage indicators
 for i=0, 3 do
-    
+
     local component = HOLOHUD2.component.Create( "DamageIndicator" )
     component:SetAngle( 90 * i )
     component:SetVisible( false )
 
     table.insert( indicators, component )
-    
+
 end
 
 ---
@@ -338,9 +338,9 @@ function ELEMENT:DoStartupSequence( settings )
 
     -- advance through the different phases
     if next_startup_phase < curtime then
-        
+
         if startup_phase ~= STARTUP_FADING then
-            
+
             startup_phase = startup_phase + 1
             next_startup_phase = curtime + STARTUP_TIMINGS[ startup_phase ]
 
@@ -412,7 +412,7 @@ HOLOHUD2.hook.Add( "OnTakeDamage", "damageindicator", function( damage, dmgtype,
 
     -- minor violent impact damage effect
     if damage >= DAMAGE_SHAKE_MIN_DMG and bit.band( dmgtype, bit.bor( DMG_BULLET, DMG_SLASH, DMG_FALL, DMG_BLAST, DMG_CLUB, DMG_DISSOLVE, DMG_BUCKSHOT, DMG_SNIPER, DMG_MISSILEDEFENSE ) ) ~= 0 then
-        
+
         shaking = math.min( math.max( DAMAGE_SHAKE_MIN_TIME + ( DAMAGE_SHAKE_MAX_TIME - DAMAGE_SHAKE_MIN_TIME ) * ( damage - DAMAGE_SHAKE_MIN_DMG ) / ( DAMAGE_SHAKE_MAX_DMG - DAMAGE_SHAKE_MIN_DMG ), shaking ), DAMAGE_SHAKE_MAX_TIME )
 
     end
@@ -475,7 +475,7 @@ HOLOHUD2.hook.Add( "OnTakeDamage", "damageindicator", function( damage, dmgtype,
     local lowhealth = 1 - ( LocalPlayer():Health() / lowhealth_threshold )
 
     if lowhealth > 0 then
-        
+
         -- flickering
         local lowhealth_flickering = flickering * lowhealth
 
@@ -495,7 +495,7 @@ HOLOHUD2.hook.Add( "OnTakeDamage", "damageindicator", function( damage, dmgtype,
             lowhealth_distortion_max = distortion
 
         end
-        
+
     end
 
     -- shapeless damage trigger the pain overlay only
@@ -503,7 +503,7 @@ HOLOHUD2.hook.Add( "OnTakeDamage", "damageindicator", function( damage, dmgtype,
 
         pain = 1
         return
-        
+
     end
 
     -- trigger directional damage indicator
@@ -523,7 +523,7 @@ HOLOHUD2.hook.Add( "CalcPostProcessing", "damageindicator", function( pp )
     if vfx_distortion and distortion > 0 then
 
         pp.aberration_dist = pp.aberration_dist * ( 1 + ( _distortion * 4 ) )
-        
+
     end
 
     if not r_flickering:GetBool() or not vfx_flickering or flickering <= 0 then return end
@@ -576,11 +576,11 @@ function ELEMENT:PreDraw( settings )
 
         -- NOTE: I'm not smart enough to come up with a formula so here's an "if" :)
         if shaking > DAMAGE_SHAKE_MIN_TIME then
-            
+
             intensity = min_intensity + ( math.max( shaking - DAMAGE_SHAKE_MIN_TIME, 0 ) / ( DAMAGE_SHAKE_MAX_TIME - DAMAGE_SHAKE_MIN_TIME ) ) * ( max_intensity - min_intensity )
 
         end
-        
+
         shake.x = math.Rand( -1, 1 ) * intensity
         shake.y = math.Rand( -1, 1 ) * intensity
         next_shake = curtime + DAMAGE_SHAKE_RATE
@@ -603,7 +603,7 @@ function ELEMENT:PreDraw( settings )
 
         -- add queued damage as arrows
         for _, queued in ipairs( queue ) do
-            
+
             local component = HOLOHUD2.component.Create( "DamageArrow" )
             component:SetPos( scrw / 2, scrh / 2 )
             component:SetOffset( settings.arrow_offset )
@@ -638,10 +638,10 @@ function ELEMENT:PreDraw( settings )
             arrow.component:Think()
 
             if arrow.component._elapsed < arrow.component.duration then
-                
+
                 i = i + 1
                 continue
-            
+
             end
 
             table.remove( arrows.instances, i )
@@ -652,10 +652,10 @@ function ELEMENT:PreDraw( settings )
         for _, component in ipairs( arrows.active ) do
 
             if not component:IsFading() then
-                
+
                 i = i + 1
                 continue
-            
+
             end
 
             table.remove( arrows.active, i )
@@ -725,7 +725,7 @@ end
 --- Paint
 ---
 function ELEMENT:Paint( settings, x, y )
-    
+
     if hook_Call( "DrawDamageIndicator", x, y ) then return end
 
     if settings.style == STYLE_ARROW then
@@ -766,7 +766,7 @@ function ELEMENT:PaintOver( settings )
 
     if pain <= 0 then return end
     if not MAT_PAIN then return end
-    
+
     MAT_PAIN:SetVector( "$color", color_vector )
     MAT_PAIN:SetFloat( "$alpha", ( settings.color.a / 255 ) * ( pain * settings.pain_alpha ) )
 

@@ -73,10 +73,10 @@ local ELEMENT = {
                 { id = "background_color" }
             } },
             { id = "animation", parameters = {
-                { id = "animation_color" }
+                { id = "animation_direction" }
             } }
         } },
-        
+
         { category = "#holohud2.category.composition", parameters = {
             { id = "padding" },
             { id = "content_margin" },
@@ -122,7 +122,7 @@ local ELEMENT = {
             { id = "pos" },
             { id = "size" }
         } },
-        
+
         { category = "#holohud2.category.composition", parameters = {
             { id = "padding" },
             { id = "font" }
@@ -172,7 +172,7 @@ local panel     = HOLOHUD2.component.Create( "AnimatedPanel" )
 panel:SetLayout( layout )
 
 panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawNotifications", x, y, self._w, self._h, LAYER_FRAME )
 
 end
@@ -189,7 +189,7 @@ panel.PaintOver = function( self, x, y )
 
     console:Paint( x, y )
 
-    hook_Call( "DrawOverNotifications", x, y, self._w, self._h, LAYER_FOREGROUND, console ) 
+    hook_Call( "DrawOverNotifications", x, y, self._w, self._h, LAYER_FOREGROUND, console )
 
 end
 
@@ -211,14 +211,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -242,7 +242,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if panel:IsVisible() then return end
-    
+
     console:Purge()
 
 end
@@ -273,15 +273,15 @@ notification.AddLegacy = function( text, notify, duration )
         color, color2, bullet = error_color, error_color2, error_bullet
 
     elseif notify == NOTIFY_UNDO then
-        
+
         color, color2, bullet = undo_color, undo_color2, undo_bullet
 
     elseif notify == NOTIFY_HINT then
-        
+
         color, color2, bullet = hint_color, hint_color2, hint_bullet
 
     elseif notify == NOTIFY_CLEANUP then
-        
+
         color, color2, bullet = cleanup_color, cleanup_color2, cleanup_bullet
 
     end

@@ -185,7 +185,7 @@ function COMPONENT:Paint( x, y )
     if not self.date_on_background then self.Date:Paint( x, y ) end
     if not self.text_on_background then self.Text:Paint( x, y ) end
     if not self.twelvehours then return end
-    
+
     if self._am then
 
         self.AM:Paint( x, y )
@@ -203,7 +203,7 @@ function COMPONENT:PaintScanlines( x, y )
     StartAlphaMultiplier( GetMinimumGlow() )
     self:Paint( x, y )
     EndAlphaMultiplier()
-    
+
 end
 
 function COMPONENT:ApplySettings( settings, fonts )
@@ -266,6 +266,7 @@ function COMPONENT:ApplySettings( settings, fonts )
     text:SetPos( settings.text_pos.x, settings.text_pos.y )
     text:SetFont( fonts.text_font )
     text:SetAlign( settings.text_align )
+    text:SetColor( settings.text_on_background and settings.color2 or settings.color )
     self:SetDrawTextOnBackground( settings.text_on_background )
     text:InvalidateLayout()
 
@@ -316,7 +317,7 @@ function COMPONENT:ApplySettings( settings, fonts )
         seconds_w = seconds.__w
 
     end
-    
+
     local w = hour_w + separator_w + minutes_w + separator2_w + seconds_w + settings.spacing * spacings
 
     if settings.twelvehours then
@@ -332,12 +333,12 @@ function COMPONENT:ApplySettings( settings, fonts )
         x = x - w / 2
 
     elseif settings.align == TEXT_ALIGN_RIGHT then
-    
+
         x = x - w
 
     end
 
-    
+
     hour:SetPos( x + settings.hour_offset.x, y + settings.hour_offset.y )
 
     x = x + hour_w + settings.spacing

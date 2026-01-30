@@ -13,18 +13,18 @@ local ELEMENT = {
     helptext    = "#holohud2.targetid.helptext",
     parameters  = {
         entityid                = { name = "#holohud2.parameter.entityid", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.entityid.helptext" },
-        
+
         pos                     = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 0, y = 72 } },
         dock                    = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.CENTER },
         direction               = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_DOWN },
         margin                  = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         order                   = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_ORDER, value = 16 },
-        
+
         background              = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         background_color        = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
         animation               = { name = "#holohud2.parameter.animation", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.PANELANIMATIONS, value = HOLOHUD2.PANELANIMATION_FLASH },
         animation_direction     = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_GROWDIRECTION, value = HOLOHUD2.GROWDIRECTION_CENTER_HORIZONTAL },
-        
+
         padding                 = { name = "#holohud2.parameter.padding", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         name                    = { name = "#holohud2.targetid.name", type = HOLOHUD2.PARAM_BOOL, value = true },
         name_align              = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_CENTER },
@@ -32,7 +32,7 @@ local ELEMENT = {
         name_font               = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
         name_color              = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255 ) },
         name_on_background      = { name = "#holohud2.parameter.on_background", type = HOLOHUD2.PARAM_BOOL, value = false },
-        
+
         team                    = { name = "#holohud2.targetid.team", type = HOLOHUD2.PARAM_BOOL, value = false },
         team_pos                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.TARGETID_POS, value = HOLOHUD2.TARGETID_BOTTOM },
         team_margin             = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 0 },
@@ -42,12 +42,12 @@ local ELEMENT = {
         team_color              = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 48 ) },
         team_font               = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 10, weight = 1000, italic = false } },
         team_on_background      = { name = "#holohud2.parameter.on_background", type = HOLOHUD2.PARAM_BOOL, value = true },
-        
+
         health_color            = { name = "#holohud2.targetid.health", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [25] = Color( 255, 64, 48 ), [50] = Color( 255, 162, 72 ), [100] = Color(72, 255, 72) }, fraction = true, gradual = false } },
         health_color2           = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color( 255, 255, 255, 12 ) }, fraction = true, gradual = false } },
         suit_color              = { name = "#holohud2.targetid.suit", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color( 92, 163, 255 ) }, fraction = true, gradual = false } },
         suit_color2             = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color( 255, 255, 255, 12 ) }, fraction = true, gradual = false } },
-        
+
         progressbars            = { name = "#holohud2.targetid.percentage_bars", type = HOLOHUD2.PARAM_BOOL, value = false },
         progressbars_pos        = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.TARGETID_POS, value = HOLOHUD2.TARGETID_BOTTOM },
         progressbars_margin     = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 2 },
@@ -58,8 +58,8 @@ local ELEMENT = {
         healthbar_style         = { name = "#holohud2.parameter.style", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.PROGRESSBARSTYLES, value = HOLOHUD2.PROGRESSBAR_TEXTURED },
         healthbar_background    = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         healthbar_lerp          = { name = "#holohud2.parameter.lerp", type = HOLOHUD2.PARAM_BOOL, value = true },
-        healthbar_layered       = { name = "#holohud2.parameter.layered", type = HOLOHUD2.PARAM_BOOL, value = true },
-        healthbar_dotline       = { name = "#holohud2.parameter.dot_line", type = HOLOHUD2.PARAM_BOOL, value = true },
+        healthbar_layered       = { name = "#holohud2.percentage_bar.layered", type = HOLOHUD2.PARAM_BOOL, value = true },
+        healthbar_dotline       = { name = "#holohud2.percentage_bar.dot_line", type = HOLOHUD2.PARAM_BOOL, value = true },
         healthbar_dotline_size  = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 4 },
         suitbar                 = { name = "#holohud2.targetid.suit", type = HOLOHUD2.PARAM_BOOL, value = true },
         suitbar_pos             = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.TARGETID_POS, value = HOLOHUD2.TARGETID_BOTTOM },
@@ -68,8 +68,8 @@ local ELEMENT = {
         suitbar_style           = { name = "#holohud2.parameter.style", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.PROGRESSBARSTYLES, value = HOLOHUD2.PROGRESSBAR_DOT },
         suitbar_background      = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         suitbar_lerp            = { name = "#holohud2.parameter.lerp", type = HOLOHUD2.PARAM_BOOL, value = true },
-        suitbar_layered         = { name = "#holohud2.parameter.layered", type = HOLOHUD2.PARAM_BOOL, value = true },
-        suitbar_dotline         = { name = "#holohud2.parameter.dot_line", type = HOLOHUD2.PARAM_BOOL, value = true },
+        suitbar_layered         = { name = "#holohud2.percentage_bar.layered", type = HOLOHUD2.PARAM_BOOL, value = true },
+        suitbar_dotline         = { name = "#holohud2.percentage_bar.dot_line", type = HOLOHUD2.PARAM_BOOL, value = true },
         suitbar_dotline_size    = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 4 },
 
         numbers                 = { name = "#holohud2.targetid.numbers", type = HOLOHUD2.PARAM_BOOL, value = true },
@@ -183,7 +183,7 @@ local ELEMENT = {
                 } }
             } },
             { id = "numbers", parameters = {
-                { id = "numbers_anchor", parameters = {   
+                { id = "numbers_anchor", parameters = {
                     { id = "numbers_pos" },
                     { id = "numbers_align" }
                 } },
@@ -302,7 +302,7 @@ end)
 --- Override TargetID.
 ---
 hook.Add( "HUDDrawTargetID", "holohud2_targetid", function()
-    
+
     if not HOLOHUD2.IsVisible() then return end
     if visible then return false end
 
@@ -317,7 +317,7 @@ local panel         = HOLOHUD2.component.Create( "AnimatedPanel" )
 panel:SetLayout( layout )
 
 panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawTargetID", x, y, self._w, self._h, LAYER_FRAME )
 
 end
@@ -358,14 +358,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -389,7 +389,7 @@ function ELEMENT:PreDraw( settings )
 
             hudtargetid:SetName( _target:Name() )
             hudtargetid:SetTeam( team.GetName( _target:Team() ) )
-            
+
             hudtargetid:SetMaxHealth( _target:GetMaxHealth() )
             hudtargetid:SetMaxArmor( _target:GetMaxArmor() )
 
@@ -442,7 +442,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end

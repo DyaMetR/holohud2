@@ -5,7 +5,7 @@
 HOLOHUD2.AddCSLuaFile( "npcid/hudnpcid.lua" )
 
 if SERVER then
-    
+
     ---
     --- Set a networked value to use the server-side NPC name.
     ---
@@ -14,11 +14,11 @@ if SERVER then
         if not ent:IsNPC() then return end
 
         timer.Simple( .16, function()
-        
+
             if not IsValid( ent ) then return end
-            
+
             ent:SetNW2String( "holohud2_name", HOLOHUD2.util.GetDeathNoticeEntityName( ent ) )
-            
+
         end)
 
     end)
@@ -45,13 +45,13 @@ local ELEMENT = {
     helptext    = "#holohud2.npcid.helptext",
     parameters  = {
         entityid                        = { name = "#holohud2.parameter.entityid", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.parameter.entityid.helptext" },
-        
+
         pos                             = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 0, y = 148 } },
         dock                            = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.TOP },
         direction                       = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_DOWN },
         margin                          = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         order                           = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_ORDER, value = 16 },
-        
+
         background                      = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         background_color                = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
 
@@ -77,7 +77,7 @@ local ELEMENT = {
         healthbar_colorfriend           = { name = "#holohud2.npcid.friend_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 64, 255, 92 ) },
         healthbar_background            = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         healthbar_color2                = { name = "#holohud2.parameter.background_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 12 ) },
-        healthbar_layered               = { name = "#holohud2.parameter.layered", type = HOLOHUD2.PARAM_BOOL, value = true },
+        healthbar_layered               = { name = "#holohud2.percentage_bar.layered", type = HOLOHUD2.PARAM_BOOL, value = true },
         healthbar_lerp                  = { name = "#holohud2.parameter.lerp", type = HOLOHUD2.PARAM_BOOL, value = true },
 
         healthnums                      = { name = "#holohud2.npcid.health_numbers", type = HOLOHUD2.PARAM_BOOL, value = true },
@@ -87,7 +87,7 @@ local ELEMENT = {
         healthnums_offset               = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_NUMBER, value = 0 },
         healthnums_margin               = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 2 },
         healthnums_x                    = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_LEFT, helptext = "Alignment within the panel." },
-        
+
         healthnum                       = { name = "#holohud2.npcid.health_number", type = HOLOHUD2.PARAM_BOOL, value = true },
         healthnum_color                 = { name = "#holohud2.npcid.health_number", type = HOLOHUD2.PARAM_COLOR, value = Color( 192, 192, 192 ) },
         healthnum_font                  = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 1000, italic = false } },
@@ -260,7 +260,7 @@ local panel     = HOLOHUD2.component.Create( "AnimatedPanel" )
 panel:SetLayout( layout )
 
 panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawNPCHealth", x, y, self._w, self._h, LAYER_FRAME )
 
 end
@@ -301,14 +301,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -339,7 +339,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if panel:IsVisible() then
-        
+
         if IsValid( _target ) then
 
             hudnpcid:SetName( _target:GetNW2String( "holohud2_name", language.GetPhrase( _target:GetClass() ) ) )
@@ -392,7 +392,7 @@ function ELEMENT:PreDraw( settings )
 
     local is_friend = hook_Call( "IsFriendEntity", target )
     if is_friend == nil then
-        
+
         is_friend = IsFriendEntityName( target:GetClass() )
 
     end
@@ -412,7 +412,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
