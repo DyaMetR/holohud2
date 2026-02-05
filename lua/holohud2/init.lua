@@ -40,7 +40,7 @@ if CLIENT then
     local enabled       = CreateClientConVar( "holohud2", 1, true, false, "Should the HUD render.", 0, 1 )
     local nosuit        = CreateClientConVar( "holohud2_nosuit", 0, true, false, "Should the HUD render without needing to have the suit equipped.", 0, 1 )
     local drawhud       = GetConVar( "cl_drawhud" )
-    
+
     local localplayer
     local suit_equipped     = true
     local was_suit_equipped = true
@@ -51,7 +51,7 @@ if CLIENT then
     function HOLOHUD2.IsEnabled()
 
         return enabled:GetBool()
-    
+
     end
 
     --- Returns whether the HUD should render.
@@ -87,7 +87,7 @@ if CLIENT then
             was_suit_equipped = suit_equipped
 
         end
-        
+
         -- update the suit status
         localplayer = localplayer or LocalPlayer()
 
@@ -219,11 +219,11 @@ end)
 --- Draw HUD
 ---
 hook.Add( "HUDPaint", "holohud2", function()
-    
+
     if on_overlay then return end
     if not IsVisible() then return end
     if not init then return end
-    
+
     RenderHUD( settings, false )
 
 end)
@@ -236,7 +236,7 @@ hook.Add( "DrawOverlay", "holohud2", function()
     if not on_overlay then return end
     if not IsVisible() then return end
     if not init then return end
-    
+
     RenderHUDBackground( settings )
     RenderHUD( settings, true )
 
@@ -261,7 +261,7 @@ end)
 --- Hide default HUD elements
 ---
 hook.Add( "HUDShouldDraw", "holohud2", function( name )
-    
+
     if not IsEnabled() then return end
     if not init then return false end
     if not chud[ name ] then return end
@@ -293,14 +293,14 @@ HOLOHUD2.hook.Add( "OnSettingsChanged", "holohud2", function( data )
     HOLOHUD2.font.Fetch( settings )
 
     for id, parameters in pairs( settings ) do
-        
+
         local element = elements[ id ]
 
         if not element then continue end -- skip removed elements
 
         -- apply new settings
         element:OnSettingsChanged( parameters )
-        
+
         -- rebuild visibility function
         element.IsVisible = function() return parameters._visible end
 
@@ -328,7 +328,7 @@ cvars.AddChangeCallback( "gmod_language", function() HOLOHUD2.element.OnScreenSi
 --- Initialize
 ---
 local function initialize()
-    
+
     timer.Simple( .16, HOLOHUD2.render.RefreshScreenTextures )
 
     HOLOHUD2.settings.Register( HOLOHUD2.element.GetDefaultValues(), HOLOHUD2.SETTINGS_DEFAULT )

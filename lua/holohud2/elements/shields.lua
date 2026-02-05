@@ -25,7 +25,7 @@ local ELEMENT = {
 
         color                   = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color( 200, 72, 68 ), [100] = Color( 92, 163, 255 ) }, fraction = true, gradual = false } },
         color2                  = { name = "#holohud2.parameter.background_color", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color( 255, 74, 74, 12 ), [ 100 ] = Color( 255, 255, 255, 12 ) }, fraction = true, gradual = false } },
-    
+
         num                     = { name = "#holohud2.component.number", type = HOLOHUD2.PARAM_BOOL, value = false },
         num_pos                 = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 2 } },
         num_font                = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 1000, italic = false } },
@@ -34,7 +34,7 @@ local ELEMENT = {
         num_lerp                = { name = "#holohud2.parameter.lerp", type = HOLOHUD2.PARAM_BOOL, value = false },
         num_align               = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_RIGHT },
         num_digits              = { name = "#holohud2.parameter.digits", type = HOLOHUD2.PARAM_NUMBER, value = 3, min = 1 },
-    
+
         bar                     = { name = "#holohud2.component.percentage_bar", type = HOLOHUD2.PARAM_BOOL, value = true },
         bar_pos                 = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 13, y = 4 } },
         bar_size                = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 98, y = 6 }, min_x = 1, min_y = 1 },
@@ -123,7 +123,7 @@ local ELEMENT = {
     },
     quickmenu = {
         { id = "autohide" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -190,14 +190,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -215,7 +215,7 @@ function ELEMENT:PreDraw( settings )
 
         panel:SetDeployed( false )
         panel:Think()
-        
+
         return
 
     end
@@ -312,9 +312,9 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     x, y = x - w / 2, y - h / 2
 
     if settings.background then
-        
+
         draw.RoundedBox( 0, x, y, w, h, settings.background_color )
-        
+
     end
 
     surface.SetDrawColor( HOLOHUD2.WIREFRAME_COLOR )
@@ -382,6 +382,13 @@ HOLOHUD2.modifier.Add( "number2_offset", "shields", "num_pos" )
 HOLOHUD2.modifier.Add( "number2_font", "shields", "num_font" )
 HOLOHUD2.modifier.Add( "text_offset", "shields", "text_pos" )
 HOLOHUD2.modifier.Add( "text_font", "shields", "text_font" )
+HOLOHUD2.modifier.Add( "scale", "shields", {
+    "pos", "margin", "size",
+    "num_pos", "num_font",
+    "bar_pos", "bar_size",
+    "icon_pos", "icon_size",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

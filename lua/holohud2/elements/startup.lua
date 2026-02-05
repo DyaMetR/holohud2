@@ -67,7 +67,7 @@ local ELEMENT = {
     menu = {
         { id = "initialspawn" },
         { id = "suiton" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos", parameters = {
                 { id = "dock" },
@@ -123,7 +123,7 @@ local ELEMENT = {
     quickmenu = {
         { id = "initialspawn" },
         { id = "suiton" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -174,7 +174,7 @@ local panel         = HOLOHUD2.component.Create( "AnimatedPanel" )
 panel:SetLayout( layout )
 
 panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawWelcomeScreen", x, y, self._w, self._h, LAYER_FRAME )
 
 end
@@ -260,21 +260,21 @@ function ELEMENT:InitWelcome()
     local hour = os.date( "*t" ).hour
 
     if hour >= 4 and hour < 12 then
- 
+
         MOTD[ 1 ] = "#holohud2.greeting.morning"
- 
+
     elseif hour >= 12 and hour < 18 then
- 
+
         MOTD[ 1 ] = "#holohud2.greeting.afternoon"
- 
+
     elseif hour >= 18 and hour <= 23 then
- 
+
         MOTD[ 1 ] = "#holohud2.greeting.evening"
- 
+
     else
- 
+
         MOTD[ 1 ] = "#holohud2.greeting.night"
- 
+
     end
 
 end
@@ -311,7 +311,7 @@ function ELEMENT:DoWelcomeAnim()
         if cur == #MOTD then hudwelcome:AddSpacer() end
 
         hudwelcome:AddMessage( message )
-        
+
         local duration = utf8.len( message ) * speed
         next = curtime + duration + 1
 
@@ -344,7 +344,7 @@ local cur_message -- current message
 local skipped = {} -- skipped elements (to be started up at the end)
 
 function ELEMENT:InitStartup()
-    
+
     panel:Close()
 
     for i=1, #index do
@@ -380,7 +380,7 @@ function ELEMENT:DoStartupSequence()
         local text = premessages[ message ]
 
         hudwelcome:AddMessage( text )
-        
+
         local duration = utf8.len( text ) * speed
         next_message = curtime + duration + 1
 
@@ -479,7 +479,7 @@ function ELEMENT:PreDraw( settings )
     if anim == ANIM_STANDBY then
 
         if settings.initialspawn == MODE_WELCOME then
-            
+
             self:InitWelcome()
 
         elseif settings.initialspawn == MODE_STARTUP then
@@ -512,11 +512,11 @@ end
 --- Reset animation after equipping the suit
 ---
 HOLOHUD2.hook.Add( "OnSuitEquipped", "startup", function()
-    
+
     if not ELEMENT:IsVisible() then return end
 
     if suiton == MODE_WELCOME then
-        
+
         ELEMENT:InitWelcome()
 
     elseif suiton == MODE_STARTUP then
@@ -682,7 +682,7 @@ HOLOHUD2.hook.Add( "WelcomeSecretMessage", "startup", function()
 
     -- April Fools
     if date.month == 4 and date.day == 1 then
-        
+
         return "#holohud2.holiday.aprilfools"
 
     end
@@ -698,7 +698,7 @@ HOLOHUD2.hook.Add( "WelcomeSecretMessage", "startup", function()
     if math.random( 1, 30 ) == 1 then
 
         if date.year >= 2030 and date.year < 2035 then
-            
+
             return "#holohud2.startup.historic_0"
 
         elseif date.year == 2035 then
@@ -745,6 +745,13 @@ HOLOHUD2.modifier.Add( "background_color", "startup", "background_color" )
 HOLOHUD2.modifier.Add( "color", "startup", "messages_color" )
 HOLOHUD2.modifier.Add( "text_font", "startup", { "title_font", "version_font", "messages_font" } )
 HOLOHUD2.modifier.Add( "text_offset", "startup", { "title_pos", "version_pos", "messages_pos" } )
+HOLOHUD2.modifier.Add( "scale", "startup", {
+    "pos", "margin", "size",
+    "title_pos", "title_font",
+    "version_pos", "version_font",
+    "separator_pos", "separator_size",
+    "messages_pos", "messages_size", "messages_font", "messages_spacing", "messages_margin"
+} )
 
 ---
 --- Presets

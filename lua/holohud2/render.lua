@@ -86,7 +86,7 @@ local function draw_elements( func, hook, settings, x, y, on_overlay )
     if hook_Call( hook, settings, x, y, on_overlay ) then return end
 
     for i=1, #elements do
-        
+
         local element = elements[ i ]
 
         if ( on_overlay and not element.on_overlay ) then continue end
@@ -109,7 +109,7 @@ local function generate_scanlines()
     surface.SetDrawColor( color_black )
 
     for i = 1, math.ceil( rt_h / 2 ) / dist do
-        
+
         surface.DrawRect( 0, ( i - 1 ) * 2 * dist, rt_w, dist )
 
     end
@@ -157,7 +157,7 @@ local function generate_3d_shape()
     local size, margin  = rt_w / polycount, rt_h * r_3dmargin:GetFloat()
 
     for i=0, polycount do
-    
+
         local x0, y0 = size * i, margin * math.sin( math.rad( angle * i ) ) / 2
         local x1, y1 = size * ( i + 1 ), margin * math.sin( math.rad( angle * ( i + 1 ) ) ) / 2
 
@@ -167,7 +167,7 @@ local function generate_3d_shape()
             { x = x1, y = rt_h - y1, u = x1 / rt_w, v = 1 },
             { x = x0, y = rt_h - y0, u = x0 / rt_w, v = 1 }
         }
-    
+
     end
 
 end
@@ -276,7 +276,7 @@ function HOLOHUD2.render.ComputeHUD( settings, on_overlay )
     if scanlines ~= GLOWING_NONE then
 
         render.BlurRenderTarget( RT_GLOWING, glow_spread, glow_spread, r_scanlinespasses:GetInt() )
-    
+
     end
 
     render.PopRenderTarget()
@@ -287,7 +287,7 @@ function HOLOHUD2.render.ComputeHUD( settings, on_overlay )
     cam.Start2D()
 
     local intensity = math.max( r_scanlinesmul:GetInt(), 0 )
-    
+
     -- dim glow layer when it's not blurred
     if scanlines == GLOWING_NONE then
 
@@ -305,7 +305,7 @@ function HOLOHUD2.render.ComputeHUD( settings, on_overlay )
 
     -- apply scanlining
     if scanlines >= GLOWING_SCANLINED then
-        
+
         render.SetMaterial( MAT_SCANLINES )
         render.DrawScreenQuad()
 
@@ -334,7 +334,7 @@ function HOLOHUD2.render.ComputeHUD( settings, on_overlay )
     draw_elements( "Paint", "HUDPaint", settings, x, y, on_overlay ) -- draw foreground beneath
 
     if scanlines >= GLOWING_SCANLINES then
-        
+
         render.SetMaterial( MAT_SCANLINES )
         render.DrawScreenQuad()
 
@@ -401,12 +401,12 @@ end
 function HOLOHUD2.render.RenderHUDBackground( settings )
 
     if not r_pp:GetBool() then return end
-    
+
     -- if we couldn't compute the post processing, skip
     if not computed then return end
 
     if r_3d:GetBool() then
-        
+
         render.OverrideBlend( true, BLEND_SRC_ALPHA, BLEND_ONE_MINUS_SRC_ALPHA, BLENDFUNC_ADD ) -- HACK: prevent render target shenanigans
         surface.SetDrawColor( 255, 255, 255, 255 )
         surface.SetMaterial( MAT_FRAME )
@@ -442,7 +442,7 @@ function HOLOHUD2.render.RenderHUD( settings, on_overlay )
         if not skip_frame then
 
             for i=1, #elements do
-            
+
                 local element = elements[ i ]
 
                 if ( on_overlay and not element.on_overlay ) then continue end
@@ -452,11 +452,11 @@ function HOLOHUD2.render.RenderHUD( settings, on_overlay )
             end
 
         end
-        
+
         local skip_background = hook_Call( "HUDPaintBackground", settings, x, y, on_overlay )
 
         for i=1, #elements do
-            
+
             local element = elements[ i ]
 
             if ( on_overlay and not element.on_overlay ) then continue end
@@ -494,12 +494,12 @@ function HOLOHUD2.render.RenderHUD( settings, on_overlay )
                 -- wireframe
                 surface.SetDrawColor( 255, 255, 255, 64 )
                 for j=2, #poly do
-                    
+
                     local first, cur = poly[ 1 ], poly[ j ]
                     surface.DrawLine( first.x, first.y, cur.x, cur.y )
 
                 end
-                
+
             end
 
         end
@@ -507,7 +507,7 @@ function HOLOHUD2.render.RenderHUD( settings, on_overlay )
         -- surface.SetDrawColor( 255, 255, 255, 255 )
         -- surface.SetMaterial( MAT_FRAME )
         -- for i=1, #polygons do surface.DrawPoly( polygons[ i ] ) end
-        
+
         surface.SetDrawColor( 255, 255, 255, 255 )
         surface.SetMaterial( MAT_COMPOSITE )
         for i=1, #polygons do surface.DrawPoly( polygons[ i ] ) end
@@ -557,7 +557,7 @@ HOLOHUD2.hook.Add( "OnSettingsChanged", "render", function( settings )
     elements = {}
 
     for _, element in pairs( HOLOHUD2.element.All() ) do
-        
+
         if not settings[ element.id ]._visible then continue end
 
         table.insert( elements, element )

@@ -605,6 +605,15 @@ HOLOHUD2.modifier.Add( "number_rendermode", "npcid", "healthnum_rendermode" )
 HOLOHUD2.modifier.Add( "number_background", "npcid", "healthnum_background" )
 HOLOHUD2.modifier.Add( "number3_font", "npcid", { "healthnum_font", "healthnum2_font" } )
 HOLOHUD2.modifier.Add( "text_font", "npcid", "name_font" )
+HOLOHUD2.modifier.Add( "scale", "npcid", {
+    "pos", "margin", "padding",
+    "name_offset", "name_font",
+    "healthbar_margin", "healthbar_size",
+    "healthnums_spacing", "healthnums_offset", "healthnums_margin",
+    "healthnum_font", "healthnum_font2",
+    "healthnum_separator_offset", "healthnum_separator_size"
+
+} )
 
 ---
 --- Presets

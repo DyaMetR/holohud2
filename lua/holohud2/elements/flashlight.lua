@@ -17,7 +17,7 @@ local ELEMENT = {
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_RIGHT },
         margin                      = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         order                       = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_ORDER, value = 80 },
-    
+
         size                        = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 68, y = 16 } },
         background                  = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         background_color            = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
@@ -197,14 +197,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -215,11 +215,11 @@ end
 function ELEMENT:PreDraw( settings )
 
     if startup then return end
-    
+
     panel:Think()
     panel:SetDeployed( not self:IsMinimized() and hook_Call( "ShouldDrawFlashlight" ) == true )
     layout:SetVisible( panel:IsVisible() )
-    
+
 
     if not panel:IsVisible() then return end
 
@@ -294,7 +294,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     local scale = HOLOHUD2.scale.Get()
     local u, v = settings.size.x * scale, settings.size.y * scale
     local x, y = x + w / 2 - u / 2, y + h / 2 - v / 2
-    
+
     if settings.background then
 
         draw.RoundedBox( 0, x, y, u, v, settings.background_color )
@@ -322,10 +322,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         panel:SetVisible( false )
-        return 
-        
+        return
+
     end
 
     layout:SetPos( settings.pos.x, settings.pos.y )
@@ -377,6 +377,13 @@ HOLOHUD2.modifier.Add( "number3_font", "flashlight", "number_font" )
 HOLOHUD2.modifier.Add( "number3_offset", "flashlight", "number_pos" )
 HOLOHUD2.modifier.Add( "text_font", "flashlight", "text_font" )
 HOLOHUD2.modifier.Add( "text_offset", "flashlight", "text_pos" )
+HOLOHUD2.modifier.Add( "scale", "flashlight", {
+    "pos", "margin", "size",
+    "icon_pos", "icon_size",
+    "number_pos", "number_font",
+    "progressbar_pos", "progressbar_size",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

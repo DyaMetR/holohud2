@@ -667,6 +667,7 @@ HOLOHUD2.modifier.Add( "panel_animation", "hazards", "animation" )
 HOLOHUD2.modifier.Add( "background", "hazards", "background" )
 HOLOHUD2.modifier.Add( "background_color", "hazards", "background_color" )
 HOLOHUD2.modifier.Add( "color", "hazards", "color" )
+HOLOHUD2.modifier.Add( "scale", "hazards", { "pos", "margin", "size", "padding" } )
 
 ---
 --- Presets

@@ -11,7 +11,7 @@ local ELEMENT = {
     helptext    = "#holohud2.timer.helptext",
     parameters  = {
         blinking                    = { name = "#holohud2.clock.hour_separator", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.timer.blinking.helptext" },
-        
+
         pos                         = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 12, y = 12 } },
         dock                        = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.TOP },
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_DOWN },
@@ -144,7 +144,7 @@ local ELEMENT = {
                 { id = "seconds_font" }
             } }
         } },
-        
+
         { category = "Other", parameters = {
             { id = "text", parameters = {
                 { id = "text_pos" },
@@ -205,14 +205,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -223,7 +223,7 @@ end
 function ELEMENT:PreDraw( settings )
 
     if startup then return end
-    
+
     panel:Think()
     panel:SetDeployed( not self:IsMinimized() and hook_Call( "ShouldDrawTimer" ) == true )
     layout:SetVisible( panel:IsVisible() )
@@ -273,7 +273,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     local scale = HOLOHUD2.scale.Get()
     local u, v = settings.size.x * scale, settings.size.y * scale
     local x, y = x + w / 2 - u / 2, y + h / 2 - v / 2
-    
+
     if settings.background then
 
         draw.RoundedBox( 0, x, y, u, v, settings.background_color )
@@ -301,10 +301,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         panel:SetVisible( false )
-        return 
-        
+        return
+
     end
 
     layout:SetPos( settings.pos.x, settings.pos.y )
@@ -357,6 +357,13 @@ HOLOHUD2.modifier.Add( "number3_font", "timer", { "minutes_font", "seconds_font"
 HOLOHUD2.modifier.Add( "number3_offset", "timer", { "minutes_offset", "seconds_offset" } )
 HOLOHUD2.modifier.Add( "text_font", "timer", "text_font" )
 HOLOHUD2.modifier.Add( "text_offset", "timer", "text_pos" )
+HOLOHUD2.modifier.Add( "scale", "timer", {
+    "pos", "margin", "size", "origin", "spacing",
+    "minutes_offset", "minutes_font",
+    "separator_offset", "separator_font",
+    "seconds_offset", "seconds_font",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

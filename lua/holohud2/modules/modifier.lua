@@ -2,10 +2,10 @@
 --- Modifiers are functions used to apply a consistent modification
 --- to a group of parameters. This is used in the general options
 --- panel to change multiple similar parameters at once.
---- 
+---
 --- Each function will be called with two parameters: the original value
 --- and the modifier value to apply to said value.
---- 
+---
 
 HOLOHUD2.modifier = {}
 
@@ -28,7 +28,7 @@ function MODIFIER:Add( element, parameters )
     if istable( parameters ) then
 
         table.Add( self.parameters[ element ], parameters )
-    
+
     else
 
         table.insert( self.parameters[ element ], parameters )
@@ -43,7 +43,7 @@ end
 --- @param id string|nil element identifier
 --- @return any result
 function MODIFIER:Call( settings, value, id )
-    
+
     local values = {}
 
     if id then
@@ -65,7 +65,7 @@ function MODIFIER:Call( settings, value, id )
             local result = self:Apply( dest, value )
 
             if result == nil then continue end
-            
+
             values[ parameter ] = result
 
         end
@@ -89,7 +89,7 @@ function MODIFIER:Call( settings, value, id )
             if not dest then continue end
 
             local result = self:Apply( dest, value )
-            
+
             if result == nil then continue end
 
             values[ id ][ parameter ] = result
@@ -128,7 +128,7 @@ function HOLOHUD2.modifier.Register( id, func )
     modifier.parameters = {}
 
     if func then
-        
+
         modifier.Apply = func
 
     end
@@ -164,9 +164,9 @@ function HOLOHUD2.modifier.Call( id, settings, value, element )
         local values = {}
 
         for mid, modifier in pairs( modifiers ) do
-            
+
             if settings[ mid ] == nil then continue end
-            
+
             table.Merge( values, modifier:Call( id, settings[ mid ], value ) )
 
         end
@@ -183,7 +183,7 @@ end
 --- @param id string
 --- @return table modifier
 function HOLOHUD2.modifier.Get( id )
-   
+
     return modifiers[ id ]
 
 end
@@ -191,7 +191,7 @@ end
 --- Returns all registered modifiers.
 --- @return table modifiers
 function HOLOHUD2.modifier.All()
-   
+
     return modifiers
 
 end

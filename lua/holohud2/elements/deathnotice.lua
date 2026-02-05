@@ -41,7 +41,7 @@ if SERVER then
                 inflictor = attacker
 
             end
-        
+
         else
 
             attacker = victim
@@ -59,7 +59,7 @@ if SERVER then
         for _, ply in pairs( player.GetAll() ) do
 
             net.Start( NET )
-            
+
             net.WriteString( HOLOHUD2.util.GetDeathNoticeEntityName( victim ) )
             net.WriteInt( victim:IsPlayer() and victim:Team() or TEAM_INVALID, 32 )
             net.WriteInt( victim:IsNPC() and ( victim:Disposition( ply ) == D_LI and COLOR_FRIEND or COLOR_FOE ) or COLOR_INVALID, 8 )
@@ -96,12 +96,12 @@ if SERVER then
     --- Send death notice of an NPC getting killed.
     ---
     hook.Add( "OnNPCKilled", "holohud2_deathnotice", function( npc, attacker, inflictor )
-        
+
         -- avoid spamming the killfeed with map scripting related entities
         if npc:GetClass() == "npc_bullseye" or npc:GetClass() == "npc_launcher" then return end
 
         send_death_notice( attacker, inflictor, npc )
-    
+
     end )
 
     ---
@@ -226,7 +226,7 @@ net.Receive( NET, function( len )
     component:SetVictim( victim )
     deathnotice.victim = victim
     deathnotice.color2 = victim_t ~= TEAM_INVALID and team.GetColor( victim_t ) or victim_col
-    
+
     if not net.ReadBool() then
 
         -- inflictor
@@ -270,7 +270,7 @@ net.Receive( NET, function( len )
         StartAlphaMultiplier( GetMinimumGlow() )
         component:Paint( x, y )
         EndAlphaMultiplier()
-        
+
         hook_Call( "DrawOverDeathNotice", x, y, self._w, self._h, LAYER_SCANLINES, deathnotice )
 
     end
@@ -293,7 +293,7 @@ function ELEMENT:QueueStartup()
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -338,7 +338,7 @@ function ELEMENT:PerformLayout( settings )
         notice.component:SetVictimColor( IsColor( notice.color2 ) and notice.color2 or notice.color2 == COLOR_FRIEND and settings.color_friend or settings.color_foe )
         notice.component:SetInflictorOnUppercase( settings.inflictor_uppercase )
         notice.component:PerformLayout( true )
-        
+
         notice.y = y
 
         local _w, _h = notice.component:GetSize()
@@ -425,7 +425,7 @@ end
 HOLOHUD2.hook.Add( "OnLayoutPerformed", "deathnotice", function()
 
     for _, notice in ipairs( deathnotices ) do
-        
+
         notice.panel:SetPos( layout.x + notice.x, layout.y + notice.y )
 
     end
@@ -438,7 +438,7 @@ end )
 function ELEMENT:PaintFrame( settings, x, y )
 
     for _, notice in ipairs( deathnotices ) do
-        
+
         notice.panel:PaintFrame( x, y )
 
     end
@@ -488,7 +488,7 @@ function ELEMENT:OnPreviewChanged( settings )
     preview_deathnotice0:SetVictimColor( settings.color_foe )
     preview_deathnotice0:SetInflictorOnUppercase( settings.inflictor_uppercase )
     preview_deathnotice0:PerformLayout( true )
-    
+
     preview_deathnotice1:SetSize( settings.inflictor_size )
     preview_deathnotice1:SetSpacing( settings.spacing )
     preview_deathnotice1:SetFont( self.preview_fonts.font )
@@ -525,7 +525,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     preview_deathnotice0:Paint( x - u0 / 2 + padding, y + padding )
 
     y = y + v1 + 4 * scale
-    
+
 
     if settings.background then
 
@@ -546,10 +546,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible(false)
         return
-    
+
     end
 
     layout:SetPos( settings.pos.x, settings.pos.y )
@@ -593,6 +593,7 @@ HOLOHUD2.modifier.Add( "background", "deathnotice", "background" )
 HOLOHUD2.modifier.Add( "background_color", "deathnotice", "background_color" )
 HOLOHUD2.modifier.Add( "color", "deathnotice", "color_inflictor" )
 HOLOHUD2.modifier.Add( "text_font", "deathnotice", "font" )
+HOLOHUD2.modifier.Add( "scale", "deathnotice", { "pos", "margin", "padding", "spacing", "font", "inflictor_size" } )
 
 ---
 --- Presets

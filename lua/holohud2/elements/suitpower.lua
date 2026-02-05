@@ -23,7 +23,7 @@ local ELEMENT = {
         direction               = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_UP },
         margin                  = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         order                   = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_ORDER, value = 56 },
-        
+
         size                    = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 114, y = 32 } },
         background              = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         background_color        = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
@@ -110,7 +110,7 @@ local ELEMENT = {
             { id = "color" },
             { id = "color2" }
         } },
-        
+
         { category = "#holohud2.category.composition", parameters = {
             { id = "icon", parameters = {
                 { id = "icon_pos" },
@@ -171,7 +171,7 @@ local ELEMENT = {
     },
     quickmenu = {
         { id = "autohide" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -181,7 +181,7 @@ local ELEMENT = {
             { id = "color" },
             { id = "color2" }
         } },
-        
+
         { category = "#holohud2.category.composition", parameters = {
             { id = "icon", parameters = {
                 { id = "icon_pos" },
@@ -239,7 +239,7 @@ panel.PaintOverFrame = function( self, x, y )
 end
 
 panel.PaintOverBackground = function( self, x, y )
-    
+
     if hook_Call( "DrawSuitPower", x, y, LAYER_BACKGROUND ) then return end
 
     hudsuitpower:PaintBackground( x, y )
@@ -259,7 +259,7 @@ panel.PaintOver = function( self, x, y )
 end
 
 panel.PaintOverScanlines = function( self, x, y )
-    
+
     if hook_Call( "DrawSuitPower", x, y, LAYER_SCANLINES ) then return end
 
     hudsuitpower:PaintScanlines( x, y )
@@ -327,9 +327,9 @@ function ELEMENT:DoStartupSequence( settings, curtime )
 
     -- advance through the different phases
     if next_startup_phase < curtime then
-        
+
         if startup_phase ~= STARTUP_FILL then
-            
+
             startup_phase = startup_phase + 1
             next_startup_phase = curtime + STARTUP_TIMINGS[ startup_phase ]
 
@@ -350,7 +350,7 @@ function ELEMENT:DoStartupSequence( settings, curtime )
         local suitpower = math.max( hook_Call( "GetSuitPower" ) or localplayer:GetSuitPower(), 0 )
         local time = ( next_startup_phase - curtime ) / STARTUP_TIMINGS[ startup_phase ]
         local anim = ( 1 - time ) * 3
-        
+
         hudsuitpower:SetValue( math.min( math.ceil( anim * suitpower ), suitpower ) )
         hudsuitpower:SetSprinting( time > .3 and time <= .5 )
         hudsuitpower:SetUnderwater( time > .5 and time <= .7 )
@@ -389,37 +389,37 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if panel:IsVisible() then
-        
+
         hudsuitpower:Think()
-    
+
     end
 
 end
 
 ---
 --- Paint
---- 
+---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
 
 function ELEMENT:PaintBackground( settings, x, y )
-    
+
     panel:PaintBackground( x, y )
 
 end
 
 function ELEMENT:Paint( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
 
     panel:Paint( x, y )
 
 end
 function ELEMENT:PaintScanlines( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
 
     panel:PaintScanlines( x, y )
@@ -487,7 +487,7 @@ function ELEMENT:PreviewInit( panel )
             preview_hudsuitpower:SetValue( value )
 
         end
-    
+
     local reset = vgui.Create( "DImageButton", panel )
     reset:SetSize( 16, 16 )
     reset:SetPos( control:GetWide() + 4, panel:GetTall() - reset:GetTall() - 8 )
@@ -533,10 +533,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         panel:SetVisible( false )
-        return 
-        
+        return
+
     end
 
     layout:SetDock( settings.dock )
@@ -590,6 +590,18 @@ HOLOHUD2.modifier.Add( "number3_font", "suitpower", "number_font" )
 HOLOHUD2.modifier.Add( "number3_offset", "suitpower", "number_pos" )
 HOLOHUD2.modifier.Add( "text_font", "suitpower", "text_font" )
 HOLOHUD2.modifier.Add( "text_offset", "suitpower", "text_pos" )
+HOLOHUD2.modifier.Add( "scale", "suitpower", {
+    "pos", "margin", "size",
+    "icon_pos", "icon_size",
+    "number_pos", "number_font",
+    "graph_pos", "graph_size",
+    "powerbar_pos", "powerbar_size",
+    "icontray_pos", "icontray_margin",
+    "sprint_pos", "sprint_size",
+    "oxygen_pos", "oxygen_size",
+    "flashlight_pos", "flashlight_size",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

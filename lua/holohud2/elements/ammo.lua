@@ -38,7 +38,7 @@ local ELEMENT = {
         autohide                                = { name = "#holohud2.parameter.autohide", type = HOLOHUD2.PARAM_BOOL, value = true },
         autohide_delay                          = { name = "#holohud2.parameter.delay", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         autohide_threshold                      = { name = "#holohud2.parameter.threshold", type = HOLOHUD2.PARAM_RANGE, value = 0, min = 0, max = 100, helptext = "#holohud2.ammo.autohide_threshold.helptext" },
-        
+
         firemode                                = { name = "#holohud2.ammo.firemode", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.ammo.firemode.helptext" },
         firemode_pos                            = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 73, y = 3 } },
         firemode_size                           = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 6 },
@@ -53,7 +53,7 @@ local ELEMENT = {
         firemode_separate_background_color      = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
         firemode_separate_animation             = { name = "#holohud2.parameter.animation", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.PANELANIMATIONS, value = HOLOHUD2.PANELANIMATION_FLASH },
         firemode_separate_animation_direction   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_GROWDIRECTION, value = HOLOHUD2.GROWDIRECTION_UP },
-    
+
         quicknades                              = { name = "#holohud2.ammo.quicknades", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.ammo.quicknades.helptext" },
         quicknades_ammotype                     = { name = "#holohud2.ammo.quicknades_ammotype", type = HOLOHUD2.PARAM_OPTION, value = 10, options = game.GetAmmoTypes() },
         quicknades_pos                          = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 2 } },
@@ -162,22 +162,22 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
 
     local parameters = {
         [ id .. "_always" ]                 = { name = "#holohud2.ammo.always", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.ammo.always.helptext" },
-        
+
         [ id .. "_pos" ]                    = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 12, y = 12 } },
         [ id .. "_dock" ]                   = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.BOTTOM_RIGHT },
         [ id .. "_direction" ]              = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_LEFT },
         [ id .. "_margin" ]                 = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         [ id .. "_order" ]                  = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_NUMBER, value = order },
-        
+
         [ id .. "_size" ]                   = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 114, y = 46 } },
         [ id .. "_background" ]             = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         [ id .. "_background_color" ]       = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
         [ id .. "_animation" ]              = { name = "#holohud2.parameter.animation", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.PANELANIMATIONS, value = HOLOHUD2.PANELANIMATION_FLASH },
         [ id .. "_animation_direction" ]    = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_GROWDIRECTION, value = HOLOHUD2.GROWDIRECTION_UP },
-        
+
         [ id .. "_color" ]                  = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color(255, 60, 50), [100] = Color(255, 186, 92) }, fraction = true, gradual = false } },
         [ id .. "_color2" ]                 = { name = "#holohud2.parameter.background_color", type = HOLOHUD2.PARAM_COLORRANGES, value = { colors = { [0] = Color(255, 255, 255, 12) }, fraction = true, gradual = false } },
-        
+
         [ id .. "num" ]                     = { name = "#holohud2.component.number", type = HOLOHUD2.PARAM_BOOL, value = true },
         [ id .. "num_pos" ]                 = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = -1 } },
         [ id .. "num_font" ]                = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 37, weight = 1000, italic = false } },
@@ -186,13 +186,13 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
         [ id .. "num_lerp" ]                = { name = "#holohud2.parameter.lerp", type = HOLOHUD2.PARAM_BOOL, value = false },
         [ id .. "num_align" ]               = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_RIGHT },
         [ id .. "num_digits" ]              = { name = "#holohud2.parameter.digits", type = HOLOHUD2.PARAM_NUMBER, value = 3, min = 1 },
-        
+
         [ id .. "separator" ]               = { name = "#holohud2.component.separator", type = HOLOHUD2.PARAM_BOOL, value = false },
         [ id .. "separator_pos" ]           = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 60, y = 8 } },
         [ id .. "separator_is_rect" ]       = { name = "#holohud2.parameter.separator_is_rect", type = HOLOHUD2.PARAM_BOOL, value = true },
         [ id .. "separator_size" ]          = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 1, y = 18 } },
         [ id .. "separator_font" ]          = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 22, weight = 1000, italic = false } },
-        
+
         [ id .. "num2" ]                    = { name = "#holohud2.ammo.num2", type = HOLOHUD2.PARAM_BOOL, value = true },
         [ id .. "num2_pos" ]                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 65, y = 6 } },
         [ id .. "num2_font" ]               = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 22, weight = 1000, italic = false } },
@@ -215,7 +215,7 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
         [ id .. "tray_pos" ]                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 3, y = 32 } },
         [ id .. "tray_size" ]               = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 110, y = 12 }, min_x = 1, min_y = 1 },
         [ id .. "tray_direction" ]          = { name = "#holohud2.parameter.grow_direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_RIGHT },
-        
+
         [ id .. "icon" ]                    = { name = "#holohud2.component.icon", type = HOLOHUD2.PARAM_BOOL, value = false },
         [ id .. "icon_pos" ]                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 84, y = 5 } },
         [ id .. "icon_size" ]               = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 14, min = 0 },
@@ -339,7 +339,7 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
             { id = id .. "_pos" },
             { id = id .. "_size" }
         } },
-        
+
         { category = "#holohud2.category.coloring", parameters = {
             { id = id .. "_color" },
             { id = id .. "_color2" }
@@ -385,7 +385,7 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
     end
 
     if firemode then
-        
+
         parameters[ id .. "_oversize_firemodepos" ] = { name = "#holohud2.ammo.firemode_pos", type = HOLOHUD2.PARAM_BOOL, value = true }
         table.insert( menu.parameters[ 4 ].parameters, { id = id .. "_oversize_firemodepos" } )
 
@@ -393,7 +393,7 @@ function ELEMENT:DefineClip( id, tab, label, order, copy, firemode )
         table.insert( menu.parameters[ 4 ].parameters, { id = id .. "_oversize_grenadespos" } )
 
     end
-    
+
     self:ParseParameters( parameters )
     self:AddMenuTab( tab, menu )
     self:AddQuickTab( tab, quickmenu )
@@ -406,7 +406,7 @@ function ELEMENT:DefineReserve( id, tab, label, order, copy )
         [ id .. "_separate" ]               = { name = "#holohud2.parameter.standalone", type = HOLOHUD2.PARAM_BOOL, value = false },
 
         [ id .. "_always" ]                 = { name = "#holohud2.ammo.always", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.ammo.always.helptext" },
-        
+
         [ id .. "_pos" ]                    = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 12, y = 12 }, helptext = "#holohud2.ammo.reserve_pos.helptext" },
         [ id .. "_dock" ]                   = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.BOTTOM_RIGHT },
         [ id .. "_direction" ]              = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_LEFT },
@@ -613,7 +613,7 @@ local clip1_panel   = HOLOHUD2.component.Create( "AnimatedPanel" )
 clip1_panel:SetLayout( clip1_layout )
 
 clip1_panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawClip1", x, y, self.w, self.h, LAYER_FRAME )
 
 end
@@ -679,13 +679,13 @@ local ammo1_panel   = HOLOHUD2.component.Create( "AnimatedPanel" )
 ammo1_panel:SetLayout( ammo1_layout )
 
 ammo1_panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawAmmo1", x, y, self.w, self.h, LAYER_FRAME )
 
 end
 
 ammo1_panel.PaintOverBackground = function( self, x, y )
-    
+
     if hook_Call( "DrawAmmo1", x, y, self.w, self.h, LAYER_BACKGROUND ) then return end
 
     hudammo1:PaintBackground( x, y )
@@ -705,7 +705,7 @@ ammo1_panel.PaintOver = function( self, x, y )
 end
 
 ammo1_panel.PaintOverScanlines = function( self, x, y )
-    
+
     if hook_Call( "DrawAmmo1", x, y, self.w, self.h, LAYER_SCANLINES ) then return end
 
     hudammo1:PaintScanlines( x, y )
@@ -723,7 +723,7 @@ local clip2_panel   = HOLOHUD2.component.Create( "AnimatedPanel" )
 clip2_panel:SetLayout( clip2_layout )
 
 clip2_panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawClip2", x, y, self.w, self.h, LAYER_FRAME )
 
 end
@@ -739,13 +739,13 @@ local ammo2_panel   = HOLOHUD2.component.Create( "AnimatedPanel" )
 ammo2_panel:SetLayout( ammo2_layout )
 
 ammo2_panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawAmmo2", x, y, self.w, self.h, LAYER_FRAME )
 
 end
 
 ammo2_panel.PaintOverBackground = function( self, x, y )
-    
+
     if hook_Call( "DrawAmmo2", x, y, self.w, self.h, LAYER_BACKGROUND ) then return end
 
     hudammo2:PaintBackground( x, y )
@@ -755,7 +755,7 @@ ammo2_panel.PaintOverBackground = function( self, x, y )
 end
 
 ammo2_panel.PaintOver = function( self, x, y )
-    
+
     if hook_Call( "DrawAmmo2", x, y, self.w, self.h, LAYER_FOREGROUND ) then return end
 
     hudammo2:Paint( x, y )
@@ -765,7 +765,7 @@ ammo2_panel.PaintOver = function( self, x, y )
 end
 
 ammo2_panel.PaintOverScanlines = function( self, x, y )
-    
+
     if hook_Call( "DrawAmmo2", x, y, self.w, self.h, LAYER_SCANLINES ) then return end
 
     hudammo2:PaintScanlines( x, y )
@@ -845,9 +845,9 @@ function ELEMENT:DoStartupSequence( settings, curtime )
 
     -- advance through the different phases
     if next_startup_phase < curtime then
-        
+
         if startup_phase ~= STARTUP_FILL then
-            
+
             startup_phase = startup_phase + 1
             next_startup_phase = curtime + STARTUP_TIMINGS[ startup_phase ]
 
@@ -909,7 +909,7 @@ local ammotime = 0
 local _clip1, _clip2, _ammo1, _ammo2 = 0, 0, 0, 0
 local _grenades, _firemode = 0
 function ELEMENT:PreDraw( settings )
-    
+
     localplayer = localplayer or LocalPlayer()
     local curtime = CurTime()
 
@@ -938,7 +938,7 @@ function ELEMENT:PreDraw( settings )
 
         -- clip
         if clip1 ~= _clip1 then
-            
+
             ammotime = curtime + settings.autohide_delay
             visible = true -- HACK: this prevents the indicator from flashing when the startup sequence finishes
             _clip1 = clip1
@@ -954,9 +954,9 @@ function ELEMENT:PreDraw( settings )
             clip1_layout:SetSize( settings.ammo1_size.x + hudammo1:GetOversizeOffset(), settings.ammo1_size.y )
 
         end
-        
+
         if has_clip1 then
-            
+
             visible = visible or clip1 / max_clip1 <= settings.autohide_threshold / 100
             clip1_panel:SetDeployed( not minimized and ( settings.clip1_always or not settings.autohide or visible ) )
             ammo1_panel:SetDeployed( not minimized and ( settings.ammo1_separate and ( settings.ammo1_always or not settings.autohide or visible ) ) )
@@ -976,7 +976,7 @@ function ELEMENT:PreDraw( settings )
 
         -- reserve
         if ammo1 ~= _ammo1 then
-            
+
             ammotime = curtime + settings.autohide_delay
             _ammo1 = ammo1
 
@@ -998,7 +998,7 @@ function ELEMENT:PreDraw( settings )
     local quicknades = settings.quicknades and secondary == settings.quicknades_ammotype
 
     if secondary > 0 then
-        
+
         local clips2, max_clips2 = math.ceil( ammo2 / math.max( max_clip2, 1 ) ), math.ceil( max_ammo2 / math.max( max_clip2, 1 ) )
         has_clip2 = clip2 ~= -1
 
@@ -1030,32 +1030,32 @@ function ELEMENT:PreDraw( settings )
         end
 
         if has_clip2 then
-            
+
             if primary <= 0 then
-            
+
             	visible = visible or clip2 / max_clip2 <= settings.autohide_threshold / 100
-            
+
             end
-            
+
             clip2_panel:SetDeployed( not minimized and ( settings.clip2_always or not settings.autohide or visible ) and not quicknades )
             ammo2_panel:SetDeployed( not minimized and ( settings.ammo2_separate and ( settings.ammo2_always or not settings.autohide or visible ) ) and not quicknades )
 
         else
-            
+
             if primary <= 0 then
-            
+
             	visible = visible or clip2 / max_clip2 <= settings.autohide_threshold / 100
-            
+
             end
-            
+
             clip2_panel:SetDeployed( not minimized and ( not settings.ammo2_separate and ( settings.clip2_always or not settings.autohide or visible ) ) and not quicknades )
             ammo2_panel:SetDeployed( not minimized and ( settings.ammo2_separate and ( settings.ammo2_always or not settings.autohide or visible ) ) and not quicknades )
-            
+
         end
 
         -- clip
         if clip2 ~= _clip2 then
-            
+
             ammotime = curtime + settings.autohide_delay
             _clip2 = clip2
 
@@ -1068,7 +1068,7 @@ function ELEMENT:PreDraw( settings )
 
         -- reserve
         if ammo2 ~= _ammo2 then
-            
+
             ammotime = curtime + settings.autohide_delay
             _ammo2 = ammo2
 
@@ -1092,11 +1092,11 @@ function ELEMENT:PreDraw( settings )
 
             hudclip1:OnWeaponChanged()
             hudammo1:OnWeaponChanged()
-        
+
         end
 
         if secondary > 0 then
-            
+
             hudclip2:OnWeaponChanged()
             hudammo2:OnWeaponChanged()
 
@@ -1111,7 +1111,7 @@ function ELEMENT:PreDraw( settings )
     if localplayer:KeyDown( IN_RELOAD ) or
        ( localplayer:KeyDown( IN_ATTACK ) and primary > 0 and ( ( clip1 == -1 and ammo1 <= 0 ) or clip1 == 0 ) ) or
        ( localplayer:KeyDown( IN_ATTACK2 ) and secondary > 0 and ( ( clip2 == -1 and ammo2 <= 0 ) or clip2 == 0 ) ) then
-        
+
         ammotime = curtime + settings.autohide_delay
 
     end
@@ -1120,7 +1120,7 @@ function ELEMENT:PreDraw( settings )
     local clip1 = clip1_panel:IsVisible()
     clip1_layout:SetVisible( clip1 )
     if clip1 then
-        
+
         if settings.ammo1_separate or has_clip1 then
 
             clip1_layout:SetPos( settings.clip1_pos.x, settings.clip1_pos.y )
@@ -1132,7 +1132,7 @@ function ELEMENT:PreDraw( settings )
             clip1_panel:SetColor( settings.clip1_background_color )
 
             hudclip1:Think()
-        
+
         else
 
             clip1_layout:SetPos( settings.ammo1_pos.x, settings.ammo1_pos.y )
@@ -1146,7 +1146,7 @@ function ELEMENT:PreDraw( settings )
             hudammo1:Think()
 
         end
-    
+
     end
 
     -- primary reserve
@@ -1158,9 +1158,9 @@ function ELEMENT:PreDraw( settings )
     local clip2 = clip2_panel:IsVisible()
     clip2_layout:SetVisible( clip2 )
     if clip2 then
-        
+
         if settings.ammo2_separate or has_clip2 then
-            
+
             clip2_layout:SetPos( settings.clip2_pos.x, settings.clip2_pos.y )
             clip2_layout:SetMargin( settings.clip2_margin )
             clip2_layout:SetDirection( settings.clip2_direction )
@@ -1171,7 +1171,7 @@ function ELEMENT:PreDraw( settings )
             clip2_panel:SetColor( clip2_background_color )
 
             hudclip2:Think()
-        
+
         else
 
             clip2_layout:SetPos( settings.ammo2_pos.x, settings.ammo2_pos.y )
@@ -1186,7 +1186,7 @@ function ELEMENT:PreDraw( settings )
             hudammo2:Think()
 
         end
-    
+
     end
 
     -- secondary reserve
@@ -1214,7 +1214,7 @@ function ELEMENT:PreDraw( settings )
     hudfiremode:PerformLayout()
 
     if settings.firemode_separate then
-        
+
         firemode_panel:Think()
         firemode_panel:SetDeployed( settings.firemode and firemode and clip1_panel.deployed )
         firemode_layout:SetVisible( firemode_panel:IsVisible() )
@@ -1230,14 +1230,14 @@ function ELEMENT:PreDraw( settings )
         firemode_panel:SetDeployed( false )
 
     end
-        
+
     -- quick nades
     local grenades = localplayer:GetAmmoCount( settings.quicknades_ammotype )
     hudquicknades:SetAmount( grenades )
     hudquicknades:Think()
 
     if settings.quicknades and grenades ~= _grenades and ( has_clip1 or settings.quicknades_separate ) then
-        
+
         ammotime = curtime + settings.autohide_delay
         _grenades = grenades
 
@@ -1246,7 +1246,7 @@ function ELEMENT:PreDraw( settings )
     if settings.quicknades_separate then
 
         if has_clip1 then
-            
+
             hudquicknades:SetColor( hudclip1.Colors:GetColor() )
             hudquicknades:SetColor2( hudclip1.Colors2:GetColor() )
 
@@ -1256,7 +1256,7 @@ function ELEMENT:PreDraw( settings )
             hudquicknades:SetColor2( hudammo1.Colors2:GetColor() )
 
         end
-        
+
         quicknades_panel:Think()
         quicknades_panel:SetDeployed( settings.quicknades and settings.quicknades_separate and clip1_panel.deployed and primary ~= settings.quicknades_ammotype )
         quicknades_layout:SetSize( hudquicknades.__w + settings.quicknades_separate_padding.x * 2, hudquicknades.__h + settings.quicknades_separate_padding.y * 2 )
@@ -1270,12 +1270,12 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     clip1_panel:PaintFrame( x, y )
     ammo1_panel:PaintFrame( x, y )
     clip2_panel:PaintFrame( x, y )
     ammo2_panel:PaintFrame( x, y )
-	
+
     if settings.firemode_separate then firemode_panel:PaintFrame( x, y ) end
     if settings.quicknades_separate then quicknades_panel:PaintFrame( x, y ) end
 
@@ -1304,7 +1304,7 @@ function ELEMENT:Paint( settings, x, y )
 
     if settings.firemode_separate then firemode_panel:Paint( x, y ) end
     if settings.quicknades_separate then quicknades_panel:Paint( x, y ) end
-    
+
 end
 
 function ELEMENT:PaintScanlines( settings, x, y )
@@ -1318,7 +1318,7 @@ function ELEMENT:PaintScanlines( settings, x, y )
 
     if settings.firemode_separate then firemode_panel:PaintScanlines( x, y ) end
     if settings.quicknades_separate then quicknades_panel:PaintScanlines( x, y ) end
-    
+
 end
 
 ---
@@ -1502,20 +1502,20 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
         preview_hudclip1:Paint( x, y )
 
         if settings.firemode and not settings.firemode_separate then
-            
+
             preview_hudfiremode:PerformLayout()
             preview_hudfiremode:Paint( x, y )
 
         end
 
         if settings.quicknades and not settings.quicknades_separate then
-            
+
             preview_hudquicknades:Think()
             preview_hudquicknades:PaintBackground( x, y )
             preview_hudquicknades:Paint( x, y )
 
         end
-    
+
     elseif preview_option == 2 then
 
         local w, h = ( settings.ammo1_size.x + preview_hudammo1:GetOversizeOffset() ) * scale, settings.ammo1_size.y * scale
@@ -1527,7 +1527,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
         if settings.ammo1_background then
 
             draw.RoundedBox( 0, x, y, w, h, settings.ammo1_background_color )
-            
+
         end
 
         surface.SetDrawColor( wireframe_color )
@@ -1563,7 +1563,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         preview_hudclip2:PaintBackground( x, y )
         preview_hudclip2:Paint( x, y )
-    
+
     elseif preview_option == 4 then
 
         local ammo2_size, ammo2_background, ammo2_background_color = settings.ammo2_size, settings.ammo2_background, settings.ammo2_background_color
@@ -1588,7 +1588,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w, h )
-        
+
         preview_hudammo2:PaintBackground( x, y )
         preview_hudammo2:Paint( x, y )
 
@@ -1641,7 +1641,7 @@ function ELEMENT:OnSettingsChanged(settings)
         hudclip1:PaintBackground( x, y )
 
         if not settings.quicknades_separate then
-            
+
             hudquicknades:PaintBackground( x, y )
 
         end
@@ -1671,7 +1671,7 @@ function ELEMENT:OnSettingsChanged(settings)
     end
 
     clip1_panel.PaintOverScanlines = function(self, x, y)
-        
+
         if not settings.ammo1_separate and not has_clip1 then
 
             hudammo1:PaintScanlines( x, y )
@@ -1729,7 +1729,7 @@ function ELEMENT:OnSettingsChanged(settings)
     clip2_layout:SetMargin( settings.clip2_margin )
     clip2_layout:SetDirection( settings.clip2_direction )
     clip2_layout:SetOrder( settings.clip2_order )
-    
+
     clip2_panel:SetAnimation( clip2_animation )
     clip2_panel:SetAnimationDirection( clip2_animation_direction )
     clip2_panel:SetDrawBackground( clip2_background )
@@ -1772,7 +1772,7 @@ function ELEMENT:OnSettingsChanged(settings)
     end
 
     clip2_panel.PaintOverScanlines = function( self, x, y )
-        
+
         if not settings.ammo2_separate and not has_clip2 then
 
             hudammo2:PaintScanlines( x, y )
@@ -1824,7 +1824,7 @@ function ELEMENT:OnSettingsChanged(settings)
     hudfiremode:ApplySettings( settings )
 
     if settings.firemode_separate then
-        
+
         hudfiremode:PerformLayout( true )
 
         firemode_layout:SetPos( settings.firemode_separate_pos.x, settings.firemode_separate_pos.y )
@@ -1833,7 +1833,7 @@ function ELEMENT:OnSettingsChanged(settings)
         firemode_layout:SetMargin( settings.firemode_separate_margin )
         firemode_layout:SetDirection( settings.firemode_separate_direction )
         firemode_layout:SetOrder( settings.firemode_separate_order )
-    
+
         firemode_panel:SetDrawBackground( settings.firemode_separate_background )
         firemode_panel:SetColor( settings.firemode_separate_background_color )
         firemode_panel:SetAnimation( settings.firemode_separate_animation )
@@ -1848,7 +1848,7 @@ function ELEMENT:OnSettingsChanged(settings)
     hudquicknades:ApplySettings( settings, self.fonts )
 
     if settings.quicknades_separate then
-        
+
         quicknades_layout:SetPos( settings.quicknades_separate_pos.x, settings.quicknades_separate_pos.y )
         quicknades_layout:SetDock( settings.quicknades_separate_dock )
         quicknades_layout:SetMargin( settings.quicknades_separate_margin )
@@ -1925,6 +1925,55 @@ HOLOHUD2.modifier.Add( "number3_font", "ammo", "quicknades_num_font" )
 HOLOHUD2.modifier.Add( "number3_offset", "ammo", "quicknades_num_offset" )
 HOLOHUD2.modifier.Add( "text_font", "ammo", { "clip1text_font", "ammo1text_font", "clip2text_font", "ammo2text_font" } )
 HOLOHUD2.modifier.Add( "text_offset", "ammo", { "clip1text_pos", "ammo1text_pos", "clip2text_pos", "ammo2text_pos" } )
+HOLOHUD2.modifier.Add( "scale", "ammo", {
+    "firemode_pos",
+    "firemode_size",
+    "firemode_separate_pos",
+    "firemode_separate_margin",
+    "firemode_separate_padding",
+
+    "quicknades_pos",
+    "quicknades_icon_size",
+    "quicknades_num_offset",
+    "quicknades_num_font",
+    "quicknades_separate_pos",
+    "quicknades_separate_margin",
+    "quicknades_separate_padding",
+
+    "clip1_pos", "clip1_margin", "clip1_size",
+    "clip1num_pos", "clip1num_font",
+    "clip1separator_pos", "clip1separator_size",
+    "clip1num2_pos", "clip1num2_font",
+    "clip1bar_pos", "clip1bar_size",
+    "clip1tray_pos", "clip1tray_size",
+    "clip1icon_pos", "clip1icon_size",
+    "clip1text_pos", "clip1text_font",
+
+    "clip2_pos", "clip2_margin", "clip2_size",
+    "clip2num_pos", "clip2num_font",
+    "clip2separator_pos", "clip2separator_size",
+    "clip2num2_pos", "clip2num2_font",
+    "clip2bar_pos", "clip2bar_size",
+    "clip2tray_pos", "clip2tray_size",
+    "clip2icon_pos", "clip2icon_size",
+    "clip2text_pos", "clip1text_font",
+
+    "ammo1_pos", "ammo1_margin", "ammo1_size",
+    "ammo1num_pos", "ammo1num_font",
+    "ammo1separator_pos", "ammo1separator_size",
+    "ammo1bar_pos", "ammo1bar_size",
+    "ammo1tray_pos", "ammo1tray_size",
+    "ammo1icon_pos", "ammo1icon_size",
+    "ammo1text_pos", "ammo1text_font",
+
+    "ammo2_pos", "ammo2_margin", "ammo2_size",
+    "ammo2num_pos", "ammo2num_font",
+    "ammo2separator_pos", "ammo2separator_size",
+    "ammo2bar_pos", "ammo2bar_size",
+    "ammo2tray_pos", "ammo2tray_size",
+    "ammo2icon_pos", "ammo2icon_size",
+    "ammo2text_pos", "ammo1text_font",
+} )
 
 ---
 --- Presets
@@ -1952,7 +2001,7 @@ HOLOHUD2.presets.Add( "ammo", "Classic - Compact", {
     ammo1tray_pos = { x = 3, y = 3 },
     ammo1tray_size = { x = 12, y = 32 },
     ammo1tray_direction = 2,
-    
+
     clip2_size = { x = 76, y = 52 },
     clip2num_pos = { x = 18, y = -1 },
     clip2num2_pos = { x = 25, y = 29 },
@@ -2000,7 +2049,7 @@ HOLOHUD2.presets.Add( "ammo", "Classic - Minimalistic", {
     ammo1icon_pos = { x = 9, y = 12 },
     ammo1icon_size = 4,
     ammo1icon_angle = 297,
-    
+
     clip2_copy = true,
 
     ammo2_separate = true,

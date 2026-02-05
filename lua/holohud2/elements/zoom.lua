@@ -36,7 +36,7 @@ local ELEMENT = {
         elevation_color2                = { name = "#holohud2.zoom.graduation_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 12 ) },
         elevation_gap                   = { name = "#holohud2.zoom.gap", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         elevation_font                  = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 0, italic = false } },
-        
+
         zoom                            = { name = "#holohud2.common.visible", type = HOLOHUD2.PARAM_BOOL, value = true },
         zoom_pos                        = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_VECTOR, value = { x = 0, y = -180 }, helptext = "#holohud2.zoom.offset.helptext" },
         zoom_size                       = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 60, y = 20 } },
@@ -462,7 +462,7 @@ distance_panel.PaintOverScanlines = function( self, x, y )
     if hook_Call( "DrawZoomDistance", x, y, self._w, self._h, LAYER_SCANLINES ) then return end
 
     hudzoomdistance:PaintScanlines( x, y )
-    
+
     hook_Call( "DrawOverZoomDistance", x, y, self._w, self._h, LAYER_SCANLINES, hudzoomdistance )
 
 end
@@ -473,7 +473,7 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     elevation_panel_left:Close()
     elevation_panel_right:Close()
     zoom_panel:Close()
@@ -483,7 +483,7 @@ function ELEMENT:QueueStartup()
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -508,7 +508,7 @@ function ELEMENT:PreDraw( settings )
 
     local trace = localplayer:GetEyeTrace()
     hudzoomdistance:SetValue( trace.Hit and math.floor( conversion * EyePos():Distance( trace.HitPos ) ) or INF_GLYPH )
-    
+
     local can_zoom = hook_Call( "CanZoom" )
     if can_zoom == nil then can_zoom = localplayer:GetCanZoom() end
 
@@ -516,13 +516,13 @@ function ELEMENT:PreDraw( settings )
     hudzoom:SetValue( math.max( math.Round( MAX_ZOOM * animation ), 1 ) )
 
     if zoomed then
-        
+
         animation = math.min( animation + frametime * ZOOM_SPEED, 1 )
-    
+
     else
 
         animation = math.max( animation - frametime * ZOOM_SPEED, 0 )
-    
+
     end
 
     elevation_panel_left:SetDeployed( not minimized and zoomed )
@@ -569,7 +569,7 @@ end
 local ZOOM_OVERLAY  = surface.GetTextureID( "vgui/zoom" )
 
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     elevation_panel_left:PaintFrame( x, y )
     elevation_panel_right:PaintFrame( x, y )
     zoom_panel:PaintFrame( x, y )
@@ -733,7 +733,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w, h )
-    
+
         preview_elevation:Think()
         preview_elevation:PaintBackground( x, y )
         preview_elevation:Paint( x, y )
@@ -752,7 +752,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w, h )
-    
+
         preview_zoom:Think()
         preview_zoom:PaintBackground( x, y )
         preview_zoom:Paint( x, y )
@@ -771,7 +771,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w, h )
-    
+
         preview_distance:Think()
         preview_distance:PaintBackground( x, y )
         preview_distance:Paint( x, y )
@@ -882,6 +882,11 @@ HOLOHUD2.modifier.Add( "number3_font", "zoom", { "elevation_font", "zoomnum_font
 HOLOHUD2.modifier.Add( "number3_offset", "zoom", { "elevation_pos", "zoomnum_pos" } )
 HOLOHUD2.modifier.Add( "text_font", "zoom", { "zoomtext_font", "distancetext_font", "distanceunit_font" } )
 HOLOHUD2.modifier.Add( "text_offset", "zoom", { "zoomtext_pos", "distancetext_pos", "distanceunit_pos" } )
+HOLOHUD2.modifier.Add( "scale", "zoom", {
+    "elevation_pos", "elevation_size", "elevation_padding", "elevation_gap", "elevation_font",
+    "zoom_pos", "zoom_size", "zoomnum_pos", "zoomnum_font", "zoomunit_pos", "zoomunit_font", "zoomtext_pos", "zoomtext_font",
+    "distance_pos", "distance_size", "distancenum_pos", "distancenum_font", "distanceunit_pos", "distanceunit_font", "distancetext_pos", "distancetext_font"
+} )
 
 ---
 --- Presets

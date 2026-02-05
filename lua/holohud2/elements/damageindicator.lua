@@ -924,6 +924,14 @@ ELEMENT.components = {
 }
 
 ---
+--- Add modifiers
+---
+HOLOHUD2.modifier.Add( "scale", "damageindicator", {
+    "arrow_size", "arrow_offset",
+    "simple_size", "simple_offset", "simple_margin"
+} )
+
+---
 --- Presets
 ---
 HOLOHUD2.presets.Register( "damageindicator", "element/damageindicator" )

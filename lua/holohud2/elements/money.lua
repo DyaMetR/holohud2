@@ -10,7 +10,7 @@ local ELEMENT = {
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_UP },
         margin                      = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         order                       = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_ORDER, value = 128 },
-    
+
         size                        = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 92, y = 22 } },
         background                  = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         background_color            = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
@@ -168,14 +168,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -186,7 +186,7 @@ end
 function ELEMENT:PreDraw( settings )
 
     if startup then return end
-    
+
     panel:Think()
     panel:SetDeployed( not self:IsMinimized() and hook_Call( "ShouldDrawMoney" ) == true )
     layout:SetVisible( panel:IsVisible() )
@@ -236,7 +236,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     local scale = HOLOHUD2.scale.Get()
     local u, v = settings.size.x * scale, settings.size.y * scale
     local x, y = x + w / 2 - u / 2, y + h / 2 - v / 2
-    
+
     if settings.background then
 
         draw.RoundedBox( 0, x, y, u, v, settings.background_color )
@@ -264,10 +264,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
-        return 
-        
+        return
+
     end
 
     layout:SetPos( settings.pos.x, settings.pos.y )
@@ -319,6 +319,12 @@ HOLOHUD2.modifier.Add( "number2_font", "money", { "currency_font", "number_font"
 HOLOHUD2.modifier.Add( "number2_offset", "money", { "currency_pos", "number_pos" } )
 HOLOHUD2.modifier.Add( "text_font", "money", "text_font" )
 HOLOHUD2.modifier.Add( "text_offset", "money", "text_pos" )
+HOLOHUD2.modifier.Add( "scale", "money", {
+    "pos", "margin", "size",
+    "currency_pos", "currency_font",
+    "number_pos", "number_font",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

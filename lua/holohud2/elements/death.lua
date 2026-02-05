@@ -32,7 +32,7 @@ local ELEMENT = {
         text_bullet     = { name = "#holohud2.parameter.bullet", type = HOLOHUD2.PARAM_STRING, value = ">" },
         text_speed      = { name = "#holohud2.parameter.speed", type = HOLOHUD2.PARAM_RANGE, min = 0.01, max = 2, decimals = 2, value = 1 },
         text_delay      = { name = "#holohud2.death.line_delay", type = HOLOHUD2.PARAM_NUMBER, min = 0, decimals = 2, value = 0 },
-        
+
         icon            = { name = "#holohud2.component.icon", type = HOLOHUD2.PARAM_BOOL, value = true },
         icon_pos        = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 16, y = 16 } },
         icon_size       = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 48 },
@@ -49,7 +49,7 @@ local ELEMENT = {
     menu = {
         { id = "style" },
         { id = "color" },
-        
+
         { id = "text", parameters = {
             { id = "text_pos" },
             { id = "text_font" },
@@ -125,11 +125,11 @@ function ELEMENT:PreDraw( settings )
 
     -- do end of sequence flickering
     if draw_time < curtime then
-        
+
         self._alpha = 0
 
     elseif draw_time >= curtime and flickering:GetBool() and draw_time - .5 < curtime then
-        
+
         self._alpha = math.Rand( 0, 1 )
 
     else
@@ -144,7 +144,7 @@ function ELEMENT:PreDraw( settings )
     if cur > #settings.messages then return end
 
     if settings.style == STYLE_DELAYED then
-        
+
         panel_time = curtime + 1
 
     end
@@ -168,7 +168,7 @@ function ELEMENT:Paint( settings, x, y )
 
     StartAlphaMultiplier( self._alpha )
     huddeath:Paint( x, y )
-    huddeathicon:Paint( x, y ) 
+    huddeathicon:Paint( x, y )
     EndAlphaMultiplier()
 
 end
@@ -196,7 +196,7 @@ function ELEMENT:OnPreviewChanged( settings )
     preview_huddeath:Purge()
 
     for _, message in ipairs( settings.messages ) do
-        
+
         if utf8.len( message ) == 0 then continue end
 
         preview_huddeath:AddMessage( message )
@@ -209,7 +209,7 @@ end
 --- Apply settings
 ---
 function ELEMENT:OnSettingsChanged( settings )
-    
+
     style = settings.style
     cur = 1
 
@@ -232,6 +232,14 @@ end
 HOLOHUD2.element.Register( "death", ELEMENT )
 
 ---
+--- Add modifiers
+---
+HOLOHUD2.modifier.Add( "scale", "death", {
+    "text_pos", "text_font", "text_margin", "text_spacing",
+    "icon_pos", "icon_size"
+} )
+
+---
 --- Presets
 ---
 HOLOHUD2.presets.Register( "death", "element/death" )
@@ -246,7 +254,7 @@ HOLOHUD2.presets.Add( "death", "Alternate - Minimal", {
 --- Hide HUD after sequence is over
 ---
 HOLOHUD2.hook.Add( "IsMinimized", "death", function()
-    
+
     if not IsEnabled() or not ELEMENT:IsVisible() then return end
     if alive then return end
     if style == STYLE_NOTHING or panel_time > CurTime() then return end

@@ -4,7 +4,7 @@
 HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
     local scale = HOLOHUD2.scale.Get()
-    
+
     local COLOR2 = Color( 255, 255, 255, 12 )
 
     local font_controls = {} -- DEPRECATED
@@ -43,13 +43,41 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
         end
 
+        local size = vgui.Create("HOLOHUD2_DParameter_Range", panel)
+        size:Dock( TOP )
+        size:SetName( "#holohud2.parameter.scale" )
+        size.Slider:SetMinMax( .01, 3 )
+        size:SetValue( modifiers.scale or 1 )
+        size:SetResettable( modifiers.scale ~= nil )
+        size.OnValueChanged = function( _, value )
+
+            if value == 1 then
+
+                modifiers.scale = nil
+                size:SetResettable( false )
+                parent:OnChange()
+                return
+
+            end
+
+            modifiers.scale = value
+            size:SetResettable( true )
+            parent:OnChange()
+
+        end
+        size.OnValueReset = function( _, value )
+
+            size:SetValue( 1 )
+
+        end
+
     end)
 
     ---
     --- Colouring
     ---
     HOLOHUD2.vgui.AddOptionControls( function( panel, parent )
-    
+
         -- theme
         local color = vgui.Create( "HOLOHUD2_DParameter_Color", panel )
         color:Dock( TOP )
@@ -57,9 +85,9 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         color:SetValue( modifiers.color or color_white )
         color:SetResettable( modifiers.color )
         color.OnValueChanged = function( _, value )
-           
+
             if color.PreventUpdate then return end
-            
+
             modifiers.color = value
             color:SetResettable( true )
             parent:OnChange()
@@ -77,7 +105,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
             color.PreventUpdate = false
 
         end
-        
+
         -- back color
         local color2 = vgui.Create( "HOLOHUD2_DParameter_Color", panel )
         color2:Dock( TOP )
@@ -85,7 +113,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         color2:SetValue( modifiers.color2 or COLOR2 )
         color2:SetResettable( modifiers.color2 )
         color2.OnValueChanged = function( _, value )
-           
+
             if color2.PreventUpdate then return end
 
             modifiers.color2 = value
@@ -112,7 +140,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
     --- Panel
     ---
     HOLOHUD2.vgui.AddOptionControls( function( panel, parent )
-    
+
         local BACKGROUND_COLOR  = Color( 0, 0, 0, 94 )
 
         local sample = HOLOHUD2.component.Create( "AnimatedPanel" )
@@ -128,7 +156,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         preview:SetKeepAspect( true )
         preview:SetMouseInputEnabled( true )
         preview.PaintOver = function( self, w, h )
-            
+
             sample:SetDrawBackground( modifiers.background ~= false )
             sample:SetColor( modifiers.background_color or BACKGROUND_COLOR )
             sample:SetAnimation( modifiers.panel_animation or HOLOHUD2.PANELANIMATION_FLASH )
@@ -178,7 +206,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         color:SetValue( modifiers.background_color or BACKGROUND_COLOR )
         color:SetResettable( modifiers.background_color )
         color.OnValueChanged = function( _, value )
-           
+
             if color.PreventUpdate then return end
 
             modifiers.background_color = value
@@ -237,7 +265,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
     --- Number
     ---
     HOLOHUD2.vgui.AddOptionControls( function( panel, parent )
-    
+
         local WIREFRAME_COLOR = HOLOHUD2.WIREFRAME_COLOR
 
         local fonts = {
@@ -274,7 +302,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         sample2:SetValue( 60 )
 
         local samples = { sample0, sample1, sample2 }
-        
+
         -- add options
         local preview = vgui.Create( "HOLOHUD2_DPreviewImage", panel )
         preview:Dock( TOP )
@@ -410,7 +438,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         end
         rendermode.OnValueReset = function( _ )
 
-            rendermode:SetValue( 1 ) 
+            rendermode:SetValue( 1 )
 
         end
 
@@ -499,7 +527,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
     --- Text
     ---
     HOLOHUD2.vgui.AddOptionControls( function( panel, parent )
-    
+
         local fonts             = {
             { name = "#holohud2.derma.properties.common.font_0", font = "holohud2_preview3", size = 12, value = "text_font", offset = "text_offset", default = { font = "Roboto Light", size = 0, weight = 0, italic = false } },
             { name = "#holohud2.derma.properties.common.font_1", font = "holohud2_preview4", size = 10, value = "text2_font", offset = "text2_offset", default = { font = "Roboto Condensed Light", size = 0, weight = 1000, italic = true } }
@@ -527,7 +555,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
         sample1:SetText( "#holohud2.derma.properties.common.text_preview" )
 
         local samples = { sample0, sample1 }
-        
+
         -- add options
         local preview = vgui.Create( "HOLOHUD2_DPreviewImage", panel )
         preview:Dock( TOP )
@@ -644,7 +672,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
                     offset.PreventUpdate = false
 
                 end
-            
+
             collapsible:SetExpanded( true )
 
             table.insert( font_controls, control )

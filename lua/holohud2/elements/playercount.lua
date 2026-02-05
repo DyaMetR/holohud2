@@ -81,7 +81,7 @@ local ELEMENT = {
         { id = "autohide", parameters = {
             { id = "autohide_delay" }
         } },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos", parameters = {
                 { id = "dock" },
@@ -156,7 +156,7 @@ local ELEMENT = {
     quickmenu = {
         { id = "singleplayer" },
         { id = "autohide" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -249,14 +249,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -290,7 +290,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if not panel:IsVisible() then return end
-        
+
     hudplayercount:Think()
 
 end
@@ -299,7 +299,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -337,7 +337,7 @@ preview_hudplayercount:SetMaxValue( 32 )
 function ELEMENT:OnPreviewChanged( settings )
 
     preview_hudplayercount:ApplySettings( settings, self.preview_fonts )
-    
+
 end
 
 function ELEMENT:PreviewPaint( x, y, w, h, settings )
@@ -407,7 +407,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
         return
 
@@ -460,6 +460,15 @@ HOLOHUD2.modifier.Add( "number_rendermode", "playercount", { "number_rendermode"
 HOLOHUD2.modifier.Add( "number_background", "playercount", { "number_background", "number2_background" } )
 HOLOHUD2.modifier.Add( "number3_font", "playercount", { "number_font", "number2_font" } )
 HOLOHUD2.modifier.Add( "number3_offset", "playercount", { "number_pos", "number2_pos" } )
+HOLOHUD2.modifier.Add( "scale", "playercount", {
+    "pos", "margin", "size",
+    "number_pos", "number_font",
+    "separator_pos", "separator_size", "separator_font",
+    "number2_pos", "number2_font",
+    "progressbar_pos", "progressbar_size",
+    "icon_pos", "icon_size",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

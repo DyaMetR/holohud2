@@ -665,6 +665,19 @@ HOLOHUD2.modifier.Add( "text_font", "targetid", "name_font" )
 HOLOHUD2.modifier.Add( "text_offset", "targetid", "name_pos" )
 HOLOHUD2.modifier.Add( "text2_font", "targetid", "team_font" )
 HOLOHUD2.modifier.Add( "text2_offset", "targetid", "team_pos" )
+HOLOHUD2.modifier.Add( "scale", "targetid", {
+    "pos", "margin", "padding",
+    "name_offset", "name_font",
+    "team_margin", "team_offset", "team_font",
+    "progressbars_margin", "progressbars_spacing",
+    "healthbar_size", "healthbar_dotline_size",
+    "suitbar_pos", "suitbar_size", "suitbar_dotline_size",
+    "numbers_margin", "numbers_offset", "numbers_spacing",
+    "healthicon_size", "healthicon_spacing",
+    "healthnum_offset", "healthnum_font",
+    "suiticon_size", "suiticon_spacing",
+    "suitnum_offset", "suitnum_font"
+} )
 
 ---
 --- Presets

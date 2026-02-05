@@ -67,7 +67,7 @@ local ELEMENT = {
     menu = {
         { id = "singleplayer" },
         { id = "threshold" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos", parameters = {
                 { id = "dock" },
@@ -126,7 +126,7 @@ local ELEMENT = {
     quickmenu = {
         { id = "singleplayer" },
         { id = "threshold" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -232,7 +232,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if not panel:IsVisible() then return end
-        
+
     hudping:Think()
 
 end
@@ -241,7 +241,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -278,7 +278,7 @@ preview_hudping:SetValue( 5 )
 function ELEMENT:OnPreviewChanged( settings )
 
     preview_hudping:ApplySettings( settings, self.preview_fonts )
-    
+
 end
 
 function ELEMENT:PreviewPaint( x, y, w, h, settings )
@@ -341,7 +341,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
         return
 
@@ -394,6 +394,14 @@ HOLOHUD2.modifier.Add( "number_rendermode", "ping", "number_rendermode" )
 HOLOHUD2.modifier.Add( "number_background", "ping", "number_background" )
 HOLOHUD2.modifier.Add( "number3_font", "ping", "number_font" )
 HOLOHUD2.modifier.Add( "number3_offset", "ping", "number_pos" )
+HOLOHUD2.modifier.Add( "scale", "ping", {
+    "pos", "margin", "size",
+    "icon_pos", "icon_size",
+    "number_pos", "number_font",
+    "unit_pos", "unit_font",
+    "graph_pos", "graph_size",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

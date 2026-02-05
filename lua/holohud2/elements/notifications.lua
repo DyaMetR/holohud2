@@ -427,6 +427,7 @@ HOLOHUD2.modifier.Add( "background", "quicknotifs", "background" )
 HOLOHUD2.modifier.Add( "background_color", "quicknotifs", "background_color" )
 HOLOHUD2.modifier.Add( "color", "quicknotifs", { "generic_color", "error_color", "hint_color", "cleanup_color", "undo_color" } )
 HOLOHUD2.modifier.Add( "text_font", "quicknotifs", "font" )
+HOLOHUD2.modifier.Add( "scale", "notifications", { "pos", "margin", "size", "padding", "font" } )
 
 ---
 --- Presets

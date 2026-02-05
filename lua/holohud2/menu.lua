@@ -44,7 +44,7 @@ local function open_properties()
         browser:SetHeader( "holohud2/presets" )
         browser:SetContents( HOLOHUD2.persistence.Find() )
         browser.OnAction = function( _, filename )
-            
+
             HOLOHUD2.persistence.Write( settings, modifiers, filename )
             state.filename = filename
             browser:Close()
@@ -115,16 +115,16 @@ local function open_properties()
             properties.GeneratePreview = function( _, force )
 
                 if not preview[ id ] or force then
-                        
+
                     preview[ id ] = table.Copy( element.values )
                     table.Merge( preview[ id ], HOLOHUD2.modifier.Call( preview, modifiers, id ) )
                     if settings[ id ] then table.Merge( preview[ id ], settings[ id ], true ) end
-                
+
                 end
 
                 -- generate fonts
                 if element.preview_fonts then
-                    
+
                     for font, data in pairs( element.preview_fonts ) do
 
                         HOLOHUD2.font.Register( data, preview[ id ][ font ] )
@@ -180,23 +180,23 @@ local function open_properties()
                 Derma_StringRequest( "#holohud2.derma.properties.import", "#holohud2.derma.properties.import.dialog", "", function( value )
 
                     local decoded = util.JSONToTable( util.Base64Decode( value ) or "" )
-    
+
                     if not decoded then
-    
+
                         Derma_Message( "#holohud2.derma.properties.import.error", "#holohud2.derma.error", "#holohud2.derma.ok" )
                         return
-    
+
                     end
-    
+
                     properties:OnPresetSelected( decoded )
-    
+
                 end )
 
             end
             properties.DoExport = function( _, lua_table )
 
                 local window = vgui.Create( "HOLOHUD2_DExportWindow" )
-                
+
                 local result = settings[ id ] or {}
 
                 if lua_table then
@@ -241,10 +241,10 @@ local function open_properties()
                 if table.IsEmpty( settings[ id ] ) then settings[ id ] = nil end
 
                 properties:SetResettable( settings[ id ] ~= nil )
-                
+
                 local default = element.values[ parameter ]
                 if istable( default ) then default = table.Copy( default ) end
-                
+
                 preview[ id ][ parameter ] = default
                 local modified = HOLOHUD2.modifier.Call( preview, modifiers, id )
 
@@ -262,7 +262,7 @@ local function open_properties()
 
             end
             properties.OnPanelExpanded = function( _, parameter, expanded )
-                
+
                 if expanded then
 
                     if not state.parameters[ id ] then state.parameters[ id ] = {} end
@@ -282,7 +282,7 @@ local function open_properties()
 
             end
             properties.OnTabChanged = function( _, tab )
-                
+
                 state.tabs[ id ] = tab
 
             end
@@ -301,9 +301,9 @@ local function open_properties()
 
         end
         advanced.Panel.FetchElementVisibility = function( _, id, element )
-            
+
             if not settings[ id ] or settings[ id ]._visible == nil then
-                
+
                 return element.visible ~= false
 
             end
@@ -312,7 +312,7 @@ local function open_properties()
 
         end
         advanced.Panel.OnVisibilityChanged = function( _, id, visible )
-            
+
             if not settings[ id ] then settings[ id ] = {} end
 
             settings[ id ]._visible = visible
@@ -321,10 +321,10 @@ local function open_properties()
         tabs.OnActiveTabChanged = function( _, _, tab )
 
             state.on_advanced = tab == advanced.Tab
-            
+
             if not state.on_advanced then return end
             if not advanced.Panel.SelectedID then return end
-            
+
             advanced.Panel.Selected:GeneratePreview()
 
         end
@@ -344,7 +344,7 @@ local function open_properties()
 
         -- set cached visibility on the checkbox list
         for id, line in pairs( advanced.Panel.Lines ) do
-            
+
             line:SetChecked( advanced.Panel:FetchElementVisibility( id, HOLOHUD2.element.Get( id ) ) )
 
         end
@@ -355,12 +355,12 @@ local function open_properties()
     ---
     --- Menu bar
     ---
-    
+
     -- File
     local file = frame:AddMenu( "#holohud2.derma.properties.file" )
 
         file:AddOption( "#holohud2.derma.properties.new", function()
-        
+
             settings = {}
             modifiers = {}
             preview = {}
@@ -372,7 +372,7 @@ local function open_properties()
 
         end):SetIcon( "icon16/page.png" )
         file:AddOption( "#holohud2.derma.properties.open", function()
-        
+
             local browser = vgui.Create( "HOLOHUD2_DBrowser" )
             browser:SetSize( 400, 300 )
             browser:Center()
@@ -400,7 +400,7 @@ local function open_properties()
                 end
 
                 if not settings or not modifiers then
-                    
+
                     Derma_Message( "#holohud2.derma.properties.open.error", "#holohud2.derma.error", "#holohud2.derma.ok" )
                     return
 
@@ -430,7 +430,7 @@ local function open_properties()
         end):SetIcon( "icon16/folder.png" )
         file:AddSpacer()
         file:AddOption( "#holohud2.derma.properties.save", function( _ )
-        
+
             if state.filename then
 
                 HOLOHUD2.persistence.Write( settings, modifiers, state.filename )
@@ -443,9 +443,9 @@ local function open_properties()
         end):SetIcon( "icon16/disk.png" )
         file:AddOption( "#holohud2.derma.properties.save_as", function() frame:SaveAs() end ):SetIcon( "icon16/disk_multiple.png" )
         file:AddSpacer()
-        
+
         file:AddOption( "#holohud2.derma.properties.import", function()
-        
+
             Derma_StringRequest( "#holohud2.derma.properties.import", "#holohud2.derma.properties.import.dialog", "", function( value )
 
                 local decoded = util.JSONToTable( util.Base64Decode( value ) or "" )
@@ -471,7 +471,7 @@ local function open_properties()
         parent:SetImage( "icon16/page_white_go.png" )
 
         submenu:AddOption( "#holohud2.derma.properties.export.code", function()
-        
+
             local window = vgui.Create( "HOLOHUD2_DExportWindow" )
             window:SetSize( 380, 78 )
             window:Center()
@@ -479,7 +479,7 @@ local function open_properties()
 
         end):SetImage( "icon16/attach.png" )
         submenu:AddOption( "#holohud2.derma.properties.export.lua", function()
-        
+
             local window = vgui.Create( "HOLOHUD2_DExportWindow" )
             window:SetSize( 380, 480 )
             window:Center()
@@ -503,7 +503,7 @@ local function open_properties()
                 local reset = default:AddOption( "#holohud2.derma.properties.server.default.restore", function() HOLOHUD2.server.ClearDefaults() end )
                 reset:SetIcon( "icon16/arrow_refresh.png" )
                 reset.Think = function() -- HACK
-                    
+
                     reset:SetEnabled( not table.IsEmpty( HOLOHUD2.server.Defaults() ) )
 
                 end
@@ -517,7 +517,7 @@ local function open_properties()
                 local remove = config:AddOption( "#holohud2.derma.properties.server.settings.restore", function() HOLOHUD2.server.Clear() end )
                 remove:SetIcon( "icon16/delete.png" )
                 remove.Think = function() -- HACK
-                    
+
                     remove:SetEnabled( not table.IsEmpty( HOLOHUD2.server.Get() ) )
 
                 end
@@ -541,7 +541,7 @@ local function open_properties()
             report:AddOption( "#holohud2.derma.properties.help.report.github", function() gui.OpenURL( "https://github.com/DyaMetR/holohud2/issues/new" ) end ):SetIcon( "holohud2/github16.png" )
 
         help:AddOption( "#holohud2.derma.properties.help.about", function()
-        
+
             local dialog = vgui.Create( "HOLOHUD2_DAbout" )
             dialog:SetSize( 480, 230 )
             dialog:Center()
@@ -550,7 +550,7 @@ local function open_properties()
             dialog:DoModal()
 
         end):SetIcon( "icon16/information.png" )
-    
+
     if game.SinglePlayer() then return end -- NOTE: ignore warning if on singleplayer
 
     ---
@@ -562,7 +562,7 @@ local function open_properties()
     warning:SetIcon( "icon16/error.png" )
     warning:SetText( "#holohud2.properties.override_warning" )
     frame.Think = function()
-        
+
         local visible = not table.IsEmpty( HOLOHUD2.server.Get() )
 
         if warning:IsVisible() == visible then return end

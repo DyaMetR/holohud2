@@ -56,7 +56,7 @@ local ELEMENT = {
     },
     menu = {
         { id = "filter" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos", parameters = {
                 { id = "dock" },
@@ -190,7 +190,7 @@ local panel     = HOLOHUD2.component.Create( "AnimatedPanel" )
 panel:SetLayout( layout )
 
 panel.PaintOverFrame = function( self, x, y )
-    
+
     hook_Call( "DrawEntityInfo", x, y, self._w, self._h, LAYER_FRAME )
 
 end
@@ -231,14 +231,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -283,21 +283,21 @@ function ELEMENT:PreDraw( settings )
     local result = localplayer:GetEyeTrace()
 
     if not result.Hit then
-        
+
         warmup = curtime + WARMUP
         return
 
     end
-    
+
     local target = result.Entity
-    
+
     if not IsValid( target ) or hook_Call( "ShouldShowEntityID", target, result ) == false then
-        
+
         warmup = curtime + WARMUP
         return
 
     end
-    
+
     local health = target:Health()
 
     -- if there's nothing to show -- just don't!
@@ -332,7 +332,7 @@ function ELEMENT:PreDraw( settings )
         hudentid.Details:SetVisible( settings.details )
 
     elseif target:IsNPC() or target:IsNextBot() then
-        
+
         hudentid:SetName( language.GetPhrase( target:GetClass() ) )
         hudentid.Details:SetVisible( false )
 
@@ -346,7 +346,7 @@ function ELEMENT:PreDraw( settings )
 
             hudentid:SetDetails( target.Category or "" )
             hudentid.Details:SetVisible( settings.details and target.Category )
-        
+
         elseif PROP_CLASS[ class ] then
 
             hudentid:SetDetails( util_NicePath( target:GetModel() ) )
@@ -365,7 +365,7 @@ function ELEMENT:PreDraw( settings )
 
     local w, h = hudentid:GetSize()
     layout:SetSize( w + settings.padding * 2 + 2, h + settings.padding * 2 )
-    
+
     _target = target
 
 end
@@ -374,7 +374,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -487,7 +487,7 @@ function ELEMENT:PreviewInit( panel )
         health:SetValue( PREVIEW_HEALTH * 100 )
 
     end
-    
+
 end
 
 ---
@@ -550,6 +550,11 @@ HOLOHUD2.modifier.Add( "color", "entityid", "name_color" )
 HOLOHUD2.modifier.Add( "color2", "entityid", "details_color" )
 HOLOHUD2.modifier.Add( "text_font", "entityid", "name_font" )
 HOLOHUD2.modifier.Add( "text2_font", "entityid", "details_font" )
+HOLOHUD2.modifier.Add( "scale", "entityid", {
+    "pos", "margin", "padding",
+    "name_font", "details_pos", "details_margin", "details_font",
+    "healthbar_pos", "healthbar_margin", "healthbar_size"
+} )
 
 ---
 --- Presets

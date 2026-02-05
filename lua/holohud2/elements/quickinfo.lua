@@ -180,7 +180,7 @@ function ELEMENT:DoStartupSequence( settings )
     local curtime = CurTime()
 
     if next_startup_phase < curtime then
-    
+
         if startup_phase == STARTUP_FILL then
 
             startup_phase = STARTUP_NONE
@@ -190,14 +190,14 @@ function ELEMENT:DoStartupSequence( settings )
 
         startup_phase = startup_phase + 1
         next_startup_phase = curtime + 1
-    
+
     end
 
     left:Think()
     right:Think()
 
     alpha = settings.min_alpha / 255
-    
+
     return startup_phase == STARTUP_STANDBY
 
 end
@@ -235,9 +235,9 @@ function ELEMENT:PreDraw( settings )
         local warn = health / max_health <= WARNING_THRESHOLD
 
         if not _healthwarn and warn then
-            
+
             warned = true
-        
+
         end
 
         animated = true
@@ -263,7 +263,7 @@ function ELEMENT:PreDraw( settings )
     local clip1, max_clip1, ammo1, max_ammo1, primary = GetPrimaryAmmo()
 
     if primary > 0 then
-            
+
         local ammo, max_ammo = 0, 0
 
         if clip1 ~= -1 then
@@ -281,9 +281,9 @@ function ELEMENT:PreDraw( settings )
             local warn = ammo / max_ammo <= WARNING_THRESHOLD
 
             if not _ammowarn and warn then
-                
+
                 warned = true
-            
+
             end
 
             animated = true
@@ -310,7 +310,7 @@ function ELEMENT:PreDraw( settings )
     local clip2, max_clip2, ammo2, max_ammo2, secondary = GetSecondaryAmmo()
 
     if secondary > 0 then
-            
+
         local ammo = 0
 
         if clip2 ~= -1 then
@@ -348,9 +348,9 @@ function ELEMENT:PreDraw( settings )
     if warned and settings.warning and settings.warning_sound then
 
         localplayer:EmitSound( settings.warning_sound_path, SNDLVL_NONE, settings.warning_sound_pitch, settings.warning_sound_volume / 100 )
-        
+
         if settings.warning_sound_volume > 100 then
-            
+
             localplayer:EmitSound( settings.warning_sound_path, SNDLVL_NONE, settings.warning_sound_pitch, ( settings.warning_sound_volume - 100 ) / 100 )
 
         end
@@ -378,7 +378,7 @@ function ELEMENT:PreDraw( settings )
         animation = math.min( animation + frametime / FADE_IN_TIME, 1 )
 
         if animation == 1 then
-            
+
             animated = false
 
         end
@@ -395,7 +395,7 @@ function ELEMENT:PreDraw( settings )
     local trace = localplayer:GetEyeTraceNoCursor()
 
     if not localplayer:ShouldDrawLocalPlayer() or not trace.Hit then
-        
+
         _x, _y = 0, 0
         return
 
@@ -471,7 +471,7 @@ preview_right:SetValue( 1 )
 local preview_sound, preview_volume, preview_pitch, preview_warning
 
 function ELEMENT:PreviewInit( panel )
-    
+
     local controls = vgui.Create( "Panel", panel )
     controls:SetSize( 140, 122 )
     controls:SetPos( 4, panel:GetTall() - controls:GetTall() )
@@ -622,6 +622,11 @@ ELEMENT.components = {
     left        = left,
     right       = right
 }
+
+---
+--- Apply modifiers
+---
+HOLOHUD2.modifier.Add( "scale", "quickinfo", { "offset", "size" } )
 
 ---
 --- Presets

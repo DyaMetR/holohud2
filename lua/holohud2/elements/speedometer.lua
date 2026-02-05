@@ -278,7 +278,7 @@ panel.PaintOverFrame = function( self, x, y )
 end
 
 panel.PaintOverBackground = function( self, x, y )
-    
+
     if hook_Call( "DrawSpeedometer", x, y, LAYER_BACKGROUND ) then return end
 
     hudspeedometer:PaintBackground( x, y )
@@ -298,7 +298,7 @@ panel.PaintOver = function( self, x, y )
 end
 
 panel.PaintOverScanlines = function( self, x, y )
-    
+
     if hook_Call( "DrawSpeedometer", x, y, LAYER_SCANLINES ) then return end
 
     hudspeedometer:PaintScanlines( x, y )
@@ -359,7 +359,7 @@ function ELEMENT:DoStartupSequence( settings )
 
     if startup_phase == STARTUP_NONE then return end
     if startup_phase == STARTUP_QUEUED then return true end
-    
+
     local curtime = CurTime()
 
     if startup_phase == STARTUP_FILL then
@@ -377,7 +377,7 @@ function ELEMENT:DoStartupSequence( settings )
     if next_startup_phase < curtime then
 
         if startup_phase ~= STARTUP_ENDING then
-            
+
             startup_phase = startup_phase + 1
             next_startup_phase = curtime + STARTUP_TIMINGS[ startup_phase ]
 
@@ -390,7 +390,7 @@ function ELEMENT:DoStartupSequence( settings )
     end
 
     hudspeedometer:Think()
-    
+
     panel:Think()
     panel:SetDeployed( true )
 
@@ -409,11 +409,11 @@ function ELEMENT:PreDraw( settings )
     if self:DoStartupSequence( settings ) then return end
 
     localplayer = localplayer or LocalPlayer()
-    
+
     if self:IsMinimized() then
 
         panel:SetDeployed( false )
-        
+
     elseif self:IsInspecting() then
 
         panel:SetDeployed( true )
@@ -421,7 +421,7 @@ function ELEMENT:PreDraw( settings )
     else
 
         if localplayer:InVehicle() then
-            
+
             local vehicle = localplayer:GetVehicle()
 
             if POD_BLACKLIST[ vehicle:GetClass() ] and ( not IsValid( vehicle:GetMoveParent() ) or POD_PARENT_BLACKLIST[ vehicle:GetMoveParent():GetClass() ] ) then
@@ -455,19 +455,19 @@ function ELEMENT:PreDraw( settings )
 
         -- is it a Lua vehicle
         if IsValid( vehicle:GetMoveParent() ) then
-            
+
             vehicle = vehicle:GetMoveParent()
 
         end
 
         local speed = vehicle:GetVelocity():Length()
-        
+
         if worldsize:GetBool() then
-        
-        		speed = speed * .75
-        
+
+            speed = speed * .75
+
         end
-        
+
         hudspeedometer:SetSpeed( speed )
 
         -- get vehicle damage
@@ -483,7 +483,7 @@ function ELEMENT:PreDraw( settings )
             hudspeedometer:SetRPMValue( rpm / max_rpm )
             hudspeedometer:SetMaxRPM( segments )
             hudspeedometer:SetSegments( segments )
-        
+
         else
 
             hudspeedometer:SetRPMValue( speed / settings.invehicle_maxspeed )
@@ -491,9 +491,9 @@ function ELEMENT:PreDraw( settings )
             hudspeedometer:SetSegments( settings.revcounter_segments )
 
         end
-        
+
         hudspeedometer:SetGear( hook_Call( "GetVehicleGear", vehicle ) or -2 )
-    
+
     else
 
         local speed = math.Round( localplayer:GetVelocity():Length() )
@@ -514,7 +514,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -585,7 +585,7 @@ function ELEMENT:PreviewInit( panel )
 
     local gear = vgui.Create( "Panel", controls )
     gear:Dock( TOP )
-    
+
         local label = vgui.Create( "DLabel", gear )
         label:SetText( "#holohud2.speedometer.preview.gear" )
 
@@ -613,7 +613,7 @@ function ELEMENT:PreviewInit( panel )
 
     local speed = vgui.Create( "Panel", controls )
     speed:Dock( TOP )
-    
+
         local label = vgui.Create( "DLabel", speed )
         label:SetText( "#holohud2.speedometer.preview.speed" )
 
@@ -647,10 +647,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         panel:SetVisible( false )
-        return 
-        
+        return
+
     end
 
     layout:SetDock( settings.dock )
@@ -703,6 +703,16 @@ HOLOHUD2.modifier.Add( "number_background", "speedometer", { "num_background", "
 HOLOHUD2.modifier.Add( "number3_font", "speedometer", { "num_font", "gearcounter_font" } )
 HOLOHUD2.modifier.Add( "number3_offset", "speedometer", { "num_pos", "gearcounter_pos" } )
 HOLOHUD2.modifier.Add( "text_font", "speedometer", { "label_font", "text_font" } )
+HOLOHUD2.modifier.Add( "scale", "speedometer", {
+    "pos", "margin", "size",
+    "num_pos", "num_font",
+    "label_pos", "label_font",
+    "revcounter_pos", "revcounter_size", "revcounter_margin",
+    "revcounter_num_offset", "revcounter_num_font",
+    "damagebar_pos", "damagebar_size",
+    "gearcounter_pos", "gearcounter_font",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

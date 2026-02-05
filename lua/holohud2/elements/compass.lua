@@ -308,7 +308,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
     gauge_panel:PaintFrame( x, y )
 
@@ -370,7 +370,7 @@ function ELEMENT:PreviewInit( panel )
         preview_gauge:SetValue( math.floor( value + ( threesixty and 180 or 0 ) ) )
 
     end
-    
+
     local reset = vgui.Create( "DImageButton", panel )
     reset:SetSize( 16, 16 )
     reset:SetPos( control:GetX() + control:GetWide() + 4, panel:GetTall() - reset:GetTall() - 5 )
@@ -439,7 +439,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
         gauge_layout:SetVisible( false )
         return
@@ -460,7 +460,7 @@ function ELEMENT:OnSettingsChanged( settings )
     panel:SetColor( settings.background_color )
 
     hudcompass:ApplySettings( settings, self.fonts )
-    
+
     gauge_layout:SetVisible( settings.gauge )
     gauge_layout:SetPos( settings.gauge_pos.x, settings.gauge_pos.y )
     gauge_layout:SetDock( settings.gauge_dock )
@@ -516,6 +516,13 @@ HOLOHUD2.modifier.Add( "color", "compass", "color" )
 HOLOHUD2.modifier.Add( "color2", "compass", "color2" )
 HOLOHUD2.modifier.Add( "text_font", "compass", { "font", "graduation_font" } )
 HOLOHUD2.modifier.Add( "number2_font", "compass", "gauge_font" )
+HOLOHUD2.modifier.Add( "scale", "compass", {
+    "pos", "margin", "size",
+    "padding", "font",
+    "graduation_size", "graduation_font",
+    "axis_font",
+    "gauge_pos", "gauge_margin", "gauge_padding", "gauge_font"
+} )
 -- TODO: offset, graduation_offset and gauge_offset
 
 ---

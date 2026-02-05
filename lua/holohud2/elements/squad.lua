@@ -5,7 +5,7 @@ local NET_JOINED    = "holohud2_squad_joined"
 local NET_LEFT      = "holohud2_squad_left"
 
 if SERVER then
-    
+
     local ai = ai
     local net = net
     local IsValid = IsValid
@@ -24,7 +24,7 @@ if SERVER then
     --- doesn't happen.
     local last_squad = {}
     hook.Add( "Tick", "holohud2_squad", function()
-    
+
         local squad = ai.GetSquadMembers( SQUAD )
 
         if not squad then return end
@@ -49,7 +49,7 @@ if SERVER then
 
             -- remove invalid members
             if not IsValid( member ) then
-                
+
                 last_squad[ member ] = nil
                 continue
 
@@ -121,11 +121,11 @@ local ELEMENT = {
         inverted                = { name = "#holohud2.parameter.inverted", type = HOLOHUD2.PARAM_BOOL, value = false },
         fade_offset             = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_NUMBER, value = 8 },
         died_color              = { name = "#holohud2.squad.member_died_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 48, 32 ), helptext = "#holohud2.squad.member_died_color.helptext" },
-        
+
         highlight               = { name = "#holohud2.squad.highlight", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.squad.highlight.helptext" },
         highlight_offset        = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_NUMBER, value = -4 },
         highlight_color         = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 186, 104 ) },
-        
+
         text                    = { name = "#holohud2.component.label", type = HOLOHUD2.PARAM_BOOL, value = false },
         text_pos                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 4 } },
         text_font               = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
@@ -137,7 +137,7 @@ local ELEMENT = {
         icon_pos                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 14, y = 4 } },
         spacing                 = { name = "#holohud2.parameter.spacing", type = HOLOHUD2.PARAM_NUMBER, value = 15 },
         outlined                = { name = "#holohud2.squad.icon_outlined", type = HOLOHUD2.PARAM_BOOL, value = false },
-        
+
         healthbar               = { name = "#holohud2.squad.health_bar", type = HOLOHUD2.PARAM_BOOL, value = true },
         healthbar_pos           = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_VECTOR, value = { x = -6, y = 7 } },
         healthbar_size          = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 24 }, min_x = 1, min_y = 1 },
@@ -387,7 +387,7 @@ function ELEMENT:DoStartupSequence()
     if startup_phase == STARTUP_QUEUED then return true end
 
     local curtime = CurTime()
-    
+
     -- advance through the different phases
     if next_startup_phase < curtime then
 
@@ -412,7 +412,7 @@ end
 local members = {}
 local localplayer
 function ELEMENT:PreDraw( settings )
-    
+
     if self:DoStartupSequence() then return end
 
     localplayer = localplayer or LocalPlayer()
@@ -420,9 +420,9 @@ function ELEMENT:PreDraw( settings )
     local trace = localplayer:GetEyeTrace()
 
     for member, component in pairs( members ) do
-        
+
         if not IsValid( member ) then
-            
+
             hudsquadstatus:RemoveMember( component, true )
             component:SetHealth( 0 )
             members[member] = nil
@@ -451,21 +451,21 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
 
 function ELEMENT:PaintBackground( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
-    
+
     panel:PaintBackground( x, y )
 
 end
 
 function ELEMENT:Paint( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
 
     panel:Paint( x, y )
@@ -473,7 +473,7 @@ function ELEMENT:Paint( settings, x, y )
 end
 
 function ELEMENT:PaintScanlines( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
 
     panel:PaintScanlines( x, y )
@@ -498,7 +498,7 @@ function ELEMENT:PreviewInit( panel )
     local controls = vgui.Create( "Panel", panel )
     controls:Dock( BOTTOM )
     controls:DockMargin( 4, 0, 0, 4 )
-    
+
         local add = vgui.Create( "DButton", controls )
         add:SetWide( 24 )
         add:Dock( LEFT )
@@ -527,7 +527,7 @@ function ELEMENT:PreviewInit( panel )
             preview_hudsquadstatus:RemoveMember( 1, true )
 
             timer.Simple( .56, function()
-            
+
                 if not preview_hudsquadstatus.members[ 1 ] then return end
                 preview_hudsquadstatus.members[ 1 ]:SetHighlighted( true )
 
@@ -627,9 +627,9 @@ net.Receive( NET_JOINED, function( len )
     for _, member in pairs( joined ) do
 
         if not IsValid( member ) then continue end
-        
+
         members[ member ] = hudsquadstatus:AddMember( member:HasSpawnFlags( 131072 ) )
-        
+
     end
 
 end)
@@ -650,7 +650,7 @@ net.Receive( NET_LEFT, function( len )
         local component = members[ member ]
 
         if not component then continue end
-        
+
         hudsquadstatus:RemoveMember( component, member:Health() <= 0 )
         component:SetHealth( 0 )
 
@@ -679,6 +679,14 @@ HOLOHUD2.modifier.Add( "background_color", "squad", "background_color" )
 HOLOHUD2.modifier.Add( "color", "squad", "color" )
 HOLOHUD2.modifier.Add( "color2", "squad", "color2" )
 HOLOHUD2.modifier.Add( "number3_font", "squad", "pile_num_font" )
+HOLOHUD2.modifier.Add( "scale", "squad", {
+    "pos", "margin", "size",
+    "icon_size", "fade_offset", "highlight_offset",
+    "text_pos", "text_font",
+    "icon_pos", "spacing",
+    "healthbar_pos", "healthbar_size",
+    "pile_pos", "pile_spacing", "pile_oddoffset", "pile_num_pos", "pile_num_font"
+} )
 
 ---
 --- Presets

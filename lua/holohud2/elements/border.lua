@@ -37,13 +37,13 @@ local ELEMENT = {
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -61,7 +61,7 @@ local function paint( x, y, w, h, scale, settings )
     local x, y, w, h = x + margin, y + margin, w - margin * 2, h - margin * 2
 
     if settings.frame then
-        
+
         surface.DrawRect( x + size * 2, y, w - size * 4, thickness )
         surface.DrawRect( x + size * 2, y + h - thickness, w - size * 4, thickness )
         surface.DrawRect( x, y + size * 2, thickness, h - size * 4 - thickness )
@@ -70,13 +70,13 @@ local function paint( x, y, w, h, scale, settings )
     end
 
     if settings.style <= 1 then
-        
+
         surface.DrawRect( x, y, size * 2, thickness )
         surface.DrawRect( x, y + thickness, thickness, size * 2 - thickness )
 
         surface.DrawRect( x + w - size * 2, y, size * 2, thickness )
         surface.DrawRect( x + w - thickness, y + thickness, thickness, size * 2 - thickness )
-        
+
         surface.DrawRect( x, y + h - size * 2 - thickness, thickness, size * 2 )
         surface.DrawRect( x, y + h - thickness, size * 2, thickness )
 
@@ -94,17 +94,17 @@ local function paint( x, y, w, h, scale, settings )
         surface.DrawRect( x + w - size * 2, y, size, thickness )
         surface.DrawTexturedRectUV( x + w - size, y, size, size, 1, 0, 0, 1 )
         surface.DrawRect( x + w - thickness, y + size, thickness, size )
-        
+
         surface.DrawRect( x, y + h - size * 2 - thickness, thickness, size )
         surface.DrawTexturedRectUV( x, y + h - size - thickness, size, size, 0, 1, 1, 0 )
         surface.DrawRect( x + size, y + h - thickness, size, thickness )
-        
+
         surface.DrawRect( x + w - thickness, y + h - size * 2 - thickness, thickness, size )
         surface.DrawTexturedRectUV( x + w - size, y + h - size - thickness, size, size, 1, 1, 0, 0 )
         surface.DrawRect( x + w - size * 2, y + h - thickness, size, thickness )
 
     end
-    
+
 
 end
 
@@ -142,3 +142,4 @@ HOLOHUD2.presets.Register( "borders", "element/borders" )
 --- Add common parameter to modifier
 ---
 HOLOHUD2.modifier.Add( "color", "borders", "color" )
+HOLOHUD2.modifier.Add( "scale", "borders", { "size", "margin" } )

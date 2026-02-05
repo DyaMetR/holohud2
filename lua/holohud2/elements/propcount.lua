@@ -15,7 +15,7 @@ local ELEMENT = {
         autohide                    = { name = "#holohud2.parameter.autohide", type = HOLOHUD2.PARAM_BOOL, value = true },
         autohide_delay              = { name = "#holohud2.parameter.delay", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         autohide_threshold          = { name = "#holohud2.parameter.threshold", type = HOLOHUD2.PARAM_RANGE, value = 75, min = 0, max = 100, helptext = "Percentage above which it stops automatically hiding." },
-        
+
         pos                         = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 156, y = 12 } },
         dock                        = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.TOP_LEFT },
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_DOWN },
@@ -83,7 +83,7 @@ local ELEMENT = {
             { id = "autohide_delay" },
             { id = "autohide_threshold" }
         } },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "autohide", parameters = {
                 { id = "autohide_delay" },
@@ -162,7 +162,7 @@ local ELEMENT = {
     quickmenu = {
         { id = "singleplayer" },
         { id = "autohide" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -255,14 +255,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -297,7 +297,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if not panel:IsVisible() then return end
-        
+
     hudpropcount:Think()
 
 end
@@ -306,7 +306,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -343,7 +343,7 @@ preview_hudpropcount:SetMaxValue( 30 )
 function ELEMENT:OnPreviewChanged( settings )
 
     preview_hudpropcount:ApplySettings( settings, self.preview_fonts )
-    
+
 end
 
 function ELEMENT:PreviewPaint( x, y, w, h, settings )
@@ -413,7 +413,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
         return
 
@@ -466,6 +466,15 @@ HOLOHUD2.modifier.Add( "number_rendermode", "propcount", { "number_rendermode", 
 HOLOHUD2.modifier.Add( "number_background", "propcount", { "number_background", "number2_background" } )
 HOLOHUD2.modifier.Add( "number3_font", "propcount", { "number_font", "number2_font" } )
 HOLOHUD2.modifier.Add( "number3_offset", "propcount", { "number_pos", "number2_pos" } )
+HOLOHUD2.modifier.Add( "scale", "propcount", {
+    "pos", "margin", "size",
+    "number_pos", "number_font",
+    "separator_pos", "separator_size",
+    "number2_pos", "number2_font",
+    "progressbar_pos", "progressbar_size",
+    "icon_pos", "icon_size",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

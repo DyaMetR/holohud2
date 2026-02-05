@@ -38,7 +38,7 @@ local ELEMENT = {
         background_color                    = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
         background_color_empty              = { name = "#holohud2.weaponselection.empty_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 140, 14, 14, 94 ) },
         animation                           = { name = "#holohud2.parameter.animation", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.PANELANIMATIONS, value = HOLOHUD2.PANELANIMATION_FLASH },
-        
+
         color                               = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255 ) },
         slot_color                          = { name = "#holohud2.weaponselection.slot_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 64 ) },
         color_empty                         = { name = "#holohud2.weaponselection.empty_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 224, 24, 24 ) },
@@ -47,16 +47,16 @@ local ELEMENT = {
 
         selection_size                      = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 144, y = 72 } },
         selection_animated                  = { name = "#holohud2.parameter.animated", type = HOLOHUD2.PARAM_BOOL, value = true },
-        
+
         selection_name                      = { name = "#holohud2.weaponselection.name", type = HOLOHUD2.PARAM_BOOL, value = true },
         selection_name_pos                  = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 56 } },
         selection_name_font                 = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 0, italic = false } },
         selection_name_align                = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_LEFT },
-        
+
         selection_icon                      = { name = "#holohud2.component.icon", type = HOLOHUD2.PARAM_BOOL, value = true },
         selection_icon_pos                  = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 72, y = 36 } },
         selection_icon_size                 = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 140, min = 0 },
-        
+
         selection_ammo                      = { name = "#holohud2.weaponselection.ammo", type = HOLOHUD2.PARAM_BOOL, value = true },
         selection_ammo1_pos                 = { name = "#holohud2.weaponselection.ammo1_pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 106, y = 4 } },
         selection_ammo2_pos                 = { name = "#holohud2.weaponselection.ammo2_pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 68, y = 4 } },
@@ -79,10 +79,10 @@ local ELEMENT = {
 
         bucket_margin                       = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4 },
         bucket_size                         = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 22, y = 22 } },
-        
+
         slot_font                           = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 16, weight = 1000, italic = false } },
         slot_pos                            = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 3, y = 1 } },
-        
+
         name_font                           = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 0, italic = false } },
         name_pos                            = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 72, y = 3 } },
         name_align                          = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_CENTER },
@@ -92,7 +92,7 @@ local ELEMENT = {
         sound_move_pitch                    = { name = "#holohud2.parameter.sound_pitch", type = HOLOHUD2.PARAM_RANGE, min = 0, max = 255, value = 200 },
         sound_select_path                   = { name = "#holohud2.weaponselection.sound_select", type = HOLOHUD2.PARAM_STRING, value = "buttons/button17.wav" },
         sound_select_pitch                  = { name = "#holohud2.parameter.sound_pitch", type = HOLOHUD2.PARAM_RANGE, min = 0, max = 255, value = 200 },
-        sound_cancel_path                   = { name = "#holohud2.weaponselection.sound_cancel", type = HOLOHUD2.PARAM_STRING, value = "buttons/button10.wav" }, 
+        sound_cancel_path                   = { name = "#holohud2.weaponselection.sound_cancel", type = HOLOHUD2.PARAM_STRING, value = "buttons/button10.wav" },
         sound_cancel_pitch                  = { name = "#holohud2.parameter.sound_pitch", type = HOLOHUD2.PARAM_RANGE, min = 0, max = 255, value = 200 },
         sound_open_path                     = { name = "#holohud2.weaponselection.sound_open", type = HOLOHUD2.PARAM_STRING, value = "buttons/button3.wav" },
         sound_open_pitch                    = { name = "#holohud2.parameter.sound_pitch", type = HOLOHUD2.PARAM_RANGE, min = 0, max = 255, value = 50 }
@@ -371,7 +371,7 @@ function ELEMENT:PreDraw( settings )
 
     -- refresh cache
     if invalid_cache then
-    
+
         cache = {}
 
         for _, weapon in ipairs( weapons ) do
@@ -386,9 +386,9 @@ function ELEMENT:PreDraw( settings )
 
         -- update selection position
         if weapon then
-            
+
             local pos = hudweaponselection:Find( weapon )
-            
+
             if pos then
 
                 hudweaponselection:SetSlot( pos.slot )
@@ -409,9 +409,9 @@ function ELEMENT:PreDraw( settings )
             valid_selection = false
 
         end
-        
+
         invalid_cache = false
-    
+
     end
 
     -- update selection colouring
@@ -432,7 +432,7 @@ function ELEMENT:PreDraw( settings )
 
     -- if automatic hiding is disabled, make the time never run out
     if not settings.autohide and not has_selected then
-        
+
         time = CurTime()
 
     end
@@ -478,7 +478,7 @@ function ELEMENT:FindActiveWeapon()
         hudweaponselection:SetSlot( 0 )
         hudweaponselection:SetSlotPos( 0 )
         return
-        
+
     end
 
     local pos = hudweaponselection:Find( weapon:GetClass() )
@@ -495,7 +495,7 @@ function ELEMENT:MoveCursor( forward )
 
     valid_selection = false
     local last_class = hudweaponselection.weapons[ hudweaponselection.slot ] and hudweaponselection.weapons[ hudweaponselection.slot ][ hudweaponselection.pos ] and hudweaponselection.weapons[ hudweaponselection.slot ][ hudweaponselection.pos ].class
-    
+
     if time < CurTime() then
 
         -- we don't have a valid starting position -- skip
@@ -516,15 +516,15 @@ function ELEMENT:MoveCursor( forward )
             if hudweaponselection.pos > #hudweaponselection.weapons[ hudweaponselection.slot ] then
 
                 hudweaponselection:SetSlot( hudweaponselection.slot + 1 )
-    
+
                 if hudweaponselection.slot > HOLOHUD2.WeaponSelectionSlots then
-    
+
                     hudweaponselection:SetSlot( 1 )
-    
+
                 end
-    
+
                 hudweaponselection:SetSlotPos( 1 )
-    
+
             end
 
         else
@@ -534,15 +534,15 @@ function ELEMENT:MoveCursor( forward )
             if hudweaponselection.pos < 1 then
 
                 hudweaponselection:SetSlot( hudweaponselection.slot - 1 )
-    
+
                 if hudweaponselection.slot < 1 then
-    
+
                     hudweaponselection:SetSlot( HOLOHUD2.WeaponSelectionSlots )
-    
+
                 end
-    
+
                 hudweaponselection:SetSlotPos( #hudweaponselection.weapons[ hudweaponselection.slot ] )
-    
+
             end
 
         end
@@ -581,7 +581,7 @@ function ELEMENT:CycleSlot( slot )
             localplayer:EmitSound( open_sound, nil, open_pitch, volume, CHAN_WEAPON )
 
         end
-        
+
         hudweaponselection:SetSlot( 0 )
         valid_selection = false
 
@@ -609,7 +609,7 @@ function ELEMENT:CycleSlot( slot )
     local class = hudweaponselection.weapons[ hudweaponselection.slot ][ hudweaponselection.pos ].class
 
     if last_class ~= class or time < CurTime() then
-        
+
         if time >= CurTime() then
 
             localplayer:EmitSound( move_sound, nil, move_pitch, volume, CHAN_WEAPON )
@@ -624,7 +624,7 @@ function ELEMENT:CycleSlot( slot )
     hudweaponbucket:SetHeader( hudweaponselection.slot )
     hudweaponbucket:SetDrawHeader( hudweaponselection.pos == 1 )
     valid_selection = true
-    
+
     time = CurTime() + DELAY
 
 end
@@ -643,7 +643,7 @@ UnintrusiveBindPress.add( "holohud2", function( ply, bind, pressed, code )
 
     -- move forward
     if bind == IN_INVNEXT then
-        
+
         ELEMENT:MoveCursor( true )
         has_selected = false
 
@@ -663,7 +663,7 @@ UnintrusiveBindPress.add( "holohud2", function( ply, bind, pressed, code )
 
     -- cycle slot
     if string.sub( bind, 1, 4 ) == IN_SLOT then
-        
+
         local slot = tonumber( string.sub( bind, 5, 6 ) )
 
         if slot < 1 or slot > HOLOHUD2.WeaponSelectionSlots then return end
@@ -681,9 +681,9 @@ UnintrusiveBindPress.add( "holohud2", function( ply, bind, pressed, code )
     if bind == IN_SELECT then
 
         local class = hudweaponselection.weapons[ hudweaponselection.slot ] and hudweaponselection.weapons[ hudweaponselection.slot ][ hudweaponselection.pos ] and hudweaponselection.weapons[ hudweaponselection.slot ][ hudweaponselection.pos ].class
-        
+
         if class then
-            
+
             input.SelectWeapon( localplayer:GetWeapon( class ) )
 
         end
@@ -718,7 +718,7 @@ function ELEMENT:PaintFrame( settings, x, y )
 
     StartAlphaMultiplier( alpha )
     hudweaponselection:PaintFrame( x, y )
-    
+
     if valid_selection then
 
         selectionpanel:PaintFrame( x, y )
@@ -737,7 +737,7 @@ function ELEMENT:PaintBackground( settings, x, y )
     hudweaponselection:PaintBackground( x, y )
 
     if valid_selection then
-        
+
         selectionpanel:PaintBackground( x, y )
 
     end
@@ -754,7 +754,7 @@ function ELEMENT:Paint( settings, x, y )
     hudweaponselection:Paint( x, y )
 
     if valid_selection then
-        
+
         selectionpanel:Paint( x, y )
 
     end
@@ -766,11 +766,11 @@ end
 function ELEMENT:PaintScanlines( settings, x, y )
 
     if alpha <= 0 then return end
-    
+
     StartAlphaMultiplier( GetMinimumGlow() * alpha )
 
     if valid_selection and has_ammo then
-        
+
         selectionpanel:Paint( x, y )
 
     end
@@ -968,6 +968,16 @@ HOLOHUD2.modifier.Add( "number3_offset", "weaponselection", "slot_pos" )
 HOLOHUD2.modifier.Add( "text_font", "weaponselection", { "selection_name_font", "name_font" } )
 HOLOHUD2.modifier.Add( "text_pos", "weaponselection", { "selection_name_pos", "name_pos" } )
 HOLOHUD2.modifier.Add( "text_pos", "weaponselection", { "selection_name_pos", "name_pos" } )
+HOLOHUD2.modifier.Add( "scale", "weaponselection", {
+    "pos", "selection_size",
+    "selection_name_pos", "selection_name_font",
+    "selection_icon_pos", "selection_icon_size",
+    "selection_ammo1_pos", "selection_ammo2_pos", "selection_ammo_size", "selection_ammo_icon_offset", "selection_ammo_icon_size",
+    "selection_clip_pos", "selection_clip_font",
+    "bucket_margin", "bucket_size",
+    "slot_font", "slot_pos",
+    "name_font", "name_pos"
+} )
 
 ---
 --- Presets

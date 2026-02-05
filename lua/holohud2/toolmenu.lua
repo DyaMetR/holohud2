@@ -39,7 +39,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
     --- Properties
     ---
     spawnmenu.AddToolMenuOption( "Utilities", HOLOHUD2.Name, "holohud2_a", "#holohud2.properties", nil, nil, function( panel )
-        
+
         panel:ClearControls()
 
         panel:Help( HOLOHUD2.Name .. " v" .. HOLOHUD2.Version )
@@ -49,7 +49,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
         panel:Button( "#holohud2.properties", "holohud2_properties" )
 
         panel:ControlHelp( "\n\n" .. language.GetPhrase( "holohud2.credits" ) .. "\n" )
-        
+
         for _, credits in ipairs( HOLOHUD2.Credits ) do
 
             local line = vgui.Create( "HOLOHUD2_DCredits", panel )
@@ -65,7 +65,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
     --- Accessibility
     ---
     spawnmenu.AddToolMenuOption( "Utilities", HOLOHUD2.Name, "holohud2_b", "#holohud2.accessibility", nil, nil, function( panel )
-        
+
         panel:ClearControls()
 
         panel:Help( "#holohud2.accessibility.helptext" )
@@ -83,7 +83,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
         panel:ControlHelp( "#holohud2.accessibility.shaking.helptext" )
         panel:NumSlider( "#holohud2.accessibility.shaking_min", "holohud2_r_shaking_min", 0, 16, 1 )
         panel:NumSlider( "#holohud2.accessibility.shaking_add", "holohud2_r_shaking_add", 0, 16, 1 )
-        
+
         panel:ControlHelp( "\n\n" .. language.GetPhrase( "holohud2.accessibility.header1" ) )
         local sway = panel:ComboBox( "#holohud2.accessibility.sway", "holohud2_sway" )
         sway:SetSortItems(false)
@@ -94,7 +94,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
 
         panel:NumSlider( "#holohud2.accessibility.sway_mul", "holohud2_sway_mul", 0, 4, 1 )
         panel:NumSlider( "#holohud2.accessibility.sway_speed", "holohud2_sway_speed", 0, 2, 1 )
-        
+
         panel:NumSlider( "#holohud2.accessibility.headbob_mul", "holohud2_headbob_mul", 0, 2, 1 )
         panel:NumSlider( "#holohud2.accessibility.headbob_speed", "holohud2_headbob_speed", 0, 2, 1 )
 
@@ -104,7 +104,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
 
         panel:ControlHelp( "\n\n" .. language.GetPhrase( "holohud2.accessibility.header3" ) )
         panel:NumSlider( "#holohud2.accessibility.minglow", "holohud2_draw_minglow", 0, 1, 1 )
-        
+
         panel:NumSlider( "#holohud2.accessibility.scanlinesmul", "holohud2_r_scanlinesmul", 0, 10, 0 )
 
         panel:NumSlider( "#holohud2.accessibility.scanlinespasses", "holohud2_r_scanlinespasses", 0, 16, 0 )
@@ -136,7 +136,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
     --- Performance
     ---
     spawnmenu.AddToolMenuOption( "Utilities", HOLOHUD2.Name, "holohud2_c", "#holohud2.performance", nil, nil, function( panel )
-        
+
         panel:ClearControls()
 
         panel:Help( "#holohud2.performance.helptext" )
@@ -164,7 +164,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
         panel:CheckBox( "#holohud2.performance.aberration", "holohud2_r_aberration" )
         panel:CheckBox( "#holohud2.performance.expensivedigits", "holohud2_draw_expensivedigits" )
         panel:NumSlider( "#holohud2.performance.graphquality", "holohud2_draw_graphquality", 0, 1, 2 )
-        
+
         panel:CheckBox( "#holohud2.performance.pp", "holohud2_r_pp" )
         panel:ControlHelp( "#holohud2.performance.pp.helptext" )
 
@@ -174,7 +174,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
     --- Other
     ---
     spawnmenu.AddToolMenuOption( "Utilities", HOLOHUD2.Name, "holohud2_d", "#holohud2.other", nil, nil, function( panel )
-        
+
         panel:ClearControls()
 
         panel:Button( "#holohud2.other.debug_welcome", "holohud2_debug_welcome" )

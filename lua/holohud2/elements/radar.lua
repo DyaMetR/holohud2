@@ -63,7 +63,7 @@ local ELEMENT = {
         rangelabel_color            = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 12 ) },
         rangelabel_align            = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXT_ALIGN, value = TEXT_ALIGN_RIGHT },
         rangelabel_on_background    = { name = "#holohud2.parameter.on_background", type = HOLOHUD2.PARAM_BOOL, value = true },
-        
+
         text                        = { name = "#holohud2.component.label", type = HOLOHUD2.PARAM_BOOL, value = false },
         text_pos                    = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 2 } },
         text_font                   = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
@@ -130,7 +130,7 @@ local ELEMENT = {
                 { id = "sweep_color" },
                 { id = "sweep_time" },
                 { id = "sweep_delay" },
-                { id = "sweep_update" }    
+                { id = "sweep_update" }
             } }
         } }
     },
@@ -288,10 +288,10 @@ function ELEMENT:PreDraw( settings )
     local rangehalf = math.min( settings.range, range:GetFloat() ) * CONVERSION_RANGE
     mins:SetUnpacked( pos.x - rangehalf, pos.y - rangehalf, pos.z - rangehalf )
     maxs:SetUnpacked( pos.x + rangehalf, pos.y + rangehalf, pos.z + rangehalf )
-    
+
     local entities = {}
     for _, ent in ipairs( ents.FindInBox( mins, maxs ) ) do
-        
+
         if ent == localplayer then continue end
 
         -- check visibility hook
@@ -300,7 +300,7 @@ function ELEMENT:PreDraw( settings )
         if override ~= nil then
 
             if override then
-                
+
                 table.insert( entities, ent )
 
             end
@@ -312,7 +312,7 @@ function ELEMENT:PreDraw( settings )
 
         -- check player visibility
         if ent:IsPlayer() then
-            
+
             if not ent:Alive() then continue end
 
             local vis = player_vis:GetInt()
@@ -330,7 +330,7 @@ function ELEMENT:PreDraw( settings )
 
         -- check NPC visibility
         if not ent:IsNPC() and not ent:IsNextBot() then continue end
-        
+
         local vis = npc_vis:GetInt()
 
         if vis == NPCVIS_NONE then continue end
@@ -340,7 +340,7 @@ function ELEMENT:PreDraw( settings )
         table.insert( entities, ent )
 
     end
-    
+
     hudradar:SetEntities( entities )
     time = curtime + settings.sweep_delay
 
@@ -350,7 +350,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -385,7 +385,7 @@ preview_hudradar:AddBlip( Vector( -256, -256, 0 ) )
 function ELEMENT:OnPreviewChanged( settings )
 
     preview_hudradar:ApplySettings( settings, self.preview_fonts )
-    
+
     preview_hudradar._entities[ 1 ].color = settings.color_foe
     preview_hudradar._entities[ 2 ].color = ( settings.insight and settings.insight_fov < 170 ) and color_transparent or settings.color_friend
     preview_hudradar._entities[ 3 ].color = ( settings.insight and settings.insight_fov < 85 ) and color_transparent or settings.color_foe
@@ -423,7 +423,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
         return
 
@@ -478,6 +478,11 @@ HOLOHUD2.modifier.Add( "background_color", "radar", "background_color" )
 HOLOHUD2.modifier.Add( "color", "radar", { "color", "text_color", "sweep_color" } )
 HOLOHUD2.modifier.Add( "color2", "radar", { "overlay_color", "rangelabel_color" } )
 HOLOHUD2.modifier.Add( "text_font", "radar", "rangelabel_font" )
+HOLOHUD2.modifier.Add( "scale", "radar", {
+    "pos", "margin", "size",
+    "rangelabel_pos", "rangelabel_font",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

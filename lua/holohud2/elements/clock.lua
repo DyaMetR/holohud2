@@ -16,7 +16,7 @@ local ELEMENT = {
     parameters  = {
         twelvehours                 = { name = "#holohud2.clock.twelve_hours", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.clock.twelve_hours.helptext" },
         blinking                    = { name = "#holohud2.clock.blinking", type = HOLOHUD2.PARAM_BOOL, value = false, helptext = "#holohud2.clock.blinking.helptext" },
-        
+
         pos                         = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 12, y = 12 } },
         dock                        = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.TOP_LEFT },
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_DOWN },
@@ -294,9 +294,9 @@ local startup_phase = STARTUP_NONE
 local next_startup_phase = 0
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
-    
+
     hudclock.Hours:SetValue( 0 )
     hudclock.Minutes:SetValue( 0 )
     hudclock.Seconds:SetValue( 0 )
@@ -340,9 +340,9 @@ function ELEMENT:DoStartupSequence()
 
     -- advance through the different phases
     if next_startup_phase < curtime then
-        
+
         if startup_phase ~= STARTUP_SYNC then
-            
+
             startup_phase = startup_phase + 1
             next_startup_phase = curtime + STARTUP_TIMINGS[ startup_phase ]
 
@@ -372,7 +372,7 @@ end
 --- Logic
 ---
 function ELEMENT:PreDraw( settings )
-    
+
     if self:DoStartupSequence() then return end
 
     hudclock:SetTime( os.time() )
@@ -387,7 +387,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     panel:PaintFrame( x, y )
 
 end
@@ -399,7 +399,7 @@ function ELEMENT:PaintBackground( settings, x, y )
 end
 
 function ELEMENT:Paint( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
 
     panel:Paint( x, y )
@@ -407,7 +407,7 @@ function ELEMENT:Paint( settings, x, y )
 end
 
 function ELEMENT:PaintScanlines( settings, x, y )
-    
+
     if startup_phase == STARTUP_STANDBY then return end
 
     panel:PaintScanlines( x, y )
@@ -472,7 +472,7 @@ function ELEMENT:PreviewInit( panel )
 
         local indicator = vgui.Create( "DPanel", control )
         indicator:Dock( TOP )
-        
+
             local label = vgui.Create( "DLabel", indicator )
             label:Dock( FILL )
             label:SetTextColor( panel:GetSkin().Colours.Label.Dark )
@@ -558,7 +558,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         layout:SetVisible( false )
         return
 
@@ -614,6 +614,15 @@ HOLOHUD2.modifier.Add( "number3_font", "clock", { "hour_font", "minutes_font", "
 HOLOHUD2.modifier.Add( "number3_offset", "clock", { "hour_offset", "minutes_offset", "seconds_offset" } )
 HOLOHUD2.modifier.Add( "text_font", "clock", "date_font" )
 HOLOHUD2.modifier.Add( "text_offset", "clock", "date_pos" )
+HOLOHUD2.modifier.Add( "scale", "clock", {
+    "pos", "margin", "size", "origin", "spacing",
+    "hour_offset", "hour_font", "hour_separator_offset", "hour_separator_font",
+    "minutes_offset", "minutes_font", "minutes_separator_offset", "minutes_separator_font",
+    "seconds_offset", "seconds_font",
+    "am_offset", "am_font", "pm_offset", "pm_font",
+    "date_pos", "date_font",
+    "text_pos", "text_font"
+} )
 
 ---
 --- Presets

@@ -125,10 +125,10 @@ local ELEMENT = {
 
         suit_depleted                           = { name = "#holohud2.health.suit_depleted", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.SUITDEPLETED, value = HOLOHUD2.SUITDEPLETED_TURNOFF },
         suit_separate                           = { name = "#holohud2.parameter.standalone", type = HOLOHUD2.PARAM_BOOL, value = false },
-        
+
         suit_autohide                           = { name = "#holohud2.parameter.autohide", type = HOLOHUD2.PARAM_BOOL, value = true },
         suit_autohide_delay                     = { name = "#holohud2.parameter.delay", type = HOLOHUD2.PARAM_NUMBER, value = 4 },
-        
+
         suit_pos                                = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 12, y = 12 } },
         suit_dock                               = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.BOTTOM_LEFT },
         suit_direction                          = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_RIGHT },
@@ -322,7 +322,7 @@ local ELEMENT = {
 
         { tab = "#holohud2.health.tab.suit", icon = "icon16/shield.png", parameters = {
             { id = "suit_depleted" },
-            
+
             { category = "#holohud2.category.panel", parameters = {
                 { id = "suit_separate", parameters = {
                     { id = "suit_autohide", parameters = {
@@ -455,7 +455,7 @@ local ELEMENT = {
                 { id = "suit_pos" },
                 { id = "suit_size" }
             } },
-            
+
             { category = "#holohud2.category.coloring", parameters = {
                 { id = "suit_color" },
                 { id = "suit_color2" }
@@ -537,7 +537,7 @@ end
 suit_panel.PaintOverScanlines = function( self, x, y )
 
     if hook_Call( "DrawArmor", x, y, self._w, self._h, LAYER_SCANLINES ) then return end
-    
+
     hudbattery:PaintScanlines( x, y )
 
     hook_Call( "DrawOverArmor", x, y, self._w, self._h, LAYER_SCANLINES, hudbattery )
@@ -619,12 +619,12 @@ function ELEMENT:DoStartupSequence( settings, curtime )
 
     hudhealth:SetMaxValue( localplayer:GetMaxHealth() )
     hudbattery:SetMaxValue( localplayer:GetMaxArmor() )
-    
+
     -- advance through the different phases
     if next_startup_phase < curtime then
-        
+
         if startup_phase ~= STARTUP_FILL then
-            
+
             startup_phase = startup_phase + 1
             next_startup_phase = curtime + STARTUP_TIMINGS[ startup_phase ]
 
@@ -648,12 +648,12 @@ function ELEMENT:DoStartupSequence( settings, curtime )
 
         local health = localplayer:Health()
         local anim = ( 1 - ( next_startup_phase - curtime ) / STARTUP_TIMINGS[ startup_phase ] ) * 3
-        
+
         hudhealth:SetValue( math.min( math.ceil( anim * health ), health ) )
         hudbattery:SetValue( math.min( math.ceil( anim * armor ), armor ) )
 
     end
-    
+
     hudhealth:Think()
     hudbattery:Think()
 
@@ -694,7 +694,7 @@ function ELEMENT:PreDraw( settings )
     local armor, max_armor = localplayer:Armor(), localplayer:GetMaxArmor()
 
     if _health ~= health then
-        
+
         healthtime = curtime + settings.autohide_delay
         _health = health
 
@@ -702,7 +702,7 @@ function ELEMENT:PreDraw( settings )
 
     -- accelerate heart rate if we sprint
     if localplayer:OnGround() and localplayer:IsSprinting() and hudhealth.Pulse.pain < .8 then
-        
+
         hudhealth.Pulse:SetPain( hudhealth.Pulse.pain + FrameTime() / 8 )
 
     end
@@ -711,11 +711,11 @@ function ELEMENT:PreDraw( settings )
     health_panel:SetDeployed( not is_minimized and ( is_inspecting or is_peeking or not settings.autohide or healthtime > curtime or health <= settings.autohide_threshold ) )
 
     if health_panel:IsVisible() then
-        
+
         local w, h = 0, 0
 
         if armor <= 0 and settings.suit_depleted == SUITDEPLETED_HIDE and not settings.suit_separate then
-            
+
             w, h = settings.health_suit_depleted_size.x, settings.health_suit_depleted_size.y
             hudhealth:SetSuitDepleted( true )
 
@@ -733,7 +733,7 @@ function ELEMENT:PreDraw( settings )
         hudhealth:Think()
 
         if not settings.suit_separate then
-            
+
             hudbattery:SetMaxValue( max_armor )
             hudbattery:SetValue( armor )
             hudbattery:Think()
@@ -748,9 +748,9 @@ function ELEMENT:PreDraw( settings )
 
     -- suit battery
     if _armor ~= armor then
-        
+
         if not settings.suit_separate then
-            
+
             healthtime = curtime + settings.autohide_delay
 
         end
@@ -766,7 +766,7 @@ function ELEMENT:PreDraw( settings )
     suit_panel:SetDeployed( not is_minimized and ( is_inspecting or is_peeking or ( armor > 0 or settings.suit_depleted ~= SUITDEPLETED_HIDE ) and ( not settings.suit_autohide or armortime > curtime ) ) )
 
     if suit_panel:IsVisible() then
-        
+
         suit_layout:SetSize( settings.suit_size.x + ( settings.suit_oversize_size and hudbattery:GetOversizeOffset() or 0 ), settings.suit_size.y )
         suit_layout:SetVisible( true )
 
@@ -786,7 +786,7 @@ end
 --- Paint
 ---
 function ELEMENT:PaintFrame( settings, x, y )
-    
+
     health_panel:PaintFrame( x, y )
 
     if not settings.suit_separate then return end
@@ -916,9 +916,9 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     if settings.suit_separate then
 
         w2, h2 = ( settings.suit_size.x + w2 ) * scale, settings.suit_size.y * scale
-        
+
         if settings.suit_depleted ~= SUITDEPLETED_HIDE or preview_hudbattery.value > 0 then
-            
+
             x = x - w2 / 2
 
         end
@@ -926,7 +926,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     else
 
         w = w + w2 * scale
-        
+
         if settings.suit_depleted == SUITDEPLETED_HIDE and preview_hudbattery.value <= 0 then
 
             w = w + settings.health_suit_depleted_size.x * scale
@@ -947,7 +947,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     preview_hudbattery:Think()
 
     if settings.background then
-        
+
         draw.RoundedBox( 0, x, y, w, h, settings.background_color )
 
     end
@@ -972,7 +972,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w2, h2 )
-    
+
     end
 
     preview_hudbattery:PaintBackground( x, y )
@@ -986,7 +986,7 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         health_layout:SetVisible( false )
         suit_layout:SetVisible( false )
 
@@ -1012,7 +1012,7 @@ function ELEMENT:OnSettingsChanged( settings )
     health_panel.PaintOverBackground = function( self, x, y )
 
         if not hook_Call( "DrawHealth", x, y, self._w, self._h, LAYER_BACKGROUND ) then
-            
+
             hudhealth:PaintBackground( x, y )
             hook_Call( "DrawOverHealth", x, y, self._w, self._h, LAYER_BACKGROUND, hudhealth )
 
@@ -1029,7 +1029,7 @@ function ELEMENT:OnSettingsChanged( settings )
     health_panel.PaintOver = function( self, x, y )
 
         if not hook_Call( "DrawHealth", x, y, self._w, self._h, LAYER_FOREGROUND ) then
-            
+
             hudhealth:Paint( x, y )
             hook_Call( "DrawOverHealth", x, y, self._w, self._h, LAYER_FOREGROUND, hudhealth )
 
@@ -1046,7 +1046,7 @@ function ELEMENT:OnSettingsChanged( settings )
     health_panel.PaintOverScanlines = function( self, x, y )
 
         if not hook_Call( "DrawHealth", x, y, self._w, self._h, LAYER_SCANLINES ) then
-            
+
             hudhealth:PaintScanlines( x, y )
             hook_Call( "DrawOverHealth", x, y, self._w, self._h, LAYER_SCANLINES, hudhealth )
 
@@ -1076,7 +1076,7 @@ function ELEMENT:OnSettingsChanged( settings )
     hudbattery:ApplySettings( settings, self.fonts )
 
     if settings.suit_separate then return end
-        
+
     suit_panel:SetDeployed( false )
     suit_layout:SetVisible( false )
 
@@ -1123,6 +1123,20 @@ HOLOHUD2.modifier.Add( "number2_font", "health", "suitnum_font" )
 HOLOHUD2.modifier.Add( "number2_offset", "health", "suitnum_pos" )
 HOLOHUD2.modifier.Add( "text_font", "health", { "healthtext_font", "suittext_font" } )
 HOLOHUD2.modifier.Add( "text_pos", "health", { "healthtext_pos", "suittext_pos" } )
+HOLOHUD2.modifier.Add( "scale", "health", {
+    "pos", "margin", "size",
+    "healthnum_pos", "healthnum_font",
+    "healthbar_pos", "healthbar_size", "healthbar_dotline_pos", "healthbar_dotline_size",
+    "healthicon_pos", "healthicon_size",
+    "healthpulse_pos", "healthpulse_size", "healthpulse_brackets_margin", "healthpulse_brackets_offset",
+    "healthtext_pos", "healthtext_font",
+    "health_suit_depleted_size", "health_suit_depleted_numberpos", "health_suit_depleted_progressbarpos", "health_suit_depleted_progressbarsize", "health_suit_depleted_iconpos", "health_suit_depleted_pulsepos", "health_suit_depleted_pulsesize", "health_suit_depleted_textpos",
+    "suit_pos", "suit_margin", "suit_size",
+    "suitnum_pos", "suitnum_font",
+    "suitbar_pos", "suitbar_size", "suitbar_dotline_pos", "suitbar_dotline_size",
+    "suiticon_pos", "suiticon_size",
+    "suittext_pos", "suittext_font"
+} )
 
 ---
 --- Register health and suit related item icons

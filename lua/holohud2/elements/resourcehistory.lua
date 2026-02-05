@@ -42,14 +42,14 @@ local ELEMENT = {
 
         weapon_sound                = { name = "#holohud2.parameter.sound", type = HOLOHUD2.PARAM_BOOL, value = true, helptext = "#holohud2.resourcehistory.sound" },
         weapon_size                 = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 144, y = 72 } },
-        
+
         weapon_name                 = { name = "#holohud2.resourcehistory.weapon_name", type = HOLOHUD2.PARAM_BOOL, value = true },
         weapon_name_pos             = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 56 } },
         weapon_name_font            = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 0, italic = false } },
         weapon_name_color           = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 200, 200, 200 ) },
         weapon_name_align           = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_LEFT },
         weapon_name_animated        = { name = "#holohud2.parameter.animated", type = HOLOHUD2.PARAM_BOOL, value = true },
-        
+
         weapon_icon                 = { name = "#holohud2.component.icon", type = HOLOHUD2.PARAM_BOOL, value = true },
         weapon_icon_pos             = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 72, y = 36 } },
         weapon_icon_size            = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 140 },
@@ -70,7 +70,7 @@ local ELEMENT = {
         ammo_color2                 = { name = "#holohud2.parameter.background_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 12 ) },
         ammo_icon_size              = { name = "#holohud2.resourcehistory.icon_size", type = HOLOHUD2.PARAM_NUMBER, value = 8, min = 0 },
         ammo_fallback_font          = { name = "#holohud2.resourcehistory.fallback_font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 14, weight = 1000, italic = false } },
-        
+
         ammo_amount_offset          = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_VECTOR, value = { x = 0, y = 0 } },
         ammo_amount_font            = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Condensed Light", size = 20, weight = 1000, italic = false } },
         ammo_amount_rendermode      = { name = "#holohud2.parameter.rendermode", type = HOLOHUD2.PARAM_OPTION, options = HOLOHUD2.NUMBERRENDERMODES, value = HOLOHUD2.NUMBERRENDERMODE_STATIC },
@@ -182,7 +182,7 @@ local ELEMENT = {
             { id = "item_delay" },
             { id = "item_limit" },
             { id = "item_queue" },
-            
+
             { category = "#holohud2.resourcehistory.category.panels", parameters = {
                 { id = "item_pos", parameters = {
                     { id = "item_dock" },
@@ -248,7 +248,7 @@ local ELEMENT = {
         } },
         { tab = "#holohud2.resourcehistory.tab.items", icon = "icon16/bricks.png", parameters = {
             { id = "item_pos" },
-            
+
             { category = "#holohud2.category.composition", parameters = {
                 { id = "item_padding" },
                 { id = "item_color" },
@@ -307,7 +307,7 @@ function ELEMENT:PerformWeaponLayout( settings )
     -- order panels and calculate total size
     local w, h = 0, 0
     for i, pickup in ipairs( weapon_history ) do
-        
+
         pickup.panel:SetDrawBackground( settings.background )
         pickup.panel:SetColor( settings.background_color )
         pickup.panel:SetAnimation( settings.animation )
@@ -316,7 +316,7 @@ function ELEMENT:PerformWeaponLayout( settings )
 
         -- ammo pickup
         if pickup.ammo then
-            
+
             pickup.y = h
 
             pickup.component:ApplySettings( settings, self.fonts )
@@ -340,20 +340,20 @@ function ELEMENT:PerformWeaponLayout( settings )
         pickup.component:InvalidateLayout()
 
         w, h = math.max( w, pickup.panel.w ), h + pickup.panel.h
-        
+
         if i < #weapon_history then h = h + settings.margin end
 
     end
 
     -- align pickup notifications according to dock
     for _, pickup in ipairs( weapon_history ) do
-        
+
         if DOCK_RIGHT[ settings.dock ] then
-            
+
             pickup.x = w - pickup.panel.w
 
         elseif DOCK_CENTER[ settings.dock ] then
-            
+
             pickup.x = ( w - pickup.panel.w ) / 2
 
         end
@@ -385,7 +385,7 @@ function ELEMENT:PerformItemLayout( settings )
     local size = settings.item_size + settings.item_padding * 2
     local w, h = 0, 0
     for i, item in ipairs( item_history ) do
-        
+
         item.panel:SetDrawBackground( settings.item_background )
         item.panel:SetColor( settings.item_background_color )
         item.panel:SetAnimation( settings.item_animation )
@@ -393,7 +393,7 @@ function ELEMENT:PerformItemLayout( settings )
         item.panel:InvalidateLayout()
 
         if item.is_icon then
-            
+
             item.component:SetSize( settings.item_size )
             item.component:PerformLayout()
 
@@ -401,7 +401,7 @@ function ELEMENT:PerformItemLayout( settings )
             item.component:SetPos( size / 2 - w / 2, size / 2 - h / 2 )
 
             if not item.component:IsUsingItemColor() then
-                
+
                 item.component:SetColor( settings.item_color )
 
             end
@@ -427,13 +427,13 @@ function ELEMENT:PerformItemLayout( settings )
 
     -- align pickup notifications according to dock
     for _, item in ipairs( item_history ) do
-        
+
         if DOCK_RIGHT[ settings.dock ] then
-            
+
             item.x = w - item.panel.w
 
         elseif DOCK_CENTER[ settings.dock ] then
-            
+
             item.x = ( w - item.panel.w ) / 2
 
         end
@@ -455,7 +455,7 @@ end
 --- Startup sequence
 ---
 function ELEMENT:QueueStartup()
-    
+
     table.Empty( weapon_history )
     table.Empty( item_history )
     startup = true
@@ -463,7 +463,7 @@ function ELEMENT:QueueStartup()
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -501,7 +501,7 @@ function ELEMENT:PreDraw( settings )
         item.panel:Think()
         item.panel:SetPos( item_layout.x + item.x, item_layout.y + item.y )
         item.panel:SetDeployed( not self:IsMinimized() and ( ( settings.item_queue or ( #item_history + #item_queue ) <= settings.item_limit or i ~= 1 ) and ( curtime < item.time + settings.delay ) ) )
-        
+
         if item.panel:IsVisible() then continue end
 
         table.remove(item_history, i)
@@ -530,10 +530,10 @@ function ELEMENT:PreDraw( settings )
             end
 
             if ignore then
-                
+
                 table.remove( weapon_queue, i )
                 continue
-            
+
             end
 
             if #weapon_history >= settings.limit then continue end
@@ -551,11 +551,11 @@ function ELEMENT:PreDraw( settings )
             end
 
             panel.PaintOverBackground = function( self, x, y )
-                
+
                 if hook_Call( "DrawAmmoPickup", x, y, self._w, self._h, LAYER_BACKGROUND, pickup.ammo, pickup.amount ) then return end
 
                 component:PaintBackground( x, y )
-            
+
             end
 
             panel.PaintOver = function( self, x, y )
@@ -563,7 +563,7 @@ function ELEMENT:PreDraw( settings )
                 if hook_Call( "DrawAmmoPickup", x, y, self._w, self._h, LAYER_FOREGROUND, pickup.ammo, pickup.amount ) then return end
 
                 component:Paint(x, y )
-            
+
             end
 
             table.insert( weapon_history, { panel = panel, component = component, ammo = pickup.ammo, x = 0, y = 0, time = curtime } )
@@ -586,13 +586,13 @@ function ELEMENT:PreDraw( settings )
         local panel = HOLOHUD2.component.Create( "AnimatedPanel" )
 
         panel.PaintOverFrame = function( self, x, y )
-            
+
             if hook_Call( "DrawWeaponPickup", x, y, self._w, self._h, pickup.weapon, LAYER_FRAME ) then return end
 
             component:PaintFrame( x, y )
 
             hook_Call( "DrawOverWeaponPickup", x, y, self._w, self._h, pickup.weapon, LAYER_FRAME, component )
-        
+
         end
 
         panel.PaintOverBackground = function( self, x, y )
@@ -602,17 +602,17 @@ function ELEMENT:PreDraw( settings )
             component:PaintBackground( x, y )
 
             hook_Call( "DrawOverWeaponPickup", x, y, self._w, self._h, pickup.weapon, LAYER_BACKGROUND, component )
-        
+
         end
 
         panel.PaintOver = function( self, x, y )
-            
+
             if hook_Call( "DrawWeaponPickup", x, y, self._w, self._h, pickup.weapon, LAYER_FOREGROUND ) then return end
 
             component:Paint( x, y )
 
             hook_Call( "DrawOverWeaponPickup", x, y, self._w, self._h, pickup.weapon, LAYER_FOREGROUND, component )
-        
+
         end
 
         table.insert( weapon_history, { panel = panel, component = component, weapon = pickup.weapon, x = 0, y = 0, time = curtime } )
@@ -656,13 +656,13 @@ function ELEMENT:PreDraw( settings )
         end
 
         panel.PaintOver = function( self, x, y )
-            
+
             if hook_Call( "DrawItemPickup", x, y, self._w, self._h, item, LAYER_FOREGROUND ) then return end
 
             component:Paint( x, y )
 
             hook_Call( "DrawOverItemPickup", x, y, self._w, self._h, item, component )
-        
+
         end
 
         if #item_history >= settings.item_limit then continue end
@@ -778,7 +778,7 @@ function ELEMENT:PreviewInit( panel )
             preview = i
 
         end
-        
+
         combobox:AddChoice( "#holohud2.resourcehistory.preview.weapon" )
         combobox:AddChoice( "#holohud2.resourcehistory.preview.ammo" )
         combobox:AddChoice( "#holohud2.resourcehistory.preview.items" )
@@ -825,7 +825,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w, h )
-    
+
         preview_weapon:Think()
         preview_weapon:PaintFrame( x, y )
         preview_weapon:PaintBackground( x, y )
@@ -844,7 +844,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, w, h )
-    
+
         preview_ammo:Think()
         preview_ammo:PaintBackground( x, y )
         preview_ammo:Paint( x, y )
@@ -870,7 +870,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, backgroundsize, backgroundsize )
-    
+
         preview_item:PerformLayout()
         preview_item:Paint( x + backgroundsize / 2 - size / 2, y + backgroundsize / 2 - size / 2 )
 
@@ -884,7 +884,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
 
         surface.SetDrawColor( wireframe_color )
         surface.DrawOutlinedRect( x, y, textw + padding * 2, texth + padding * 2 )
-    
+
         surface.SetTextPos( x + padding, y + padding )
         surface.DrawText( PREVIEW_ITEMNAME )
 
@@ -900,7 +900,7 @@ function ELEMENT:OnSettingsChanged(settings)
     weapon_pickup_sound = settings.weapon_sound
 
     if not settings._visible then
-        
+
         table.Empty( weapon_history )
         table.Empty( weapon_queue )
         table.Empty( item_history )
@@ -958,6 +958,18 @@ HOLOHUD2.modifier.Add( "number_background", "resourcehistory", "ammo_amount_back
 HOLOHUD2.modifier.Add( "number3_offset", "resourcehistory", "ammo_amount_offset" )
 HOLOHUD2.modifier.Add( "number3_font", "resourcehistory", "ammo_amount_font" )
 HOLOHUD2.modifier.Add( "text_font", "resourcehistory", { "item_font", "weapon_label_font", "weapon_name_font" } )
+HOLOHUD2.modifier.Add( "scale", "resourcehistory", {
+    "pos", "margin",
+    "weapon_size",
+    "weapon_name_pos", "weapon_name_font",
+    "weapon_icon_pos", "weapon_icon_size",
+    "weapon_label_pos", "weapon_label_font",
+    "ammo_padding", "ammo_spacing",
+    "ammo_icon_size", "ammo_fallback_font",
+    "ammo_amount_offset", "ammo_amount_font",
+    "ammo_name_font", "ammo_name_pos", "ammo_name_spacing",
+    "item_pos", "item_margin", "item_padding", "item_size", "item_font"
+} )
 
 ---
 --- Presets
