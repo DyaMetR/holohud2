@@ -1,33 +1,33 @@
 local CVAR_ACCESSIBILITY = {
-    holohud2_r_flickering           = 1,
-    holohud2_r_shaking              = 1,
-    holohud2_r_shaking_min          = 1,
-    holohud2_r_shaking_add          = 3,
-    holohud2_nosuit                 = 0,
-    holohud2_panel_lerp             = 1,
-    holohud2_sway                   = 1,
-    holohud2_sway_mul               = 2,
-    holohud2_sway_speed             = 1,
-    holohud2_headbob_mul			= 1,
-    holohud2_headbob_speed			= 1,
-    holohud2_draw_minglow           = .2,
-    holohud2_r_scanlinesmul         = 6,
-    holohud2_r_scanlinespasses      = 2,
-    holohud2_r_scanlinesglow        = .4,
-    holohud2_r_scanlinesdist        = 1,
-    holohud2_r_aberrationdist       = 1,
-    holohud2_r_3dmargin             = .1,
-    holohud2_draw_compassprecision  = 1
+    holohud2_r_flickering           = "1",
+    holohud2_r_shaking              = "1",
+    holohud2_r_shaking_min          = "1",
+    holohud2_r_shaking_add          = "3",
+    holohud2_nosuit                 = "0",
+    holohud2_panel_lerp             = "1",
+    holohud2_sway                   = "1",
+    holohud2_sway_mul               = "2",
+    holohud2_sway_speed             = "1",
+    holohud2_headbob_mul			= "1",
+    holohud2_headbob_speed			= "1",
+    holohud2_draw_minglow           = "0.2",
+    holohud2_r_scanlinesmul         = "6",
+    holohud2_r_scanlinespasses      = "2",
+    holohud2_r_scanlinesglow        = "0.4",
+    holohud2_r_scanlinesdist        = "1",
+    holohud2_r_aberrationdist       = "1",
+    holohud2_r_3dmargin             = "0.1",
+    holohud2_draw_compassprecision  = "1"
 }
 
 local CVAR_PERFORMANCE = {
-    holohud2_r_3d                   = 4,
-    holohud2_r_scanlines            = 2,
-    holohud2_r_blur                 = 1,
-    holohud2_r_aberration           = 1,
-    holohud2_draw_expensivedigits   = 1,
-    holohud2_draw_graphquality      = 1,
-    holohud2_r_pp                   = 1
+    holohud2_r_3d                   = "4",
+    holohud2_r_scanlines            = "2",
+    holohud2_r_blur                 = "1",
+    holohud2_r_aberration           = "1",
+    holohud2_draw_expensivedigits   = "1",
+    holohud2_draw_graphquality      = "1",
+    holohud2_r_pp                   = "1"
 }
 
 ---
@@ -188,41 +188,41 @@ end)
 --- Default quality presets.
 ---
 presets.Add( "holohud2_quality", "Classic", {
-    holohud2_r_3d                   = 0,
-    holohud2_r_scanlines            = 2,
-    holohud2_r_blur                 = 1,
-    holohud2_r_aberration           = 1,
-    holohud2_draw_expensivedigits   = 1,
-    holohud2_draw_graphquality      = 1,
-    holohud2_r_pp                   = 1
+    holohud2_r_3d                   = "0",
+    holohud2_r_scanlines            = "2",
+    holohud2_r_blur                 = "1",
+    holohud2_r_aberration           = "1",
+    holohud2_draw_expensivedigits   = "1",
+    holohud2_draw_graphquality      = "1",
+    holohud2_r_pp                   = "1"
 } )
 
 presets.Add( "holohud2_quality", "Basic", {
-    holohud2_r_3d                   = 0,
-    holohud2_r_scanlines            = 1,
-    holohud2_r_blur                 = 1,
-    holohud2_r_aberration           = 0,
-    holohud2_draw_expensivedigits   = 1,
-    holohud2_draw_graphquality      = 1,
-    holohud2_r_pp                   = 1
+    holohud2_r_3d                   = "0",
+    holohud2_r_scanlines            = "1",
+    holohud2_r_blur                 = "1",
+    holohud2_r_aberration           = "0",
+    holohud2_draw_expensivedigits   = "1",
+    holohud2_draw_graphquality      = "1",
+    holohud2_r_pp                   = "1"
 } )
 
 presets.Add( "holohud2_quality", "Budget", {
-    holohud2_r_3d                   = 0,
-    holohud2_r_scanlines            = 0,
-    holohud2_r_blur                 = 0,
-    holohud2_r_aberration           = 0,
-    holohud2_draw_expensivedigits   = 0,
-    holohud2_draw_graphquality      = .9,
-    holohud2_r_pp                   = 1
+    holohud2_r_3d                   = "0",
+    holohud2_r_scanlines            = "0",
+    holohud2_r_blur                 = "0",
+    holohud2_r_aberration           = "0",
+    holohud2_draw_expensivedigits   = "0",
+    holohud2_draw_graphquality      = "0.9",
+    holohud2_r_pp                   = "1"
 } )
 
 presets.Add( "holohud2_quality", "Potato",{
-    holohud2_r_3d                   = 0,
-    holohud2_r_scanlines            = 0,
-    holohud2_r_blur                 = 0,
-    holohud2_r_aberration           = 0,
-    holohud2_draw_expensivedigits   = 0,
-    holohud2_draw_graphquality      = .8,
-    holohud2_r_pp                   = 0
+    holohud2_r_3d                   = "0",
+    holohud2_r_scanlines            = "0",
+    holohud2_r_blur                 = "0",
+    holohud2_r_aberration           = "0",
+    holohud2_draw_expensivedigits   = "0",
+    holohud2_draw_graphquality      = "0.8",
+    holohud2_r_pp                   = "0"
 } )
