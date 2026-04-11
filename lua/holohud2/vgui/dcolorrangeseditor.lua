@@ -5,14 +5,6 @@ function PANEL:Init()
 
     self:SetTitle( "" )
 
-    local slider = vgui.Create( "DNumSlider", self )
-    slider:Dock( TOP )
-    slider:DockMargin( 4, 0, 0, 0 )
-    slider:SetText( "#holohud2.derma.colorranges.value" )
-    slider:SetDecimals( 0 )
-    slider:SetMinMax( 0, 100 )
-    self.Slider = slider
-
     local wanglabel = vgui.Create( "Panel", self )
     wanglabel:Dock( TOP )
     self.WangLabel = wanglabel
@@ -53,24 +45,16 @@ function PANEL:Init()
         submit:SetText( "#holohud2.derma.ok" )
         submit.DoClick = function( _ )
 
-            self:OnSubmit( self.old, self.Slider:IsVisible() and math.Round( self.Slider:GetValue() ) or math.Round( self.NumberWang:GetValue() ), colormixer:GetColor() )
+            self:OnSubmit( self.old, math.Round( self.NumberWang:GetValue() ), colormixer:GetColor() )
             self:Close()
 
         end
 
 end
 
-function PANEL:SetFraction( fraction )
-
-    self.Slider:SetVisible( fraction )
-    self.WangLabel:SetVisible( not fraction )
-
-end
-
 function PANEL:SetValue( value )
 
     self.old = value
-    self.Slider:SetValue( value )
     self.NumberWang:SetValue( value )
 
 end
@@ -78,7 +62,7 @@ end
 function PANEL:SetColor( color )
 
     self.ColorMixer:SetColor( color )
-    
+
 end
 
 function PANEL:OnSubmit( value, color ) end

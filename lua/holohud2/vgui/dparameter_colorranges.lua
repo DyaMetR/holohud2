@@ -18,7 +18,7 @@ function PANEL:Init()
 
         local menu = DermaMenu()
         menu:AddOption( "#holohud2.derma.colorranges.add", function()
-        
+
             self:OpenEditor()
 
         end):SetIcon( "icon16/add.png" )
@@ -29,13 +29,13 @@ function PANEL:Init()
             local option, parent = menu:AddSubMenu( value )
 
             option:AddOption( "#holohud2.derma.colorranges.edit", function()
-            
+
                 self:OpenEditor( value )
 
             end):SetIcon( "icon16/pencil.png" )
 
             local remove = option:AddOption( "#holohud2.derma.colorranges.remove", function()
-            
+
                 self.Colors[ value ] = nil
                 self.Viewer:SetColors( self.Colors )
                 self:ValueChange()
@@ -105,7 +105,6 @@ function PANEL:OpenEditor( value )
     editor:MakePopup()
     editor:DoModal()
     editor:Center()
-    editor:SetFraction( self.Fraction:GetChecked() )
 
     if value then
 
@@ -151,9 +150,9 @@ function PANEL:GetValue()
 end
 
 function PANEL:SetValue( value )
-    
+
     self.Colors = {}
-    
+
     for k, v in pairs( value.colors ) do
 
         self.Colors[ k ] = Color( v.r, v.g, v.b, v.a )
