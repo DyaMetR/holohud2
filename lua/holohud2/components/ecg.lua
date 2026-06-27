@@ -81,7 +81,7 @@ end
 function COMPONENT:Add( pos )
 
     if #self._shape <= 0 then return end
-    if #self._shape >= 128 then
+    if #self._cache >= 128 then
         
         table.remove( self._cache, 1 )
 
