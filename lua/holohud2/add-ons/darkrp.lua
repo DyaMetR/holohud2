@@ -23,6 +23,7 @@ local element_hunger    = HOLOHUD2.element.Get( "hunger" )
 ---
 --- Default health indicator
 ---
+--[[
 HOLOHUD2.gamemode.SetElementDefaults( "health", {
     size                                    = { x = 114, y = 35 },
     healthnum_pos                           = { x = 62, y = -1 },
@@ -44,16 +45,15 @@ HOLOHUD2.gamemode.SetElementDefaults( "health", {
     suitnum_font                            = { font = "Roboto Condensed Light", size = 12, weight = 1000, italic = false },
     suiticon_style                          = HOLOHUD2.SUITBATTERYICON_KEVLAR,
     suiticon_pos                            = { x = 7, y = 4 }
-} )
+    } )]]
 
 ---
 --- Follow DarkRP's death notice visibility
 ---
-if not ( GM or GAMEMODE ).Config.showdeaths then
-
+hook.Add("PostGamemodeLoaded", "holohud2_darkrp", function()
+    if GAMEMODE.Config.showdeaths then return end
     HOLOHUD2.gamemode.SetParameterOverride( "deathnotice", "_visible", false )
-
-end
+end)
 
 ---
 --- Radar
@@ -107,13 +107,13 @@ HOLOHUD2.hook.Add( "GetMoney", "darkrp", function()
 
 end)
 
-HOLOHUD2.gamemode.SetElementDefaults( "money", {
+--[[HOLOHUD2.gamemode.SetElementDefaults( "money", {
     dock            = HOLOHUD2.DOCK.BOTTOM_LEFT,
     size            = { x = 114, y = 22 },
     number_digits   = 10,
     margin          = 0,
     order           = 50
-} )
+    } )]]
 
 ---
 --- Job
@@ -148,7 +148,7 @@ local ELEMENT = {
         currency_font               = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
         currency_text               = { name = "#holohud2.parameter.text", type = HOLOHUD2.PARAM_STRING, value = "+$" },
         currency_align              = { name = "#holohud2.parameter.align", type = HOLOHUD2.PARAM_TEXTALIGN, value = TEXT_ALIGN_LEFT },
-        
+
         number                      = { name = "#holohud2.darkrp.salary", type = HOLOHUD2.PARAM_BOOL, value = true },
         number_pos                  = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 16, y = 16 } },
         number_font                 = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
@@ -260,7 +260,7 @@ panel.PaintOver = function( _, x, y ) hudjob:Paint( x, y ) end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
@@ -314,9 +314,9 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     x, y = x - w / 2, y - h / 2
 
     if settings.background then
-        
+
         draw.RoundedBox( 0, x, y, w, h, settings.background_color )
-        
+
     end
 
     preview_hudjob:Think()
@@ -408,7 +408,7 @@ local ELEMENT = {
         title                   = { name = "Title", type = HOLOHUD2.PARAM_BOOL, value = true },
         title_pos               = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 2 } },
         title_font              = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
-        
+
         separator               = { name = "Separator", type = HOLOHUD2.PARAM_BOOL, value = true },
         separator_pos           = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 4, y = 16 } },
         separator_size          = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 164, y = 1 } },
@@ -492,7 +492,7 @@ panel.PaintOver = function( _, x, y ) hudagenda:Paint( x, y ) end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
@@ -513,7 +513,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if not panel:IsVisible() then return end
-    
+
     hudagenda:Think()
 
     agenda_text = agenda_text or DarkRP.textWrap( ( localplayer:getDarkRPVar( "agenda" ) or "" ):gsub( "//", "\n" ):gsub( "\\n", "\n" ), self.fonts.agenda_font, panel._w - hudagenda.Contents._x * 2 )
@@ -548,9 +548,9 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     x, y = x - w / 2, y - h / 2
 
     if settings.background then
-        
+
         draw.RoundedBox( 0, x, y, w, h, settings.background_color )
-        
+
     end
 
     preview_hudagenda:Think()
@@ -562,7 +562,7 @@ function ELEMENT:OnPreviewChanged( settings )
 
     preview_hudagenda:ApplySettings( settings, self.preview_fonts )
     preview_hudagenda:SetAgenda( DarkRP.textWrap( ( "This is the body of your job agenda. Here, you will visualize what your group should be working towards as indicated by your boss." ):gsub( "//", "\n" ):gsub( "\\n", "\n" ), self.preview_fonts.agenda_font, ( settings.size.x - settings.agenda_pos.x * 2 ) * HOLOHUD2.scale.Get() ) )
-    
+
 end
 
 --- Apply settings
@@ -629,7 +629,7 @@ end)
 --- Hide DarkRP HUD
 ---
 hook.Add( "HUDShouldDraw", "holohud2_darkrp", function( name )
-    
+
     if not IsEnabled() then return end
 
     if name == "DarkRP_Hungermod" and element_hunger:IsVisible() then
