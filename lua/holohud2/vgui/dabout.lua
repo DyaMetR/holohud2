@@ -1,6 +1,8 @@
 
 local PANEL = {}
 
+local TEXT_COLOR    = Color( 180, 180, 180 )
+
 surface.CreateFont( "holohud2_about0", {
     font        = "Roboto Light",
     size        = 20,
@@ -52,6 +54,7 @@ function PANEL:Init()
     date:SetFont( "holohud2_about1" )
     date:SetText( HOLOHUD2.util.DateFormat( language.GetPhrase( "holohud2.properties.last_update.format" ), HOLOHUD2.Date ) )
     date:SetContentAlignment( 6 )
+    date:SetTextColor(TEXT_COLOR)
 
     local thanks0 = vgui.Create( "DLabel", background )
     thanks0:Dock( TOP )
@@ -59,12 +62,14 @@ function PANEL:Init()
     thanks0:SetFont( "holohud2_about2" )
     thanks0:SetText( string.format( language.GetPhrase( "holohud2.about.thanks_user" ), HOLOHUD2.Name ) )
     thanks0:SetContentAlignment( 5 )
+    thanks0:SetTextColor(TEXT_COLOR)
 
     local thanks1 = vgui.Create( "DLabel", background )
     thanks1:Dock( TOP )
     thanks1:SetFont( "holohud2_about3" )
     thanks1:SetText( "#holohud2.about.thanks_community" )
     thanks1:SetContentAlignment( 5 )
+    thanks1:SetTextColor(TEXT_COLOR)
 
     local footer = vgui.Create( "Panel", background )
     footer:Dock( BOTTOM )
@@ -75,6 +80,7 @@ function PANEL:Init()
         author:DockMargin( 4, 0, 0, 0 )
         author:SetFont( "holohud2_about2" )
         author:SetText( "DyaMetR" )
+        author:SetTextColor(TEXT_COLOR)
 
         local github = vgui.Create( "DImageButton", footer )
         github:Dock( RIGHT )
