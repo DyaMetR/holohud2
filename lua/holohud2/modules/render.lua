@@ -10,7 +10,7 @@ local MATERIAL_CONVARS = { -- convars that wreck havoc when changed
     "mat_aaquality",
     "mat_picmip",
     "mat_showlowresimage",
-    "mat_reloadallmaterials"
+    -- "mat_reloadallmaterials" -- not a convar. can't detect command calls :(
 }
 
 local BLURSCREEN_MATERIAL   = Material( "pp/blurscreen" )
@@ -26,7 +26,7 @@ local alpha_queue = {}
 function HOLOHUD2.render.StartAlphaMultiplier( alpha, absolute )
 
     if #alpha_queue > 1024 then error( "Alpha multiplier buffer overflow! Are you properly restoring alpha after multiplying it?" ) end
-    
+
     -- take into account nested calls
     if not absolute then alpha = alpha * surface.GetAlphaMultiplier() end
 
@@ -42,10 +42,10 @@ end
 function HOLOHUD2.render.EndAlphaMultiplier()
 
     if #alpha_queue <= 0 then error( "Called EndAlphaMul without having called StartAlphaMul first! Or called EndAlphaMul more times than StartAlphaMul." ) end
-    
+
     -- restore previous multiplier
     surface.SetAlphaMultiplier( alpha_queue[ #alpha_queue ] )
-    
+
     -- remove call
     table.remove( alpha_queue, #alpha_queue )
 
@@ -78,7 +78,7 @@ end
 function HOLOHUD2.render.BlurRect( x, y, w, h )
 
     if not r_pp:GetBool() or not r_blurscreen:GetBool() then return end
-    
+
     local scrw, scrh = ScrW(), ScrH()
 
     surface.SetDrawColor( 255, 255, 255, 255 )
@@ -91,14 +91,19 @@ end
 --- Notify when a material convar has been changed.
 ---
 local function invalidate_materials()
-    
+
     timer.Simple( .16, function() -- HACK: wait for the game to resume before invalidating materials
-    
+
         HOLOHUD2.hook.Call( "InvalidateMaterials" )
 
     end)
 
 end
+
+---
+--- Console command to manually invalidate materials.
+---
+concommand.Add("holohud2_reloadmaterials", invalidate_materials)
 
 for _, convar in ipairs( MATERIAL_CONVARS ) do
 

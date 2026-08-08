@@ -1,7 +1,7 @@
 
 HOLOHUD2.scale = {}
 
-local round = CreateClientConVar( "holohud2_roundscale", 0, true, false, "Whether the scale should get rounded.", 0, 1 )
+-- local round = CreateClientConVar( "holohud2_roundscale", 0, true, false, "Whether the scale should get rounded.", 0, 1 )
 local user_scale = CreateClientConVar( "holohud2_scale", 1, true, false, "Manual HUD size modifier.", 0.01, 3 )
 
 ---
@@ -13,19 +13,19 @@ HOLOHUD2.SCREEN_HEIGHT  = 600
 
 local scale = 1 -- cached HUD scale
 
+--- Returns the scale of the HUD exclusively based on resolution.
+--- @return number scale
+function HOLOHUD2.scale.Raw()
+
+   return scale
+
+end
+
 --- Returns the current HUD scale.
 --- @return number scale
 function HOLOHUD2.scale.Get()
 
     return scale * user_scale:GetFloat()
-
-end
-
---- Returns the HUD scale only taking screen size into account.
---- @return number scale
-function HOLOHUD2.scale.Raw()
-
-   return scale
 
 end
 

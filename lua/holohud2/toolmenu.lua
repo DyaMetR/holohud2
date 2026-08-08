@@ -181,6 +181,9 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
 
         panel:Button( "#holohud2.other.debug_welcome", "holohud2_debug_welcome" )
         panel:Button( "#holohud2.other.debug_startup", "holohud2_debug_startup" )
+        panel:Help( "" )
+        panel:Button( "#holohud2.other.reloadmaterials", "holohud2_reloadmaterials" )
+        panel:ControlHelp( "#holohud2.other.reloadmaterials.helptext" )
 
     end )
 
