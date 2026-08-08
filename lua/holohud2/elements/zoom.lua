@@ -842,10 +842,10 @@ function ELEMENT:OnScreenSizeChanged()
     elevation_panel_right:InvalidateLayout()
     hudelevation_right:InvalidateLayout()
 
-    zoom_panel:InvalidateLayout()
+    zoom_panel:PerformLayout( true )
     hudzoom:InvalidateLayout()
 
-    distance_panel:InvalidateLayout()
+    distance_panel:PerformLayout( true )
     hudzoomdistance:InvalidateLayout()
 
 end

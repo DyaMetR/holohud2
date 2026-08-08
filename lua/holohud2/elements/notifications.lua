@@ -405,7 +405,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     console:InvalidateLayout()
 
 end

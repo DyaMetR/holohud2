@@ -32,7 +32,7 @@ local COMPONENT = {
 }
 
 function COMPONENT:Init()
-    
+
     self.Colors = HOLOHUD2.component.Create( "ColorRanges" )
     self.Colors2 = HOLOHUD2.component.Create( "ColorRanges" )
     local color, color2 = self.Colors:GetColor(), self.Colors2:GetColor()
@@ -121,13 +121,13 @@ function COMPONENT:PerformLayout()
     if not self.invalid_layout then return end
 
     local color, color2 = self.Colors:GetColor(), self.Colors2:GetColor()
-    
+
     -- count active actions
     local actions, total = 0, 3
     if self.sprint then actions = actions + 1 end
     if self.oxygen then actions = actions + 1 end
     if not self.hide_flashlight then
-        
+
         total = total + 1
         if self.flashlight then actions = actions + 1 end
 
@@ -137,7 +137,7 @@ function COMPONENT:PerformLayout()
 
     -- layout icon tray
     if self.icontray then
-        
+
         self.Sprint:SetVisible( self.sprint )
         self.Sprint:SetColor( color )
         self.Oxygen:SetVisible( self.oxygen )
@@ -151,7 +151,7 @@ function COMPONENT:PerformLayout()
         local margin = self.icontray_margin
 
         for _, icon in ipairs( self.Icons ) do
-            
+
             if not icon.visible then continue end
 
             local w, h = math.floor( icon.size * ( icon.u1 - icon.u0 ) / ( icon.v1 - icon.v0 ) ), icon.size
@@ -273,9 +273,9 @@ function COMPONENT:SetValue( value )
         self._decreasing = self.value > value
 
         if self._decreasing then
-            
+
             self.Blur:Activate()
-        
+
         end
 
     end
@@ -414,19 +414,19 @@ function COMPONENT:ApplySettings( settings, fonts )
     graph:SetPos( settings.graph_pos.x, settings.graph_pos.y )
     graph:SetSize( settings.graph_size.x, settings.graph_size.y )
     graph:SetInverted( settings.graph_inverted )
-    
+
     local graphgauge = self.GraphGauge
     graphgauge:SetVisible( settings.graph and settings.graph_guide )
     graphgauge:SetPos( settings.graph_pos.x + ( settings.graph_inverted and settings.graph_size.x or -3 ), settings.graph_pos.y - 1 )
     graphgauge:SetSize( 2, settings.graph_size.y + 2 )
-    graphgauge:SetDirection( settings.graph_inverted and HOLOHUD2.DIRECTION_LEFT or HOLOHUD2.DIRECTION_RIGHT )
+    graphgauge:SetDirection( settings.graph_inverted and HOLOHUD2.DIRECTION_RIGHT or HOLOHUD2.DIRECTION_LEFT )
 
     local progressbarbackground = self.ProgressBarBackground
     progressbarbackground:SetVisible( settings.powerbar )
     progressbarbackground:SetPos( settings.powerbar_pos.x, settings.powerbar_pos.y )
     progressbarbackground:SetSize( settings.powerbar_size.x, settings.powerbar_size.y )
     progressbarbackground:SetStyle( settings.powerbar_style )
-    
+
     local progressbar = self.ProgressBar
     progressbar:SetVisible( settings.powerbar )
     progressbar:SetGrowDirection( settings.powerbar_growdirection )
@@ -450,7 +450,7 @@ function COMPONENT:ApplySettings( settings, fonts )
     end
 
     if settings.powerbar_growdirection == HOLOHUD2.GROWDIRECTION_LEFT or settings.powerbar_growdirection == HOLOHUD2.GROWDIRECTION_DOWN then
-        
+
         gauge:SetLabel1( 100 )
         gauge:SetLabel2( 0 )
 
@@ -471,12 +471,12 @@ function COMPONENT:ApplySettings( settings, fonts )
     sprint:SetVisible( settings.sprint )
     sprint:SetSize( settings.sprint_size )
     sprint:SetPos( settings.sprint_pos.x, settings.sprint_pos.y )
-    
+
     local oxygen = self.Oxygen
     oxygen:SetVisible( settings.oxygen )
     oxygen:SetSize( settings.oxygen_size )
     oxygen:SetPos( settings.oxygen_pos.x, settings.oxygen_pos.y )
-    
+
     local flashlight = self.Flashlight
     flashlight:SetVisible( settings.flashlight )
     flashlight:SetSize( settings.flashlight_size )
@@ -490,9 +490,9 @@ function COMPONENT:ApplySettings( settings, fonts )
     text:SetAlign( settings.text_align )
     text:SetText( settings.text_text )
     self:SetDrawTextOnBackground( settings.text_on_background )
-    
+
     self:InvalidateLayout()
-    
+
 end
 
 HOLOHUD2.component.Register( "HudSuitPower", COMPONENT )

@@ -467,7 +467,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudfps:InvalidateLayout()
 
 end

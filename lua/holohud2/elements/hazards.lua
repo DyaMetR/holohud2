@@ -644,7 +644,7 @@ function ELEMENT:OnScreenSizeChanged()
 
         if not hazard.panel then continue end
 
-        hazard.panel:InvalidateLayout()
+        hazard.panel:PerformLayout( true )
 
     end
 

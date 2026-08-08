@@ -1,4 +1,5 @@
 local CVAR_ACCESSIBILITY = {
+    holohud2_scale                  = "1",
     holohud2_r_flickering           = "1",
     holohud2_r_shaking              = "1",
     holohud2_r_shaking_min          = "1",
@@ -72,6 +73,7 @@ hook.Add( "PopulateToolMenu", "holohud2", function()
 
         panel:ToolPresets( "holohud2_access",  CVAR_ACCESSIBILITY )
 
+        panel:NumSlider( "#holohud2.parameter.scale", "holohud2_scale", 0.01, 3, 1 )
         panel:CheckBox( "#holohud2.accessibility.nosuit", "holohud2_nosuit" )
         panel:CheckBox( "#holohud2.accessibility.quickinfo_hideonads", "holohud2_quickinfo_hideonads" )
         panel:CheckBox( "#holohud2.accessibility.panel_lerp", "holohud2_draw_smoothpaneltransforms" )

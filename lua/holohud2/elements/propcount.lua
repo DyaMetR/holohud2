@@ -440,7 +440,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudpropcount:InvalidateLayout()
 
 end

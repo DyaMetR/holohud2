@@ -72,7 +72,7 @@ end)
 --- @param value number|table
 --- @param mod number
 --- @return number
-HOLOHUD2.modifier.Register( "scale", function( self, value, mod )
+--[[HOLOHUD2.modifier.Register( "scale", function( self, value, mod )
 
     mod = math.Clamp( mod, .01, 3 )
 
@@ -97,4 +97,4 @@ HOLOHUD2.modifier.Register( "scale", function( self, value, mod )
 
     return value * mod
 
-end)
+end)]]

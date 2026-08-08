@@ -1087,10 +1087,10 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    health_panel:InvalidateLayout()
+    health_panel:PerformLayout( true )
     hudhealth:InvalidateLayout()
 
-    suit_panel:InvalidateLayout()
+    suit_panel:PerformLayout( true )
     hudbattery:InvalidateLayout()
 
 end

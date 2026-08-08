@@ -80,7 +80,7 @@ function COMPONENT:Think()
         self.progress = math.max( self.progress - frametime / self.retract_time, 0 )
 
     end
-    
+
     local animation = animations[ self.animation ]
 
     if not animation or not animation.set_size then
@@ -115,7 +115,7 @@ function COMPONENT:SetPos( x, y )
 
     if not BaseClass.SetPos( self, x, y ) then return end
     if self._visible then return end
-    
+
     self._x0, self._y0, self._x1, self._y1 = self.x, self.y, self.w, self.h
 
     local scale = HOLOHUD2.scale.Get()
@@ -195,7 +195,7 @@ function COMPONENT:PaintFrame( x, y )
     if self.background then
 
         if self.blur then
-            
+
             BlurRect( x, y, w, h )
 
         end
@@ -204,7 +204,7 @@ function COMPONENT:PaintFrame( x, y )
         surface.DrawRect( x, y, w, h )
 
     end
-    
+
     self:PaintOverFrame( x, y )
 
     if animation then
@@ -279,9 +279,9 @@ function COMPONENT:PaintScanlines( x, y )
     local w, h = self._w, self._h
 
     if animation and animation.pre_draw then animation.pre_draw( x, y, w, h, progress ) end
-    
+
     self:PaintOverScanlines( x + offset.x * .3, y + offset.y * .3 )
-    
+
     if animation and animation.post_draw then animation.post_draw( x, y, w, h, progress ) end
 
     render.SetScissorRect( 0, 0, 0, 0, false )
@@ -292,10 +292,10 @@ HOLOHUD2.component.Register( "AnimatedPanel", COMPONENT, "Panel" )
 
 HOLOHUD2.PANELANIMATION_NONE        = register("#holohud2.option.animatedpanel_0")
 HOLOHUD2.PANELANIMATION_DRAWER      = register(
-    "#holohud2.option.animatedpanel_1", 
+    "#holohud2.option.animatedpanel_1",
     {
         set_size = function( w, h, progress, direction )
-            
+
             if progress <= 0 then return 0, 0, 0, 0, false end
             if progress >= 1 then return 0, 0, w, h, true end
 
@@ -350,7 +350,7 @@ HOLOHUD2.PANELANIMATION_FLASH       = register(
     }
 )
 HOLOHUD2.PANELANIMATION_FADE        = register(
-    "#holohud2.option.animatedpanel_3", 
+    "#holohud2.option.animatedpanel_3",
     {
         set_size = function( w, h, progress ) return 0, 0, w, h, progress > 0 end,
         pre_draw = function( _, _, _, _, progress ) StartAlphaMultiplier( progress ) end,

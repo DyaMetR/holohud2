@@ -1,10 +1,11 @@
---- 
+---
 --- Dynamic HUD layout.
---- 
+---
 
 HOLOHUD2.layout = {}
 
 local debug_shapes = CreateClientConVar( "holohud2_debug_layout", 0, false, false, "Renders debug rectangles to see layout panels.", 0, 1 )
+local user_scale = GetConVar( "holohud2_scale" )
 
 local ScrW              = ScrW
 local ScrH              = ScrH
@@ -78,13 +79,15 @@ local invalid_layout = false
 --- @return number h screen height
 local function get_screen_size()
 
+    local user_scale_value = math.Clamp( user_scale:GetFloat(), 0.01, 3 )
+
     if scrh > scrw then
 
-        return SCREEN_WIDTH, math.Round( SCREEN_WIDTH * ( scrh / scrw ) )
+        return SCREEN_WIDTH / user_scale_value, math.Round( SCREEN_WIDTH * ( scrh / scrw ) ) / user_scale_value
 
     end
 
-    return math.Round( SCREEN_HEIGHT * ( scrw / scrh ) ), SCREEN_HEIGHT
+    return math.Round( SCREEN_HEIGHT * ( scrw / scrh ) ) / user_scale_value, SCREEN_HEIGHT / user_scale_value
 
 end
 HOLOHUD2.layout.GetScreenSize = get_screen_size
@@ -121,7 +124,7 @@ function PANEL:SetVisible( visible )
     if self.visible == visible then return end
 
     if not visible then
-        
+
         active[ self.id ] = nil
 
     else
@@ -139,7 +142,7 @@ end
 function PANEL:TranslateX()
 
     local w, _ = get_screen_size()
-    
+
     if HORIZONTAL_DOCK.CENTER[ self.dock ] then
 
         self.x = ( w / 2 ) + ( self._x - self.w / 2 )
@@ -174,7 +177,7 @@ function PANEL:TranslateY()
         self.y = self._y
 
     end
-    
+
 end
 
 --- Moves the position coordinates based on the current dock.
@@ -193,7 +196,6 @@ function PANEL:SetX( x )
 
     self.x = x
     self._x = x
-
     self:TranslateX()
 
     if not self.visible then return end
@@ -364,7 +366,7 @@ function HOLOHUD2.layout.Layout()
         panel:Translate()
 
     end
-    
+
     -- sort panels by order
     local iterator, sorted = SortedPairsByMemberValue( active, "order" )
     local p = 1
@@ -377,7 +379,7 @@ function HOLOHUD2.layout.Layout()
 
             -- if a lower ranking panel collides with a higher one, move aside according to its direction
             if overlap( child.x, child.y, child.w, child.h, parent.x, parent.y, parent.w, parent.h ) or overlap( parent.x, parent.y, parent.w, parent.h, child.x, child.y, child.w, child.h ) then
-                
+
                 if child.direction == DIRECTION_UP then
 
                     child.y = parent.y - ( child.h + parent.margin )
@@ -385,7 +387,7 @@ function HOLOHUD2.layout.Layout()
                 elseif child.direction == DIRECTION_LEFT then
 
                     child.x = parent.x - ( child.w + parent.margin )
-                    
+
                 elseif child.direction == DIRECTION_RIGHT then
 
                     child.x = parent.x + ( parent.w + parent.margin )
@@ -430,7 +432,7 @@ hook.Add( "PostDrawHUD", "holohud2_layout", function()
     local scale = HOLOHUD2.scale.Get()
 
     for _, panel in pairs( panels ) do
-        
+
         draw.RoundedBox( 0, panel.x * scale, panel.y * scale, panel.w * scale, panel.h * scale, DEBUG_COLOR1 )
         draw.SimpleText( panel.id, "DermaDefault", panel.x * scale + 2 * scale, panel.y * scale + scale, DEBUG_COLOR2 )
 

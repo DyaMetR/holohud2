@@ -155,7 +155,7 @@ HOLOHUD2.hook.Add( "PreDrawHUD", "arc9", function()
     thermometer:SetVisible( ( separate or can_overheat ) and visible )
 
     if can_overheat then
-        
+
         thermometer:SetValue( weapon:GetHeatAmount() / weapon:GetProcessedValue( "HeatCapacity", true ) )
 
     end
@@ -234,7 +234,7 @@ HOLOHUD2.hook.Add( "OnSettingsChanged", "arc9", function( settings )
     thermometerbackground:SetSize( settings.arc9_thermometer_size.x, settings.arc9_thermometer_size.y )
     thermometerbackground:SetVertical( settings.arc9_thermometer_vertical )
     thermometer:Copy( thermometerbackground )
-    
+
     thermometer:SetVisible( visible )
     thermometer:SetColor( element_ammo.components.hudclip1.Colors:GetColor() )
 
@@ -258,9 +258,9 @@ HOLOHUD2.hook.Add( "OnSettingsChanged", "arc9", function( settings )
 
 end)
 
-HOLOHUD2.hook.Add( "OnScreenSizeChanged", "arc9", function()
+HOLOHUD2.hook.Add( "OnScaleChanged", "arc9", function()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     thermometerbackground:InvalidateLayout()
     thermometer:InvalidateLayout()
 
@@ -298,7 +298,7 @@ HOLOHUD2.hook.Add( "DrawOverClip1", "arc9", function( x, y, w, h, layer )
     draw.RoundedBox( 0, x, y, w, h, Color( 0, 0, 0, 214 ) )
 
     if layer ~= LAYER_BACKGROUND and CurTime() % .4 >= .2 then
-        
+
         local str = utf8.len( jammed_override ) ~= 0 and jammed_override or ARC9:GetPhrase( "hud.jammed" )
 
         if not jammed_vertical then
@@ -321,7 +321,7 @@ HOLOHUD2.hook.Add( "DrawOverClip1", "arc9", function( x, y, w, h, layer )
             end
 
         end
-    
+
     end
 
 end)
@@ -330,11 +330,11 @@ end)
 --- Fire mode
 ---
 HOLOHUD2.hook.Add( "GetWeaponFiremode", "arc9", function( weapon )
-    
+
     if not weapon.ARC9 then return end
 
     if weapon:GetSafe() then
-    
+
         return FIREMODE_SAFE
 
     end
@@ -344,7 +344,7 @@ HOLOHUD2.hook.Add( "GetWeaponFiremode", "arc9", function( weapon )
     local firemode = FIREMODE_TRANSLATE[ weapon:GetCurrentFiremodeTable().Mode ]
 
     if firemode then
-        
+
         return firemode
 
     end

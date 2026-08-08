@@ -7,7 +7,7 @@ local LocalPlayer = LocalPlayer
 local FrameTime = FrameTime
 local Lerp = Lerp
 local math = math
-local scale_Get = HOLOHUD2.scale.Get
+local scale_Get = HOLOHUD2.scale.Raw
 
 local SWAY_NONE     = 0
 local SWAY_MINIMAL  = 1
@@ -45,9 +45,9 @@ local function calculate()
     local angle = localplayer:EyeAngles()
 
     if not last_angle then
-        
+
         last_angle = angle
-        
+
     end
 
     local x = math.AngleDifference( angle.y, last_angle.y ) * sway_mul:GetFloat()
@@ -69,13 +69,13 @@ local function calculate()
 
     movement.x = Lerp( delta * MOVEMENT_SWAY_SPEED, movement.x, math.Clamp( strafe_velocity, -MOVEMENT_MAX_SPEED, MOVEMENT_MAX_SPEED ) )
     movement.y = Lerp( delta * MOVEMENT_SWAY_SPEED, movement.y, math.min( fall_velocity, MOVEMENT_MAX_SPEED ) )
-    
+
     -- head bobbing
     if swaying == SWAY_HEADBOB and localplayer:OnGround() and not localplayer:InVehicle() then
 
 		local mul = headbob_mul:GetFloat()
         local velocity = math.min( velocity:Length() / 350, 1 )
-        
+
         camera.x = camera.x + math.sin( headbob * 3 ) * .45 * velocity * mul
         camera.y = camera.y + math.sin( headbob * 9 ) * .45 * velocity * mul
 

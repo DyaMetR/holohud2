@@ -368,7 +368,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudping:InvalidateLayout()
 
 end

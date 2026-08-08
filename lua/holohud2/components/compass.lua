@@ -124,7 +124,7 @@ function COMPONENT:PerformLayout( force )
 
                 surface.SetFont(self.axisfont)
                 data.axis = { text = axis[ 1 ], font = self.axisfont, x = math.Round( -surface.GetTextSize( axis[ 1 ] ) / 2 ), y = h / 2 - scale * 2, color = axis[ 2 ] and self.axiscolor1 or self.axiscolor2 }
-            
+
             end
 
             table.insert( bearings, data )
@@ -172,7 +172,7 @@ function COMPONENT:PerformLayout( force )
 
     self._center = math.Round(#compass / 2)
     self._margin = self._w / math.Round(total * self.size) -- get how far away each bearing is
-    
+
     self.invalid_layout = false
     return true
 
@@ -187,14 +187,14 @@ end
 function COMPONENT:PerformYawLayout( force )
 
     if not force and not ( self.visible and self.invalid_yaw_layout ) then return end
-    
+
     local yaw = self.yaw + 180 -- compensate yaw
 
     if self.inverted then yaw = 360 - yaw end
 
     local relative = math.floor( yaw / self._range ) -- get the closest bearing to where we're looking at
     local offset = ( yaw / self._range ) - math.floor( yaw / self._range ) -- get the relative position of the compass
-    
+
     for i, point in ipairs( self._compass ) do
 
         point.alpha = 1 -- reset alpha
@@ -481,12 +481,12 @@ function COMPONENT:SetYaw( yaw )
 
     local precision = math.max( 45 * ( 1 - precision:GetFloat() ), MAX_PRECISION )
     yaw = math.floor( yaw / precision ) * precision -- reduce amount of yaw layout calls
-    
+
     if self.yaw == yaw then return end
 
     self.yaw = yaw
     self:InvalidateYawLayout()
-    
+
     return true
 
 end
@@ -544,7 +544,7 @@ function COMPONENT:PaintBackground( x, y )
             surface.SetTextColor( axis.color.r, axis.color.g, axis.color.b, axis.color.a * point.alpha )
             surface.SetTextPos( x + axis.x + point.x, y + axis.y )
             surface.DrawText( axis.text )
-            
+
         end
 
         if not bearing.on_background then continue end

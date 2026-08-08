@@ -67,7 +67,7 @@ local ELEMENT = {
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_UP },
         margin                      = { name = "#holohud2.parameter.margin", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
         order                       = { name = "#holohud2.parameter.order", type = HOLOHUD2.PARAM_ORDER, value = 60 },
-    
+
         size                        = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 44, y = 22 } },
         background                  = { name = "#holohud2.parameter.background", type = HOLOHUD2.PARAM_BOOL, value = true },
         background_color            = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 0, 0, 0, 94 ) },
@@ -76,7 +76,7 @@ local ELEMENT = {
 
         color                       = { name = "#holohud2.parameter.color", type = HOLOHUD2.PARAM_COLOR, value = Color( 200, 200, 200, 255 ) },
         color2                      = { name = "#holohud2.parameter.background_color", type = HOLOHUD2.PARAM_COLOR, value = Color( 255, 255, 255, 12 ) },
-    
+
         icon                        = { name = "#holohud2.component.icon", type = HOLOHUD2.PARAM_BOOL, value = true },
         icon_pos                    = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 5, y = 4 } },
         icon_size                   = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_NUMBER, value = 14 },
@@ -201,14 +201,14 @@ end
 local startup -- is the element awaiting startup
 
 function ELEMENT:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
 end
 
 function ELEMENT:Startup()
-    
+
     startup = false
 
 end
@@ -227,7 +227,7 @@ function ELEMENT:PreDraw( settings )
     layout:SetVisible( panel:IsVisible() )
 
     if not panel:IsVisible() then return end
-    
+
     hudarmorplates:SetValue( plates )
     hudarmorplates:Think()
 
@@ -297,7 +297,7 @@ function ELEMENT:PreviewPaint( x, y, w, h, settings )
     local scale = HOLOHUD2.scale.Get()
     local u, v = settings.size.x * scale, settings.size.y * scale
     local x, y = x + w / 2 - u / 2, y + h / 2 - v / 2
-    
+
     if settings.background then
 
         draw.RoundedBox( 0, x, y, u, v, settings.background_color )
@@ -325,10 +325,10 @@ end
 function ELEMENT:OnSettingsChanged( settings )
 
     if not settings._visible then
-        
+
         panel:SetVisible( false )
-        return 
-        
+        return
+
     end
 
     layout:SetPos( settings.pos.x, settings.pos.y )
@@ -352,7 +352,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudarmorplates:InvalidateLayout()
 
 end

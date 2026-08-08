@@ -291,7 +291,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudmoney:InvalidateLayout()
 
 end

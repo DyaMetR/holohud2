@@ -561,7 +561,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudsuitpower:InvalidateLayout()
     hudsuitpower:InvalidateComponents()
 

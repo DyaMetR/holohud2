@@ -312,7 +312,7 @@ function ELEMENT:PerformWeaponLayout( settings )
         pickup.panel:SetColor( settings.background_color )
         pickup.panel:SetAnimation( settings.animation )
         pickup.panel:SetAnimationDirection( settings.animation_direction )
-        pickup.panel:InvalidateLayout()
+        pickup.panel:PerformLayout( true )
 
         -- ammo pickup
         if pickup.ammo then
@@ -390,7 +390,7 @@ function ELEMENT:PerformItemLayout( settings )
         item.panel:SetColor( settings.item_background_color )
         item.panel:SetAnimation( settings.item_animation )
         item.panel:SetAnimationDirection( settings.item_animation_direction )
-        item.panel:InvalidateLayout()
+        item.panel:PerformLayout( true )
 
         if item.is_icon then
 

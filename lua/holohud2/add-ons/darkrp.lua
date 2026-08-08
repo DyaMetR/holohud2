@@ -360,7 +360,7 @@ end
 --- Screen size changed
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudjob:InvalidateLayout()
 
 end
@@ -595,7 +595,7 @@ end
 --- Screen size changed
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudagenda:InvalidateLayout()
 
 end

@@ -610,7 +610,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudsquadstatus:InvalidateLayout()
 
 end

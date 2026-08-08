@@ -328,7 +328,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudtimer:InvalidateLayout()
 
 end

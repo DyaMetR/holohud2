@@ -126,7 +126,7 @@ local ELEMENT_COINS = {
     },
     quickmenu = {
         { id = "autohide" },
-        
+
         { category = "#holohud2.category.panel", parameters = {
             { id = "pos" },
             { id = "size" }
@@ -168,7 +168,7 @@ panel.PaintOverScanlines = function( _, x, y ) hudcoins:PaintScanlines( x, y ) e
 local startup -- is the element awaiting startup
 
 function ELEMENT_COINS:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
@@ -205,14 +205,14 @@ function ELEMENT_COINS:PreDraw( settings )
 
     panel:Think()
     panel:SetDeployed( not self:IsMinimized() and ( self:IsInspecting() or localplayer:KeyDown( IN_SCORE ) or InsaneStats:GetConVarValue( "coins_enabled" ) and ( not settings.autohide or time > curtime ) ) )
-    
+
     layout:SetSize( settings.size.x + ( settings.oversize_size and hudcoins:GetOversizeOffset() or 0 ), settings.size.y )
     layout:SetVisible( panel:IsVisible() )
 
     if not panel:IsVisible() then return end
 
     hudcoins:Think()
-    
+
 end
 
 -- Paint
@@ -284,7 +284,7 @@ end
 --- Screen size changed
 function ELEMENT_COINS:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudcoins:InvalidateLayout()
 
 end
@@ -317,7 +317,7 @@ local ELEMENT_EXPERIENCE = {
     parameters  = {
         autohide                    = { name = "#holohud2.parameter.autohide", type = HOLOHUD2.PARAM_BOOL, value = false },
         autohide_delay              = { name = "#holohud2.parameter.delay", type = HOLOHUD2.PARAM_NUMBER, value = 4, min = 0 },
-        
+
         pos                         = { name = "#holohud2.parameter.pos", type = HOLOHUD2.PARAM_VECTOR, value = { x = 0, y = 12 } },
         dock                        = { name = "#holohud2.parameter.dock", type = HOLOHUD2.PARAM_DOCK, value = HOLOHUD2.DOCK.BOTTOM },
         direction                   = { name = "#holohud2.parameter.direction", type = HOLOHUD2.PARAM_DIRECTION, value = HOLOHUD2.DIRECTION_UP },
@@ -351,7 +351,7 @@ local ELEMENT_EXPERIENCE = {
         separator_is_rect           = { name = "#holohud2.parameter.separator_is_rect", type = HOLOHUD2.PARAM_BOOL, value = true },
         separator_size              = { name = "#holohud2.parameter.size", type = HOLOHUD2.PARAM_VECTOR, value = { x = 1, y = 9 } },
         separator_font              = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
-        
+
         num2                        = { name = "#holohud2.insane_stats_exp.next_exp", type = HOLOHUD2.PARAM_BOOL, value = true },
         num2_offset                 = { name = "#holohud2.parameter.offset", type = HOLOHUD2.PARAM_NUMBER, value = 2 },
         num2_font                   = { name = "#holohud2.parameter.font", type = HOLOHUD2.PARAM_FONT, value = { font = "Roboto Light", size = 12, weight = 1000, italic = false } },
@@ -414,7 +414,7 @@ local ELEMENT_EXPERIENCE = {
                     { id = "num_align" },
                     { id = "num_digits" }
                 } },
-    
+
                 { id = "separator", parameters = {
                     { id = "separator_offset" },
                     { id = "separator_is_rect" },
@@ -468,7 +468,7 @@ local ELEMENT_EXPERIENCE = {
                 { id = "num", parameters = {
                     { id = "num_font" }
                 } },
-    
+
                 { id = "separator", parameters = {
                     { id = "separator_offset" }
                 } },
@@ -506,7 +506,7 @@ panel.PaintOverScanlines = function( _, x, y ) hudexperience:PaintScanlines( x, 
 local startup -- is the element awaiting startup
 
 function ELEMENT_EXPERIENCE:QueueStartup()
-    
+
     panel:Close()
     startup = true
 
@@ -518,7 +518,7 @@ function ELEMENT_EXPERIENCE:Startup() startup = false end
 local time = 0
 local last_exp = 0
 function ELEMENT_EXPERIENCE:PreDraw( settings )
-    
+
     if startup then return end
 
     local localplayer = LocalPlayer()
@@ -625,7 +625,7 @@ end
 --- Screen size changed
 function ELEMENT_EXPERIENCE:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudexperience:InvalidateLayout()
 
 end

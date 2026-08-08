@@ -571,7 +571,7 @@ function ELEMENT:OnScreenSizeChanged()
 
     for _, deathnotice in ipairs( deathnotices ) do
 
-        deathnotice.panel:InvalidateLayout()
+        deathnotice.panel:PerformLayout( true )
         deathnotice.component:InvalidateLayout()
 
     end

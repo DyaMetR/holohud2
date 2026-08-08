@@ -55,7 +55,7 @@ local LERP_TIME = 12
 function COMPONENT:Think()
 
     if not self.visible then return end
-    
+
     if self.layout then
 
         self:SetSize( self.layout.w, self.layout.h )
@@ -121,7 +121,7 @@ function COMPONENT:SetSize( w, h )
     self.w = w
     self.h = h
     self:InvalidateLayout()
-    
+
     return true
 
 end
@@ -171,7 +171,7 @@ function COMPONENT:PaintFrame( x, y )
     if self.background then
 
         if self.blur then
-            
+
             BlurRect( x, y, w, h )
 
         end

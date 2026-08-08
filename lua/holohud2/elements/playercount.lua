@@ -434,7 +434,7 @@ end
 ---
 function ELEMENT:OnScreenSizeChanged()
 
-    panel:InvalidateLayout()
+    panel:PerformLayout( true )
     hudplayercount:InvalidateLayout()
 
 end

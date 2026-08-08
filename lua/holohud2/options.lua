@@ -43,7 +43,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
         end
 
-        local size = vgui.Create("HOLOHUD2_DParameter_Range", panel)
+        --[[local size = vgui.Create("HOLOHUD2_DParameter_Range", panel)
         size:Dock( TOP )
         size:SetName( "#holohud2.parameter.scale" )
         size.Slider:SetMinMax( .01, 3 )
@@ -69,7 +69,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
             size:SetValue( 1 )
 
-        end
+        end]]
 
     end)
 
@@ -326,7 +326,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
             draw.SimpleText( language.GetPhrase( "holohud2.derma.properties.common.font_0_preview" ), "HudHintTextLarge", x, 12, color_white, TEXT_ALIGN_CENTER )
 
-            local pw, ph = 93, 44
+            local pw, ph = 93 / 1.8 * scale, 44 / 1.8 * scale
             surface.SetDrawColor( WIREFRAME_COLOR )
             surface.DrawOutlinedRect( x - pw / 2, y - ph / 2, pw, ph )
 
@@ -344,7 +344,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
             draw.SimpleText( language.GetPhrase( "holohud2.derma.properties.common.font_1_preview" ), "HudHintTextLarge", x, 12, color_white, TEXT_ALIGN_CENTER )
 
-            local pw, ph = 67, 26
+            local pw, ph = 67 / 1.8 * scale, 26 / 1.8 * scale
             surface.SetDrawColor( WIREFRAME_COLOR )
             surface.DrawOutlinedRect( x - pw / 2, y - ph / 2, pw, ph )
 
@@ -362,7 +362,7 @@ HOLOHUD2.hook.Add( "PopulateOptionsMenu", "holohud2", function( modifiers )
 
             draw.SimpleText( language.GetPhrase( "holohud2.derma.properties.common.font_2_preview" ), "HudHintTextLarge", x, 12, color_white, TEXT_ALIGN_CENTER )
 
-            local pw, ph = 39, 21
+            local pw, ph = 39 / 1.8 * scale, 21 / 1.8 * scale
             surface.SetDrawColor( WIREFRAME_COLOR )
             surface.DrawOutlinedRect( x - pw / 2, y - ph / 2, pw, ph )
 

@@ -1877,7 +1877,7 @@ function ELEMENT:OnScreenSizeChanged()
 
     for _, panel in ipairs( { clip1_panel, ammo1_panel, clip2_panel, ammo2_panel, firemode_panel } ) do
 
-        panel:InvalidateLayout()
+        panel:PerformLayout( true )
 
     end
 

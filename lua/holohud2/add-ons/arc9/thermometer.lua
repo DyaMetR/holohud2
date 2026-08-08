@@ -40,14 +40,13 @@ function COMPONENT:PerformLayout( force )
     if ( not self.visible or not self.invalid_layout ) and not force then return end
 
     local scale = HOLOHUD2.scale.Get()
-
     self._x, self._y = math.Round( self.x * scale ), math.Round( self.y * scale )
     self._w, self._h = math.Round( self.w * scale ), math.Round( self.h * scale )
 
     if self.vertical then
 
         self._x = self._x + self._w * .5
-    
+
         self._tip_size = self._w
         self._tip_x = self._x
         self._tip_y = self._y - self._tip_size
@@ -78,7 +77,7 @@ function COMPONENT:PerformLayout( force )
         self.__h = self.h * 2
 
     end
-    
+
     self.invalid_layout = false
 
 end
